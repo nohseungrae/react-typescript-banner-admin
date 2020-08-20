@@ -1,8 +1,9 @@
 import * as Azure from "../bundle/azure-storage.blob";
 
 
-const getBlobService = () => {
+const getBlobService = (callback : Function) => {
 
+    const containerName = "images"
     const account = "saracencentre";
     const sas =
         "?sv=2019-12-12&ss=bfqt&srt=sco&sp=rwdlacupx&se=2020-08-29T15:38:21Z&st=2020-08-18T07:38:21Z&sip=203.236.109.154&spr=https,http&sig=xuAPc2eFjEyE5NpWIxLMjUQzej2gt4nY9A09vZR79no%3D";
@@ -11,16 +12,13 @@ const getBlobService = () => {
     const blobService = Azure.createBlobServiceWithSas(blobUri, sas).withFilter(
         new Azure.ExponentialRetryPolicyFilter()
     );
-
-    return blobService;
+    if (!blobService) {
+        return callback(new Error("Azure Storage 연결에 실패했습니다."), false, null);
+    }
+    return callback(null, blobService, containerName)
 };
 
-const createContainer = (containerName: string, callBack : Function) => {
-
-    const blobService = getBlobService();
-    if(!blobService){
-        return false;
-    }
+const createContainer = (error : Error, blobService : any, containerName : string, callBack : Function) => {
 
     if (!blobService.Validate.containerNameIsValid(containerName)) {
         alert("Invalid container name!");
@@ -32,18 +30,19 @@ const createContainer = (containerName: string, callBack : Function) => {
         (error: any, result: any): void => {
             if (error) {
                 alert(
-                    "컨테이너 생성에 실패했습니다. 디테일한 정보를 확인하세요."
+                    "컨테이너 생성에 실패했습니다. 콘솔을 통해 디테일한 정보를 확인하세요."
                 );
-                console.log(error);
+                return callBack(new Error("컨테이너 생성에 실패했습니다. 콘솔을 통해 디테일한 정보를 확인하세요."), false, null);
             } else {
                 console.log(result)
                 alert(containerName + " 컨테이너를 성공적으로 생성하였습니다.");
+                callBack(null,blobService,false)
             }
         }
     );
 };
 
-const uploadBlobByStream = async (checkMD5: any, file: File, name : string) => {
+const uploadBlobByStream = async (checkMD5: any, file: File, name: string) => {
     const blobService = await getBlobService();
 
 
