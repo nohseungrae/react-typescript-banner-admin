@@ -10547,7 +10547,7 @@
              * @param {string}             [options.clientRequestId]                     A string that represents the client request ID with a 1KB character limit.
              * @param {bool}               [options.useNagleAlgorithm]                   Determines whether the Nagle algorithm is used; true to use the Nagle algorithm; otherwise, false.
              *                                                                           The default value is false.
-             * @param {errorOrResult}      callback                                      `error` will contain information
+             * @param {(error: any) => void}      callback                                      `error` will contain information
              *                                                                           if an error occurs; otherwise `[result]{@link BlobResult}` will contain
              *                                                                           the blob information.
              *                                                                           `response` will contain information related to this operation.

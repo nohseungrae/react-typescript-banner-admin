@@ -16,6 +16,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/react-syntax-highlighter": "^11.0.4",
     "@types/styled-components": "^5.1.2",
+    "azure-storage": "^2.10.3",
     "dotenv": "^8.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
