@@ -13265,6 +13265,7 @@
                  */
                 BlobService.prototype.generateSharedAccessSignature = function (container, blob, sharedAccessPolicy, headers) {
                     // check if the BlobService is able to generate a shared access signature
+                    console.log(this.storageCredentials)
                     if (!this.storageCredentials) {
                         throw new ArgumentNullError('storageCredentials');
                     }
