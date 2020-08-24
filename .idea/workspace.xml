@@ -21,18 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="e21bbc26-2a9f-49b5-a204-c26d0209568e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/Banner/BannerContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/BannerContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bundle/azure-storage.blob.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.blob.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bundle/azure-storage.blob.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.blob.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bundle/azure-storage.file.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.file.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bundle/azure-storage.file.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.file.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bundle/azure-storage.queue.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.queue.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bundle/azure-storage.queue.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.queue.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bundle/azure-storage.table.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.table.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bundle/azure-storage.table.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.table.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/azureUpload.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AzureUpload/azureUpload.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/BannerPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/BannerPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AzureUpload/azureUpload.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AzureUpload/azureUpload.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.blob.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.blob.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +65,8 @@
       <option name="presentableId" value="Default" />
       <updated>1597910871369</updated>
       <workItem from="1597910872639" duration="3426000" />
-      <workItem from="1597968062066" duration="22020000" />
+      <workItem from="1597968062066" duration="22106000" />
+      <workItem from="1598227418267" duration="21084000" />
     </task>
     <servers />
   </component>
@@ -90,11 +83,12 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1597995991143">
+    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1598251119709">
       <screen x="2560" y="23" width="1920" height="1057" />
     </state>
-    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1597995991143" />
+    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598251119709" />
   </component>
 </project>

@@ -13542,7 +13542,6 @@
                  * });
                  */
                 BlobService.prototype.createWriteStreamToExistingPageBlob = function (container, blob, optionsOrCallback, callback) {
-                    return this._createWriteStreamToBlob(container, blob, BlobConstants.BlobTypes.PAGE, 0, false, optionsOrCallback, callback);
                 };
 
                 /**
