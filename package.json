@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "@saraceninc/saracen-style-ts": "git+ssh://git@bitbucket.org:saraceninc/saracen-style-ts.git",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -16,12 +17,15 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/react-syntax-highlighter": "^11.0.4",
     "@types/styled-components": "^5.1.2",
+    "@types/yup": "^0.29.6",
     "azure-storage": "^2.10.3",
     "dotenv": "^8.2.0",
+    "formik": "2.1.4",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-datepicker": "^3.1.3",
     "react-dom": "^16.13.1",
+    "react-dropzone": "^11.0.3",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
@@ -29,7 +33,8 @@
     "reactjs-popup": "^1.5.0",
     "styled-components": "^5.1.1",
     "styled-reset": "^4.2.2",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "yup": "^0.29.3"
   },
   "scripts": {
     "start": "react-scripts start",

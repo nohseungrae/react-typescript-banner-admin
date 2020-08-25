@@ -20,11 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e21bbc26-2a9f-49b5-a204-c26d0209568e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Components/Banner/ReserveComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/BannerContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/BannerContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/App/AppContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/App/AppContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/App/AppPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/App/AppPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Banner/ContentCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/ContentCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/Banner/BannerPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/BannerPresenter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/AzureUpload/azureUpload.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AzureUpload/azureUpload.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.blob.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.blob.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +52,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Context" />
       <recent name="$PROJECT_DIR$/src/utils/AzureUpload" />
       <recent name="$PROJECT_DIR$/src/utils" />
       <recent name="$PROJECT_DIR$" />
@@ -66,7 +70,8 @@
       <updated>1597910871369</updated>
       <workItem from="1597910872639" duration="3426000" />
       <workItem from="1597968062066" duration="22106000" />
-      <workItem from="1598227418267" duration="21084000" />
+      <workItem from="1598227418267" duration="21188000" />
+      <workItem from="1598313478134" duration="22354000" />
     </task>
     <servers />
   </component>
@@ -86,9 +91,17 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1598251119709">
+    <state x="3333" y="274" key="#com.intellij.ide.util.MemberChooser" timestamp="1598326734543">
       <screen x="2560" y="23" width="1920" height="1057" />
     </state>
-    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598251119709" />
+    <state x="3333" y="274" key="#com.intellij.ide.util.MemberChooser/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598326734543" />
+    <state x="592" y="226" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1598337524538">
+      <screen x="0" y="23" width="2560" height="1332" />
+    </state>
+    <state x="592" y="226" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598337524538" />
+    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1598333460798">
+      <screen x="2560" y="23" width="1920" height="1057" />
+    </state>
+    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598333460798" />
   </component>
 </project>

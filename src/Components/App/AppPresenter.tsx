@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    HashRouter as Router,
+    BrowserRouter as Router,
     Route,
     Redirect,
     Switch,
@@ -85,7 +85,7 @@ const LoggedInRoutes: React.FunctionComponent = () => (
                     title: "배너",
                     deps: [
                         {
-                            to: "/banners/care",
+                            to: "/banners/care/1",
                             title: "케어",
                             paths: ["/banners/care"],
                         },
@@ -110,8 +110,7 @@ const LoggedInRoutes: React.FunctionComponent = () => (
         <SS.Core.Main justifyContent="center" flexDirection="column">
             <Switch>
                 {/*도큐먼트용*/}
-                <Route path="/banners/care" component={Banner}/>
-
+                <Route path="/banners/care/:num" component={Banner}/>
                 {/*필수요소 - 로그인 : 삭제불가*/}
                 <Route path="/auth/login" exact={true} component={Login}/>
                 <Route path="/auth/login/:id" component={LoginCheck}/>
