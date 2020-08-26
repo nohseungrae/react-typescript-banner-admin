@@ -1,11 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {DropzoneState, useDropzone} from "react-dropzone";
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
+import Context from "../../Context/context";
 import theme from "@saraceninc/saracen-style-ts/lib/theme";
 
 interface DropProps {
-    exist: boolean
+    exist?: boolean
+    app? : boolean
 }
 
 const Inner = styled(SS.Core.Inner)`
@@ -25,7 +27,7 @@ const Drop = styled.div<DropProps>`
           top : 50%;
           border-radius: 5px;
           transform: translate(-50%,-50%);
-          background-color: #ecf0f1;
+          background-color: #3f51b5;
         }
         &::after {
           content:  "";
@@ -36,21 +38,36 @@ const Drop = styled.div<DropProps>`
           top : 50%;
           border-radius: 5px;
           transform: translate(-50%,-50%);
-          background-color: #ecf0f1;
+          background-color: #3f51b5;
         }
 `;
-const Preview = styled.div`
+const Preview = styled.div<DropProps>`
     display: flex;
     width :100%;
     min-height : 250px;
+    position: relative;
+    &::before{
+    content : "이벤트 사진 - 업로드가능";
+    position : absolute;
+    top: 30%;
+    left : 50%;
+    font-weight: bold;
+    color : #3f51b5;
+    transform: translate(-50%,0%);
+    visibility: ${props => props.app && !props.exist ? "visible" : "hidden"};
+    }
 `;
-
+interface IProps {
+    app? : boolean
+}
 interface FileProps extends File {
     preview: string
 }
 
-const DropzoneComponent: React.FunctionComponent = (props: React.PropsWithChildren<any>) => {
-    const [files, setFiles] = useState([]);
+const DropzoneComponent: React.FunctionComponent<IProps> = ({app}) => {
+
+    const { files, setFiles, setFilename } = useContext(Context)
+
     const {getRootProps, getInputProps, acceptedFiles}: DropzoneState = useDropzone({
         accept: 'image/*',
         onDrop: (acceptedFiles: any) => {
@@ -71,15 +88,18 @@ const DropzoneComponent: React.FunctionComponent = (props: React.PropsWithChildr
 
     useEffect(() => {
         // Make sure to revoke the data uris to avoid memory leaks
-        files.forEach((file: FileProps) => URL.revokeObjectURL(file.preview));
-        console.log(files, acceptedFiles)
+        files.forEach((file: FileProps) => {
+            setFilename(file.name);
+            return URL.revokeObjectURL(file.preview)
+        });
+        console.log(files)
     }, [files]);
 
     return (
         <Inner className="container">
             <Drop {...getRootProps({className: 'dropzone'})} exist={acceptedFiles.length > 0 ? true : false}>
                 <input {...getInputProps()} />
-                <Preview>
+                <Preview app={app} exist={acceptedFiles.length > 0 ? true : false}>
                     {thumbs}
                 </Preview>
             </Drop>

@@ -26,7 +26,7 @@ const TableComponent = () => {
         <tr>
             <td>안뇽</td>
             <td>안뇽</td>
-            <td>안뇽</td>
+            <td>스크린샷 2020-05-21 오후 2.06.16.png</td>
             <td>안뇽</td>
             <td>
                 <SS.Core.Button theme={"#3f51b5"}>

@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
 import DatePicker, {registerLocale} from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import ko from "date-fns/locale/ko"
 import TableComponent from "./TableComponent";
 import Context from "../../Context/context";
@@ -31,9 +32,6 @@ const ReserveComponent = () => {
 
     const handleStartDate = (date: Date) => {
         setStartDate(date)
-    }
-    const handleEndDate = (date: Date) => {
-        setEndDate(date)
     }
     const handleResetDate = () => {
         setStartDate(null);

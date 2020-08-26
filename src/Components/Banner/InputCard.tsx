@@ -11,6 +11,7 @@ import * as yup from "yup";
 import DropzoneComponent from "./DropzoneComponent";
 import {styled as styledMaterial} from "@material-ui/core/styles";
 import Context from "../../Context/context";
+import theme from "@saraceninc/saracen-style-ts/lib/theme";
 
 
 const Col = styled(SS.Core.Col)`
@@ -36,15 +37,18 @@ let ContactFormSchema = yup.object().shape({
     image: yup.string().required("이미지를 넣어주세요."),
 })
 
+interface IProps {
+    app? : boolean
+}
 interface Values {
     description: string | undefined;
     link: string;
     image: string;
 }
 
-const InputCard: React.FunctionComponent = () => {
+const InputCard: React.FunctionComponent<IProps> = ({app}) => {
 
-    const {reserveCheck, handleReserve} = useContext(Context);
+    const {reserveCheck, handleReserve, filename} = useContext(Context);
 
     return (
         <SS.Core.Row>
@@ -69,7 +73,7 @@ const InputCard: React.FunctionComponent = () => {
                              touched
                          }: any) => (
                             <>
-                                <DropzoneComponent/>
+                                <DropzoneComponent app={app}/>
                                 <FormUpload>
                                     <Group
                                         margin={"dense"}
@@ -98,7 +102,6 @@ const InputCard: React.FunctionComponent = () => {
                                         id="link"
                                         label="링크"
                                         color={"secondary"}
-                                        autoFocus
                                         helperText={
                                             errors.link && touched.link
                                                 ? errors.link
@@ -113,7 +116,8 @@ const InputCard: React.FunctionComponent = () => {
                                         name="image"
                                         variant="outlined"
                                         id="image"
-                                        label="위 박스를 클릭하여 이미지를 올려주세요."
+                                        placeholder="위 박스를 클릭하여 이미지를 올려주세요."
+                                        value={filename}
                                         disabled={true}
                                         color={"secondary"}
                                         autoFocus
@@ -132,11 +136,17 @@ const InputCard: React.FunctionComponent = () => {
                                         >
                                             SAVE
                                         </Button>
-                                        <SS.Core.InputRow style={{border: "none"}}>
+                                        <SS.Core.InputRow
+                                            style={{border: `none`, backgroundColor: "transparent", margin: "0 10px"}}
+                                            width={"fit-content"}>
                                             <SS.Core.Input style={{position: "unset"}} id={"reserve"} type={"checkBox"}
                                                            checked={reserveCheck} onChange={handleReserve}/>
                                             <label style={{padding: "5px"}} htmlFor={"reserve"}>예약</label>
                                         </SS.Core.InputRow>
+                                        <SS.Core.Text display={"flex"} alignItems={"center"} flex={"1"} justifyContent={"flex-end"}>
+                                            마지막 수정일 : <SS.Core.Span fontSize={"transparent"} margin={"0 20px 0 5px"}>{`날짜`}</SS.Core.Span>
+                                            마지막 수정자 : <SS.Core.Span fontSize={"transparent"} margin={"0 0 0 5px"}>{`김승석`}</SS.Core.Span>
+                                        </SS.Core.Text>
                                     </SS.Core.RowF>
                                 </FormUpload>
                             </>

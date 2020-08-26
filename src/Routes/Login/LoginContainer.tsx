@@ -16,7 +16,7 @@ const LoginContainer = () => {
     phone_number: "010-1110-1111",
     email: "soonsin@saracen.co.kr",
     name: "이순신",
-    team: "Design Team",
+    team: "NailArt Team",
     img: "https://dimg.donga.com/wps/NEWS/IMAGE/2019/11/02/98183065.2.jpg"
   },{
     id: 33,

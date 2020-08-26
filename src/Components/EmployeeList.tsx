@@ -24,7 +24,7 @@ const EmployeeList: React.SFC<IProps> = ({ id, img, name, email, team }) => (
               className={
                 team === "Art Team"
                   ? "pink"
-                  : team === "Design Team"
+                  : team === "NailArt Team"
                   ? "orange"
                   : team === "SB Team"
                   ? "mint"
