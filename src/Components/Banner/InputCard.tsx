@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
-import {TextField, Button, withStyles, createStyles} from "@material-ui/core"
+import {TextField, Button} from "@material-ui/core"
 import {
     Formik,
     Form,
@@ -9,9 +9,8 @@ import {
 } from "formik"
 import * as yup from "yup";
 import DropzoneComponent from "./DropzoneComponent";
-import theme from "@saraceninc/saracen-style-ts/lib/theme";
-import {Theme as AugmentedTheme} from "@material-ui/core/styles"
 import {styled as styledMaterial} from "@material-ui/core/styles";
+import Context from "../../Context/context";
 
 
 const Col = styled(SS.Core.Col)`
@@ -28,7 +27,7 @@ const FormUpload = styled(Form)`
   }
 `;
 const Group = styledMaterial(TextField)(({theme}) => ({
-  padding : theme.spacing(0)
+    padding: theme.spacing(0)
 }));
 
 let ContactFormSchema = yup.object().shape({
@@ -45,6 +44,7 @@ interface Values {
 
 const InputCard: React.FunctionComponent = () => {
 
+    const {reserveCheck, handleReserve} = useContext(Context);
 
     return (
         <SS.Core.Row>
@@ -79,7 +79,7 @@ const InputCard: React.FunctionComponent = () => {
                                         name="description"
                                         variant="outlined"
                                         id="description"
-                                        label="설명"
+                                        label="제목"
                                         color={"secondary"}
                                         autoFocus
                                         helperText={
@@ -113,7 +113,7 @@ const InputCard: React.FunctionComponent = () => {
                                         name="image"
                                         variant="outlined"
                                         id="image"
-                                        label="위 박스를 클릭하여 이미지를 주세요."
+                                        label="위 박스를 클릭하여 이미지를 올려주세요."
                                         disabled={true}
                                         color={"secondary"}
                                         autoFocus
@@ -123,14 +123,21 @@ const InputCard: React.FunctionComponent = () => {
                                                 : null
                                         }
                                     />
-                                    <Button
-                                        type="submit"
-                                        color="primary"
-                                        variant="contained"
-                                        style={{alignSelf: "center"}}
-                                    >
-                                        SAVE
-                                    </Button>
+                                    <SS.Core.RowF>
+                                        <Button
+                                            type="submit"
+                                            color="primary"
+                                            variant="contained"
+                                            style={{alignSelf: "center"}}
+                                        >
+                                            SAVE
+                                        </Button>
+                                        <SS.Core.InputRow style={{border: "none"}}>
+                                            <SS.Core.Input style={{position: "unset"}} id={"reserve"} type={"checkBox"}
+                                                           checked={reserveCheck} onChange={handleReserve}/>
+                                            <label style={{padding: "5px"}} htmlFor={"reserve"}>예약</label>
+                                        </SS.Core.InputRow>
+                                    </SS.Core.RowF>
                                 </FormUpload>
                             </>
                         )

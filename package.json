@@ -19,6 +19,7 @@
     "@types/styled-components": "^5.1.2",
     "@types/yup": "^0.29.6",
     "azure-storage": "^2.10.3",
+    "date-fns": "^2.15.0",
     "dotenv": "^8.2.0",
     "formik": "2.1.4",
     "prop-types": "^15.7.2",

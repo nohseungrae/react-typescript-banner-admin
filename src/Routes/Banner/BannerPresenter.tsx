@@ -3,6 +3,7 @@ import SS from "@saraceninc/saracen-style-ts";
 import ContentCard from "../../Components/Banner/ContentCard";
 import InputCard from "../../Components/Banner/InputCard";
 import ReserveComponent from "../../Components/Banner/ReserveComponent";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface IBannerProps {
     onSubmit: any;

@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {DropzoneState, useDropzone} from "react-dropzone";
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
+import theme from "@saraceninc/saracen-style-ts/lib/theme";
 
 interface DropProps {
-    exist : boolean
+    exist: boolean
 }
 
 const Inner = styled(SS.Core.Inner)`
@@ -16,26 +17,26 @@ const Drop = styled.div<DropProps>`
     border: 1px solid #e2e2e2;
     position: relative;
         &::before {
-          content: ${props => props.exist ? "none" : ""};
+          content:  "";
           position: absolute;
-          width : 10px;
-          height : 50px;
+          ${props => props.exist ? "width : 0" : "width : 6px"};
+          height : 40px;
           left : 50%;
           top : 50%;
           border-radius: 5px;
           transform: translate(-50%,-50%);
-          background-color: black;
+          background-color: #ecf0f1;
         }
         &::after {
-          content: ${props => props.exist ? "none" : ""};
+          content:  "";
           position: absolute;
-          width : 50px;
-          height : 10px;
+          width : 40px;
+          ${props => props.exist ? "height : 0" : "height : 6px"};
           left : 50%;
           top : 50%;
-            border-radius: 5px;
+          border-radius: 5px;
           transform: translate(-50%,-50%);
-          background-color: black;
+          background-color: #ecf0f1;
         }
 `;
 const Preview = styled.div`

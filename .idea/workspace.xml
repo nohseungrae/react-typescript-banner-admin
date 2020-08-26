@@ -20,12 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e21bbc26-2a9f-49b5-a204-c26d0209568e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Components/Banner/ReserveComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/App/AppContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/App/AppContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/App/AppPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/App/AppPresenter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Banner/ContentCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/ContentCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Banner/DropzoneComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/DropzoneComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Banner/InputCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/InputCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Banner/ReserveComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/ReserveComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Context/contextProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Context/contextProvider.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/Banner/BannerPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/BannerPresenter.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
@@ -71,7 +71,8 @@
       <workItem from="1597910872639" duration="3426000" />
       <workItem from="1597968062066" duration="22106000" />
       <workItem from="1598227418267" duration="21188000" />
-      <workItem from="1598313478134" duration="22354000" />
+      <workItem from="1598313478134" duration="22960000" />
+      <workItem from="1598400441822" duration="9382000" />
     </task>
     <servers />
   </component>
