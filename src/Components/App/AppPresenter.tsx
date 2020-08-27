@@ -18,6 +18,8 @@ import Massage from "../../Routes/Banner/Massage";
 import Interior from "../../Routes/Banner/Interior";
 import Accessory from "../../Routes/Banner/Accessory";
 import AppLoading from "../../Routes/Banner/AppLoading";
+import Ads from "../../Routes/Banner/Ads";
+import Main from "../../Routes/Banner/Main";
 
 interface IProps {
     isLoggedIn: boolean;
@@ -92,6 +94,11 @@ const LoggedInRoutes: React.FunctionComponent = () => (
                     title: "배너",
                     deps: [
                         {
+                            to: "/banners/main",
+                            title: "메인",
+                            paths: ["/banners/main"],
+                        },
+                        {
                             to: "/banners/care/1",
                             title: "케어",
                             paths: ["/banners/care"],
@@ -131,6 +138,11 @@ const LoggedInRoutes: React.FunctionComponent = () => (
                             title: "앱로딩화면",
                             paths: ["/banners/apploading"],
                         },
+                        {
+                            to: "/banners/ads/1",
+                            title: "광고배너",
+                            paths: ["/banners/ads"],
+                        },
                     ],
                 },
             ]}
@@ -152,13 +164,15 @@ const LoggedInRoutes: React.FunctionComponent = () => (
         <SS.Core.Main justifyContent="center" flexDirection="column">
             <Switch>
                 {/*도큐먼트용*/}
-                <Route path="/banners/care/:num" component={Care}/>
+                <Route path="/banners/main" exact={true} component={Main}/>
+                <Route path="/banners/care/:num" exact={true} component={Care}/>
                 <Route path="/banners/nailart/:num" component={NailArt}/>
                 <Route path="/banners/makeup/:num" component={Makeup}/>
                 <Route path="/banners/hair/:num" component={Hair}/>
                 <Route path="/banners/massage/:num" component={Massage}/>
                 <Route path="/banners/interior/:num" component={Interior}/>
                 <Route path="/banners/accessory/:num" component={Accessory}/>
+                <Route path="/banners/ads/:num" component={Ads}/>
                 <Route path="/banners/apploading" component={AppLoading}/>
                 {/*필수요소 - 로그인 : 삭제불가*/}
                 <Route path="/auth/login" exact={true} component={Login}/>

@@ -1,19 +1,17 @@
 import React from 'react';
 import BannerLayout from "../../../Components/Banner/Layout";
-import ContentCard from "../../../Components/Banner/ContentCard";
 import InputCard from "../../../Components/Banner/InputCard";
 import ReserveComponent from "../../../Components/Banner/ReserveComponent";
 
-const InteriorPresenter : React.FunctionComponent = () => {
+const MainPresenter : React.FunctionComponent = () => {
     return (
-        <BannerLayout height={"435px"} children={
+        <BannerLayout height={"75px"} main={true} children={
             <>
-                <ContentCard/>
-                <InputCard uploadHeight={"435px"}/>
+                <InputCard uploadHeight={"75px"}/>
                 <ReserveComponent/>
             </>
         }/>
     );
 };
 
-export default InteriorPresenter;
+export default MainPresenter;

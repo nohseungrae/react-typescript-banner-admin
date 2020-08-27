@@ -6,10 +6,10 @@ import ContentCard from "../../../Components/Banner/ContentCard";
 
 const CarePresenter: React.FunctionComponent = () => {
     return (
-        <BannerLayout children={
+        <BannerLayout height={"435px"} children={
             <>
                 <ContentCard/>
-                <InputCard/>
+                <InputCard uploadHeight={"435px"}/>
                 <ReserveComponent/>
             </>
         }/>

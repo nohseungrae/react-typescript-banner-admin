@@ -1,14 +1,13 @@
 import React from 'react';
 import BannerLayout from "../../../Components/Banner/Layout";
-import ContentCard from "../../../Components/Banner/ContentCard";
 import InputCard from "../../../Components/Banner/InputCard";
 import ReserveComponent from "../../../Components/Banner/ReserveComponent";
 
 const AppLoadingPresenter = () => {
     return (
-        <BannerLayout app={true} children={
+        <BannerLayout height={"fit-content"} imgBoxWidth={"fit-content"} children={
             <>
-                <InputCard app={true}/>
+                <InputCard uploadHeight={"fit-content"}/>
                 <ReserveComponent/>
             </>
         }/>

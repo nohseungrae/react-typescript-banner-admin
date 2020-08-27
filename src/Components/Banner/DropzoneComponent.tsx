@@ -7,7 +7,8 @@ import theme from "@saraceninc/saracen-style-ts/lib/theme";
 
 interface DropProps {
     exist?: boolean
-    app? : boolean
+    app?: boolean
+    uploadHeight?: string
 }
 
 const Inner = styled(SS.Core.Inner)`
@@ -44,7 +45,7 @@ const Drop = styled.div<DropProps>`
 const Preview = styled.div<DropProps>`
     display: flex;
     width :100%;
-    min-height : 250px;
+    min-height : ${props => props.uploadHeight};
     position: relative;
     &::before{
     content : "이벤트 사진 - 업로드가능";
@@ -54,19 +55,21 @@ const Preview = styled.div<DropProps>`
     font-weight: bold;
     color : #3f51b5;
     transform: translate(-50%,0%);
-    visibility: ${props => props.app && !props.exist ? "visible" : "hidden"};
+    visibility: ${props => !props.exist ? "visible" : "hidden"};
     }
 `;
+
 interface IProps {
-    app? : boolean
+    uploadHeight?: string
 }
+
 interface FileProps extends File {
     preview: string
 }
 
-const DropzoneComponent: React.FunctionComponent<IProps> = ({app}) => {
+const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight}) => {
 
-    const { files, setFiles, setFilename } = useContext(Context)
+    const {files, setFiles, setFilename} = useContext(Context)
 
     const {getRootProps, getInputProps, acceptedFiles}: DropzoneState = useDropzone({
         accept: 'image/*',
@@ -90,16 +93,16 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({app}) => {
         // Make sure to revoke the data uris to avoid memory leaks
         files.forEach((file: FileProps) => {
             setFilename(file.name);
+            console.log(URL.revokeObjectURL(file.preview))
             return URL.revokeObjectURL(file.preview)
         });
-        console.log(files)
     }, [files]);
 
     return (
         <Inner className="container">
             <Drop {...getRootProps({className: 'dropzone'})} exist={acceptedFiles.length > 0 ? true : false}>
                 <input {...getInputProps()} />
-                <Preview app={app} exist={acceptedFiles.length > 0 ? true : false}>
+                <Preview exist={acceptedFiles.length > 0 ? true : false} uploadHeight={uploadHeight}>
                     {thumbs}
                 </Preview>
             </Drop>

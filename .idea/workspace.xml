@@ -20,39 +20,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e21bbc26-2a9f-49b5-a204-c26d0209568e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Components/Banner/Layout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Accessory/AccessoryContainer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Accessory/AccessoryPresenter.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Accessory/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/AppLoading/AppLoadingContainer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/AppLoading/AppLoadingPresenter.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/AppLoading/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Care/CareContainer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairContainer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairPresenter.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Hair/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Interior/InteriorContainer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Interior/InteriorPresenter.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Interior/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupPresenter.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Makeup/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Massage/MassageContainer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Massage/MassagePresenter.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Massage/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/NailArt/NailArtContainer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/NailArt/NailArtPresenter.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/NailArt/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Ads/AdsContainer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Ads/AdsPresenter.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Main/MainContainer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Main/MainPresenter.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Routes/Banner/Main/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/App/AppPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/App/AppPresenter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Banner/ContentCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/ContentCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/DropzoneComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/DropzoneComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/InputCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/InputCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Banner/ReserveComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/ReserveComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Banner/TableComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/TableComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/EmployeeList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/EmployeeList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Context/contextProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Context/contextProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/BannerPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/BannerPresenter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/Login/LoginContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Login/LoginContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Banner/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Accessory/AccessoryPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Accessory/AccessoryPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/AppLoading/AppLoadingPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/AppLoading/AppLoadingPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Care/CarePresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Care/CarePresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Interior/InteriorPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Interior/InteriorPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Massage/MassagePresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Massage/MassagePresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/NailArt/NailArtPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/NailArt/NailArtPresenter.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,22 +56,23 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Routes/Banner/Accessory" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Routes/Banner/Main" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/Routes/Banner/Accessory" />
-      <recent name="$PROJECT_DIR$/src/Routes/Banner/Interior" />
-      <recent name="$PROJECT_DIR$/src/Routes/Banner/Massage" />
-      <recent name="$PROJECT_DIR$/src/Routes/Banner/Hair" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/Context" />
       <recent name="$PROJECT_DIR$/src/utils/AzureUpload" />
       <recent name="$PROJECT_DIR$/src/utils" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Routes/Banner/Main" />
+      <recent name="$PROJECT_DIR$/src/Routes/Banner/Ads" />
+      <recent name="$PROJECT_DIR$/src/Routes/Banner/Accessory" />
+      <recent name="$PROJECT_DIR$/src/Routes/Banner/Interior" />
+      <recent name="$PROJECT_DIR$/src/Routes/Banner/Massage" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -104,7 +90,8 @@
       <workItem from="1598227418267" duration="21188000" />
       <workItem from="1598313478134" duration="22960000" />
       <workItem from="1598400441822" duration="11933000" />
-      <workItem from="1598419478853" duration="8327000" />
+      <workItem from="1598419478853" duration="8559000" />
+      <workItem from="1598486840970" duration="6801000" />
     </task>
     <servers />
   </component>
@@ -128,10 +115,10 @@
       <screen x="2560" y="23" width="1920" height="1057" />
     </state>
     <state x="3333" y="274" key="#com.intellij.ide.util.MemberChooser/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598326734543" />
-    <state x="592" y="226" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1598337524538">
+    <state x="592" y="226" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1598488661189">
       <screen x="0" y="23" width="2560" height="1332" />
     </state>
-    <state x="592" y="226" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598337524538" />
+    <state x="592" y="226" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598488661189" />
     <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1598333460798">
       <screen x="2560" y="23" width="1920" height="1057" />
     </state>

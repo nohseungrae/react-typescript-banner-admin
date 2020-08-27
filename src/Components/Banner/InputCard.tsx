@@ -38,15 +38,16 @@ let ContactFormSchema = yup.object().shape({
 })
 
 interface IProps {
-    app? : boolean
+    uploadHeight? : string
 }
+
 interface Values {
     description: string | undefined;
     link: string;
     image: string;
 }
 
-const InputCard: React.FunctionComponent<IProps> = ({app}) => {
+const InputCard: React.FunctionComponent<IProps> = ({uploadHeight}) => {
 
     const {reserveCheck, handleReserve, filename} = useContext(Context);
 
@@ -73,7 +74,7 @@ const InputCard: React.FunctionComponent<IProps> = ({app}) => {
                              touched
                          }: any) => (
                             <>
-                                <DropzoneComponent app={app}/>
+                                <DropzoneComponent uploadHeight={uploadHeight}/>
                                 <FormUpload>
                                     <Group
                                         margin={"dense"}
@@ -143,9 +144,12 @@ const InputCard: React.FunctionComponent<IProps> = ({app}) => {
                                                            checked={reserveCheck} onChange={handleReserve}/>
                                             <label style={{padding: "5px"}} htmlFor={"reserve"}>예약</label>
                                         </SS.Core.InputRow>
-                                        <SS.Core.Text display={"flex"} alignItems={"center"} flex={"1"} justifyContent={"flex-end"}>
-                                            마지막 수정일 : <SS.Core.Span fontSize={"transparent"} margin={"0 20px 0 5px"}>{`날짜`}</SS.Core.Span>
-                                            마지막 수정자 : <SS.Core.Span fontSize={"transparent"} margin={"0 0 0 5px"}>{`김승석`}</SS.Core.Span>
+                                        <SS.Core.Text display={"flex"} alignItems={"center"} flex={"1"}
+                                                      justifyContent={"flex-end"}>
+                                            마지막 수정일 : <SS.Core.Span fontSize={"transparent"}
+                                                                    margin={"0 20px 0 5px"}>{`날짜`}</SS.Core.Span>
+                                            마지막 수정자 : <SS.Core.Span fontSize={"transparent"}
+                                                                    margin={"0 0 0 5px"}>{`김승석`}</SS.Core.Span>
                                         </SS.Core.Text>
                                     </SS.Core.RowF>
                                 </FormUpload>
