@@ -4,9 +4,9 @@ import InputCard from "../../../Components/Banner/InputCard";
 import ReserveComponent from "../../../Components/Banner/ReserveComponent";
 import ContentCard from "../../../Components/Banner/ContentCard";
 
-const NailArtPresenter : React.FunctionComponent = () => {
+const NailArtPresenter: React.FunctionComponent = () => {
     return (
-        <BannerLayout height={"435px"} children={
+        <BannerLayout name={"네일아트"} height={"435px"} children={
             <>
                 <ContentCard/>
                 <InputCard uploadHeight={"435px"}/>

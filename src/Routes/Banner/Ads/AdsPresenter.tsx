@@ -6,7 +6,7 @@ import ContentCard from "../../../Components/Banner/ContentCard";
 
 const AdsPresenter: React.FunctionComponent = () => {
     return (
-        <BannerLayout children={
+        <BannerLayout name={"광고배너"} children={
             <>
                 <ContentCard/>
                 <InputCard/>

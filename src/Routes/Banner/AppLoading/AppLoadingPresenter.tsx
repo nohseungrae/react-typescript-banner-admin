@@ -5,7 +5,7 @@ import ReserveComponent from "../../../Components/Banner/ReserveComponent";
 
 const AppLoadingPresenter = () => {
     return (
-        <BannerLayout height={"fit-content"} imgBoxWidth={"fit-content"} children={
+        <BannerLayout name={"앱로딩화면"} height={"fit-content"} imgBoxWidth={"fit-content"} children={
             <>
                 <InputCard uploadHeight={"fit-content"}/>
                 <ReserveComponent/>

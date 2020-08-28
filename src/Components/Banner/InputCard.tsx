@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useRef} from 'react';
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
 import {TextField, Button} from "@material-ui/core"
@@ -38,7 +38,7 @@ let ContactFormSchema = yup.object().shape({
 })
 
 interface IProps {
-    uploadHeight? : string
+    uploadHeight?: string
 }
 
 interface Values {
@@ -86,7 +86,6 @@ const InputCard: React.FunctionComponent<IProps> = ({uploadHeight}) => {
                                         id="description"
                                         label="제목"
                                         color={"secondary"}
-                                        autoFocus
                                         helperText={
                                             errors.description && touched.description
                                                 ? errors.description

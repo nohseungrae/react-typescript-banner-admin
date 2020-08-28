@@ -94,7 +94,7 @@ const LoggedInRoutes: React.FunctionComponent = () => (
                     title: "배너",
                     deps: [
                         {
-                            to: "/banners/main",
+                            to: "/banners/main/1",
                             title: "메인",
                             paths: ["/banners/main"],
                         },
@@ -164,8 +164,8 @@ const LoggedInRoutes: React.FunctionComponent = () => (
         <SS.Core.Main justifyContent="center" flexDirection="column">
             <Switch>
                 {/*도큐먼트용*/}
-                <Route path="/banners/main" exact={true} component={Main}/>
-                <Route path="/banners/care/:num" exact={true} component={Care}/>
+                <Route path="/banners/main/:num" exact={true} component={Main}/>
+                <Route path="/banners/care/:num" component={Care}/>
                 <Route path="/banners/nailart/:num" component={NailArt}/>
                 <Route path="/banners/makeup/:num" component={Makeup}/>
                 <Route path="/banners/hair/:num" component={Hair}/>
