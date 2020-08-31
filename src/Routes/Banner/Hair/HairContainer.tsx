@@ -1,7 +1,7 @@
 import React from 'react';
 import HairPresenter from "./HairPresenter";
 
-const HairContainer = () => {
+const HairContainer: React.FunctionComponent = () => {
 
     return <HairPresenter/>;
 

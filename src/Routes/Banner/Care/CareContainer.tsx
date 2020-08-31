@@ -3,7 +3,6 @@ import CarePresenter from "./CarePresenter";
 
 const CareContainer: React.FunctionComponent = () => {
 
-
     return <CarePresenter/>;
 };
 

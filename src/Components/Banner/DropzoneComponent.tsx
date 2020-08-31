@@ -3,6 +3,7 @@ import {DropzoneState, useDropzone} from "react-dropzone";
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
 import Context from "../../Context/context";
+import {withRouter} from "react-router-dom"
 import theme from "@saraceninc/saracen-style-ts/lib/theme";
 
 interface DropProps {
@@ -49,32 +50,35 @@ const Preview = styled.div<DropProps>`
     position: relative;
     &::before{
     content : "이벤트 사진 - 업로드가능";
+    z-index: ${props => !props.exist ? "1" : "-1"};
     position : absolute;
     top: 30%;
     left : 50%;
     font-weight: bold;
     color : #3f51b5;
     transform: translate(-50%,0%);
-    visibility: ${props => !props.exist ? "visible" : "hidden"};
+ 
     }
 `;
 
 interface IProps {
     uploadHeight?: string
+    pathname?: string
 }
 
 interface FileProps extends File {
-    preview: string
+    preview: string | undefined
 }
 
-const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight}) => {
+const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight, pathname}) => {
 
-    const {files, setFiles, setFilename} = useContext(Context)
+    const {
+        files, setFiles, setFilename,
+    } = useContext(Context)
 
     const {getRootProps, getInputProps, acceptedFiles}: DropzoneState = useDropzone({
         accept: 'image/*',
         onDrop: (acceptedFiles: any) => {
-            console.log(acceptedFiles)
             setFiles(acceptedFiles.map((file: FileProps) => Object.assign(file, {
                 preview: URL.createObjectURL(file)
             })));
@@ -91,12 +95,31 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight}) => {
 
     useEffect(() => {
         // Make sure to revoke the data uris to avoid memory leaks
-        files.forEach((file: FileProps) => {
-            setFilename(file.name);
-            console.log(URL.revokeObjectURL(file.preview))
-            return URL.revokeObjectURL(file.preview)
-        });
+        if (files.length > 0) {
+            const image = document.querySelector("#image") as any
+            setTimeout(() => {
+                image.dispatchEvent(new Event("blur", {bubbles: false}))
+            }, [500])
+            files.forEach((file: FileProps) => {
+                console.log(file)
+                setFilename(file.name);
+                URL.revokeObjectURL(file.preview as string)
+            });
+
+        }
+
     }, [files]);
+
+    useEffect(() => {
+        setFilename("");
+        files.map((file: any) => {
+            file.preview = undefined;
+            if (!file.preview) {
+                setFiles([])
+            }
+        })
+    }, [pathname])
+
 
     return (
         <Inner className="container">

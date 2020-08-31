@@ -5,6 +5,7 @@ import ReserveComponent from "../../../Components/Banner/ReserveComponent";
 import ContentCard from "../../../Components/Banner/ContentCard";
 
 const CarePresenter: React.FunctionComponent = () => {
+
     return (
         <BannerLayout name={"케어"} height={"435px"} children={
             <>

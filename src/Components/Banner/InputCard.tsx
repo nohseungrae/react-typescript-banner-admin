@@ -1,4 +1,4 @@
-import React, {useContext, useRef} from 'react';
+import React, {FunctionComponent, useContext} from 'react';
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
 import {TextField, Button} from "@material-ui/core"
@@ -11,7 +11,7 @@ import * as yup from "yup";
 import DropzoneComponent from "./DropzoneComponent";
 import {styled as styledMaterial} from "@material-ui/core/styles";
 import Context from "../../Context/context";
-import theme from "@saraceninc/saracen-style-ts/lib/theme";
+import {withRouter} from "react-router-dom";
 
 
 const Col = styled(SS.Core.Col)`
@@ -34,7 +34,7 @@ const Group = styledMaterial(TextField)(({theme}) => ({
 let ContactFormSchema = yup.object().shape({
     description: yup.string().required("빈 칸을 채워주세요."),
     link: yup.string().required("빈 칸을 채워주세요."),
-    image: yup.string().required("이미지를 넣어주세요."),
+    image: yup.string().required("이미지를 채워주세요.")
 })
 
 interface IProps {
@@ -47,10 +47,16 @@ interface Values {
     image: string;
 }
 
-const InputCard: React.FunctionComponent<IProps> = ({uploadHeight}) => {
+const InputCard: React.ComponentClass<IProps> = withRouter(({uploadHeight, location : {pathname}} : any) => {
 
-    const {reserveCheck, handleReserve, filename} = useContext(Context);
+    const {
+        reserveCheck, handleReserve, filename, files,
+        formData, setFormData
+    } = useContext(Context);
 
+    console.log(pathname)
+
+    console.log(formData)
     return (
         <SS.Core.Row>
             <Col className={"formik"}>
@@ -64,17 +70,25 @@ const InputCard: React.FunctionComponent<IProps> = ({uploadHeight}) => {
                     onSubmit={(
                         values: Values,
                         {setSubmitting}: FormikHelpers<Values & any>) => {
-                        console.log(values)
+                        console.log(setSubmitting)
+                        setSubmitting(true);
+                        setFormData({
+                            ...formData, ...values,
+                            file: files[0]
+                        })
+                        ;
                     }}
                 >
                     {
                         ({
                              errors,
                              handleChange,
-                             touched
+                             touched,
+                             setFieldValue,
+                             values
                          }: any) => (
                             <>
-                                <DropzoneComponent uploadHeight={uploadHeight}/>
+                                <DropzoneComponent pathname={pathname} uploadHeight={uploadHeight}/>
                                 <FormUpload>
                                     <Group
                                         margin={"dense"}
@@ -111,14 +125,14 @@ const InputCard: React.FunctionComponent<IProps> = ({uploadHeight}) => {
                                     <Group
                                         margin={"dense"}
                                         error={errors.image && touched.image}
-                                        onChange={handleChange}
                                         autoComplete="image"
+                                        onBlur={() => setFieldValue('image', filename)}
                                         name="image"
                                         variant="outlined"
                                         id="image"
                                         placeholder="위 박스를 클릭하여 이미지를 올려주세요."
-                                        value={filename}
-                                        disabled={true}
+                                        value={filename ? filename : ""}
+                                        disabled={filename ? false : true}
                                         color={"secondary"}
                                         autoFocus
                                         helperText={
@@ -159,6 +173,6 @@ const InputCard: React.FunctionComponent<IProps> = ({uploadHeight}) => {
             </Col>
         </SS.Core.Row>
     );
-};
+});
 
 export default InputCard;
