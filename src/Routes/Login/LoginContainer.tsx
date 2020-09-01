@@ -50,7 +50,7 @@ const LoginContainer = () => {
 
   useEffect(() => {
     getLoading(false)
-  });
+  },[]);
 
   return (
       <LoginPresenter

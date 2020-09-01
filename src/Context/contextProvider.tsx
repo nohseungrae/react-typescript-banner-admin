@@ -28,7 +28,7 @@ const ContextProvider: React.FunctionComponent = ({children}) => {
     const provider = {
         beltOpen, logoOpen, mainBeltOpen,
         setBeltOpen, setLogoOpen, setMainBeltOpen,
-        reserveCheck,
+        reserveCheck,setReserveCheck,
         handleReserve,
         pathname, setPathname,
         files, setFiles, filename, setFilename,

@@ -20,15 +20,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e21bbc26-2a9f-49b5-a204-c26d0209568e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Components/Banner/Slider/StorySlider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Banner/ContentCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/ContentCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/DropzoneComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/DropzoneComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/InputCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/InputCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Banner/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Banner/ReserveComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/ReserveComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Context/contextProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Context/contextProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Care/CareContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Care/CareContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Care/CarePresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Care/CarePresenter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/BannerPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/BannerPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Main/MainPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Main/MainPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Login/LoginContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Login/LoginContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/MyInfo/MyInfoContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/MyInfo/MyInfoContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,18 +57,19 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/Context" />
-      <recent name="$PROJECT_DIR$/src/utils/AzureUpload" />
-      <recent name="$PROJECT_DIR$/src/utils" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/Routes/Banner/Main" />
       <recent name="$PROJECT_DIR$/src/Routes/Banner/Ads" />
       <recent name="$PROJECT_DIR$/src/Routes/Banner/Accessory" />
       <recent name="$PROJECT_DIR$/src/Routes/Banner/Interior" />
       <recent name="$PROJECT_DIR$/src/Routes/Banner/Massage" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Components/Banner/Slider" />
+      <recent name="$PROJECT_DIR$/src/Context" />
+      <recent name="$PROJECT_DIR$/src/utils/AzureUpload" />
+      <recent name="$PROJECT_DIR$/src/utils" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -84,7 +90,8 @@
       <workItem from="1598419478853" duration="8559000" />
       <workItem from="1598486840970" duration="6860000" />
       <workItem from="1598572888543" duration="20734000" />
-      <workItem from="1598831787294" duration="21027000" />
+      <workItem from="1598831787294" duration="21073000" />
+      <workItem from="1598919108168" duration="22245000" />
     </task>
     <servers />
   </component>
@@ -108,21 +115,28 @@
       <screen x="2560" y="23" width="1920" height="1057" />
     </state>
     <state x="3333" y="274" key="#com.intellij.ide.util.MemberChooser/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598326734543" />
-    <state x="592" y="226" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1598488661189">
+    <state x="592" y="226" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1598949361018">
       <screen x="0" y="23" width="2560" height="1332" />
     </state>
-    <state x="592" y="226" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598488661189" />
-    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1598845861558">
+    <state x="592" y="226" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598949361018" />
+    <state x="3108" y="164" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1598943856570">
       <screen x="2560" y="23" width="1920" height="1057" />
     </state>
-    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598845861558" />
+    <state x="3108" y="164" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598943856570" />
+    <state x="1208" y="200" width="988" height="855" key="find.popup" timestamp="1598931638945">
+      <screen x="0" y="23" width="2560" height="1332" />
+    </state>
+    <state x="1208" y="200" width="988" height="855" key="find.popup/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598931638945" />
+    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1598930169077">
+      <screen x="2560" y="23" width="1920" height="1057" />
+    </state>
+    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598930169077" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/Components/Banner/InputCard.tsx</url>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

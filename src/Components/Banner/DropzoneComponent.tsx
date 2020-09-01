@@ -3,8 +3,6 @@ import {DropzoneState, useDropzone} from "react-dropzone";
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
 import Context from "../../Context/context";
-import {withRouter} from "react-router-dom"
-import theme from "@saraceninc/saracen-style-ts/lib/theme";
 
 interface DropProps {
     exist?: boolean
@@ -70,10 +68,10 @@ interface FileProps extends File {
     preview: string | undefined
 }
 
-const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight, pathname}) => {
+const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight}) => {
 
     const {
-        files, setFiles, setFilename,
+        files, setFiles, setFilename, setReserveCheck, pathname
     } = useContext(Context)
 
     const {getRootProps, getInputProps, acceptedFiles}: DropzoneState = useDropzone({
@@ -87,23 +85,24 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight, pathn
 
     const thumbs = files.map((file: FileProps) => (
         <div style={{overflow: "auto", height: "100%", width: "100%"}} key={file.name}>
-            <img style={{maxWidth: "100%"}}
-                 src={file.preview}
-            />
+            {
+                file.preview ? <img style={{maxWidth: "100%"}}
+                                    src={file?.preview}
+                /> : <></>
+            }
         </div>
     ));
 
     useEffect(() => {
         // Make sure to revoke the data uris to avoid memory leaks
+        console.log(files)
         if (files.length > 0) {
             const image = document.querySelector("#image") as any
             setTimeout(() => {
                 image.dispatchEvent(new Event("blur", {bubbles: false}))
             }, [500])
             files.forEach((file: FileProps) => {
-                console.log(file)
                 setFilename(file.name);
-                URL.revokeObjectURL(file.preview as string)
             });
 
         }
@@ -111,13 +110,17 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight, pathn
     }, [files]);
 
     useEffect(() => {
-        setFilename("");
-        files.map((file: any) => {
-            file.preview = undefined;
-            if (!file.preview) {
-                setFiles([])
-            }
-        })
+        if (files.length > 0) {
+            files.map((file: any) => {
+                URL.revokeObjectURL(file.preview as string)
+                delete file.preview;
+            })
+            setFilename("");
+            setReserveCheck(false)
+            setFiles([]);
+            console.log(files, "-----여기는 pathname useEffect", pathname)
+        }
+
     }, [pathname])
 
 

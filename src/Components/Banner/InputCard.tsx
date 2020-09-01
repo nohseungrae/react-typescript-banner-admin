@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useContext} from 'react';
+import React, {FunctionComponent, useContext, useState} from 'react';
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
 import {TextField, Button} from "@material-ui/core"
@@ -11,8 +11,18 @@ import * as yup from "yup";
 import DropzoneComponent from "./DropzoneComponent";
 import {styled as styledMaterial} from "@material-ui/core/styles";
 import Context from "../../Context/context";
-import {withRouter} from "react-router-dom";
+import Alert from "@material-ui/lab/Alert"
 
+const styles: any = {
+    alert: {
+        left: '0',
+        pointerEvents: 'none',
+        position: 'relative',
+        margin: "10px 0 0 0",
+        top: 0,
+        width: '100%',
+    }
+}
 
 const Col = styled(SS.Core.Col)`
 box-shadow: 0 2px 0 rgba(90,97,105,.11), 0 4px 8px rgba(90,97,105,.12), 0 10px 10px rgba(90,97,105,.06), 0 7px 70px rgba(90,97,105,.1);
@@ -47,16 +57,15 @@ interface Values {
     image: string;
 }
 
-const InputCard: React.ComponentClass<IProps> = withRouter(({uploadHeight, location : {pathname}} : any) => {
+const InputCard: React.FunctionComponent<IProps> = ({uploadHeight}: any) => {
 
     const {
         reserveCheck, handleReserve, filename, files,
         formData, setFormData
     } = useContext(Context);
 
-    console.log(pathname)
+    const [flash, setFlash] = useState(false);
 
-    console.log(formData)
     return (
         <SS.Core.Row>
             <Col className={"formik"}>
@@ -67,11 +76,17 @@ const InputCard: React.ComponentClass<IProps> = withRouter(({uploadHeight, locat
                         image: '',
                     }}
                     validationSchema={ContactFormSchema}
-                    onSubmit={(
+                    onSubmit={async (
                         values: Values,
                         {setSubmitting}: FormikHelpers<Values & any>) => {
+                        if (reserveCheck) {
+                            setFlash(true)
+                            setTimeout(() => {
+                                setFlash(false)
+                            }, [3000])
+                            return false
+                        }
                         console.log(setSubmitting)
-                        setSubmitting(true);
                         setFormData({
                             ...formData, ...values,
                             file: files[0]
@@ -85,10 +100,9 @@ const InputCard: React.ComponentClass<IProps> = withRouter(({uploadHeight, locat
                              handleChange,
                              touched,
                              setFieldValue,
-                             values
                          }: any) => (
                             <>
-                                <DropzoneComponent pathname={pathname} uploadHeight={uploadHeight}/>
+                                <DropzoneComponent uploadHeight={uploadHeight}/>
                                 <FormUpload>
                                     <Group
                                         margin={"dense"}
@@ -165,6 +179,8 @@ const InputCard: React.ComponentClass<IProps> = withRouter(({uploadHeight, locat
                                                                     margin={"0 0 0 5px"}>{`김승석`}</SS.Core.Span>
                                         </SS.Core.Text>
                                     </SS.Core.RowF>
+                                    {flash ?
+                                        <Alert style={styles.alert} severity="error">예약 시간을 설정하여 주십시오.</Alert> : null}
                                 </FormUpload>
                             </>
                         )
@@ -173,6 +189,6 @@ const InputCard: React.ComponentClass<IProps> = withRouter(({uploadHeight, locat
             </Col>
         </SS.Core.Row>
     );
-});
+};
 
 export default InputCard;

@@ -57,7 +57,7 @@ const ReserveComponent = () => {
 
     useEffect((): void => {
         setLoading(false);
-    });
+    },[]);
     return (
         <SS.Core.Row>
             {!reserveCheck ? <></> :

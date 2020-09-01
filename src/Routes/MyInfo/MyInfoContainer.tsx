@@ -26,7 +26,7 @@ const MyInfoContainer = () => {
 
   useEffect(() => {
     getLoading(false);
-  });
+  },[]);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     const { files, value } = event.target;
