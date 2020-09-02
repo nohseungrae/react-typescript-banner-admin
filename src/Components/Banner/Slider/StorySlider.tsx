@@ -1,6 +1,9 @@
-import React, {Component, useEffect, useMemo, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import Slider from "react-slick";
 import styled, {keyframes} from 'styled-components'
+import ArrowBackIosSharpIcon from '@material-ui/icons/ArrowBackIosSharp';
+import ArrowForwardIosSharpIcon from '@material-ui/icons/ArrowForwardIosSharp';
+
 
 interface SProps {
     display?: string
@@ -14,7 +17,7 @@ interface SProps {
     key?: number
     ani?: string
     href?: string
-    value?: string
+    value?: string | number
     zIndex?: string
     src?: string
     alt?: string
@@ -27,6 +30,7 @@ interface SProps {
 const StoryContainer = styled.div<SProps>`
   display: ${props => props.display};
   top: 0;
+  left : 0;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -39,9 +43,8 @@ const StoryContainer = styled.div<SProps>`
     .sara_story_1 {
       display: flex;
       width: max-content;
-      padding: 0 3% 3% 3%;
       li {
-        width: 125px;
+        width: 200px;
         margin-right: 10px;
         position: relative;
         display: block;
@@ -70,13 +73,14 @@ const StoryContainer = styled.div<SProps>`
   .slick-slider .slick-list, .slick-slider .slick-track {
       transform: translateZ(0);
   }
-  .slick-list {
+  .slick-slider > .slick-list {
     position: relative;
     display: block;
   }
   .slick-slider {
+    width : 100%;
     height: 100%;
-    display: block;
+    display: flex !important;
     position: relative;
     z-index: 400;
     overflow-y: hidden;
@@ -85,23 +89,21 @@ const StoryContainer = styled.div<SProps>`
     touch-action: pan-y;
   }
   .slick-list {
+    max-width: 642px;
+    width: 100%;
     overflow: hidden;
-    margin: 0;
-    padding: 0;
     height: 100%;
   }
   .slick-next, .slick-prev {
     font-size: 0;
     line-height: 0;
-    position: absolute;
-    top: 50%;
     display: block;
-    width: 20px;
-    height: 20px;
-    padding: 0;
-    transform: translateY(-50%);
     cursor: pointer;
     border: none;
+  }
+  .slick-next:hover svg, .slick-prev:hover svg{
+      transition: linear .2s;
+      color : #ffffff !important;
   }
 
   .slick-track {
@@ -112,34 +114,33 @@ const StoryContainer = styled.div<SProps>`
     margin-left: auto;
     margin-right: auto;
     height: 100%;
-
-    //img{
-    //margin: 0 auto;
-    //position: relative;
-    //}
   }
 
   .slick-initialized .slick-slide {
     display: block;
+    width: 100%;
+    position : relative;
   }
 
   .slick-slide {
     display: none;
     float: left;
     height: 100%;
+    
     > div {
     height: 100%;
     }
   }
   .close {
     cursor: pointer;
-    position: absolute;
-    right: 0px;
-    top: 3px;
+    position: fixed;
+    left: 0px;
+    top: 0px;
     width: 50px;
     height: 50px;
     opacity: 1;
     z-index: 999;
+    margin : 5px 0 0 5px;
     &:before, &:after {
         position: absolute;
         left: 50%;
@@ -158,7 +159,46 @@ const StoryContainer = styled.div<SProps>`
       }
     }
 `;
-
+const StoryBox = styled.div`
+display: flex;
+  height: 100%;
+  background-color: #000000db;
+`;
+const LeftSide = styled.div`
+width : 360px;
+height : 100%;
+background-color: black;
+position: relative;
+  .side_stories_box { 
+    position : fixed;
+    top : 70px;
+    bottom : 0;
+    width: inherit;
+    margin : 10px 0 0 0;
+    padding : 5px;
+      .side_stories_content{
+        width :100%;
+        .side_items {
+          padding : 2px;
+          .side_item{
+            padding : 2px;
+            color : #ffffff;
+          }
+        }  
+      }
+  }
+`;
+const TopSide = styled.div`
+position : absolute;
+left: 0;
+top : 0;
+width: 100%;
+height: 70px;
+`;
+const RightSide = styled.div`
+position : relative;
+width: calc(100% - 360px);
+`;
 const Open = keyframes`
   0% {
     transform: scale(0.2);
@@ -203,7 +243,7 @@ const StoryItem = styled.div<SProps>`
         height: 100%;
         width: 100%;
         z-index: 997;
-        background: url(${process.env.REACT_APP_BACKEND_HOST + "static/m/images/story_overlay.png"}) repeat-x;
+        background: url(${process.env.REACT_APP_ABSOLUTE_HOST + "static/m/images/story_overlay.png"}) repeat-x;
         background-size: auto 100%;
       }
     }    
@@ -293,13 +333,14 @@ const A = styled.a<SProps>`
 
 const StoryHeart = styled.div`
     cursor: pointer;
-    border-left: 1px solid #eaeaea;
+    //border-left: 1px solid #eaeaea;
     position: absolute;
     bottom: 9px;
-    right: 0;
+    right: 10px;
     width: 55px;
     height: 30px;
-    z-index: 450;
+    z-index: 1000;
+    animation: ${Links} linear .5s;
     & .heartBtn {
       font-size: 2em;
       position: relative;
@@ -357,12 +398,12 @@ const ProgressBar = styled.div<SProps>`
   width: ${props => props.bar};
   background-color: white;
   transition: width 0.1s ease;
-  animation: ${Move} 6.7s ease-in-out;
+  animation: ${Move} 6s ease-in-out;
 `;
 
 const Progress: React.FunctionComponent<SProps> = ({width, display, bar}) => (
     <>
-        <ProgressContainer width={width} display={display}>
+        <ProgressContainer width={width} display={display} className={"progress_container"}>
             <ProgressBar bar={bar + "%"}/>
         </ProgressContainer>
     </>
@@ -370,15 +411,18 @@ const Progress: React.FunctionComponent<SProps> = ({width, display, bar}) => (
 
 const NextArrow = ({className, style, onClick}: any) => {
     return (
-        <div
-            className={className}
-            style={{
-                ...style, display: "flex", background: "red", position: "absolute",
-                justifyContent: 'center', alignItems: 'center', right: 0, top: '50%',
-                width: '120px', height: '80%', opacity: '0'
-            }}
-            onClick={onClick}
-        />
+        <div className={className} style={{
+            ...style, position: "relative", flexGrow: 1, height: "100%", transform: "none"
+        }} onClick={onClick}>
+            <ArrowForwardIosSharpIcon style={{
+                color: "gray",
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)"
+            }}/>
+        </div>
+
     )
 }
 
@@ -387,12 +431,17 @@ const PrevArrow = ({className, style, onClick}: any) => {
         <div
             className={className}
             style={{
-                ...style, display: "flex", background: "green", position: "absolute",
-                justifyContent: 'center', alignItems: 'center', left: 0, top: '50%', zIndex: '10',
-                width: '120px', height: '80%', opacity: '0'
-            }}
-            onClick={onClick}
-        />
+                ...style, position: "relative", flexGrow: 1, height: "100%", transform: "none"
+            }} onClick={onClick}
+        >
+            <ArrowBackIosSharpIcon style={{
+                color: "gray",
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)"
+            }}/>
+        </div>
     );
 }
 
@@ -405,18 +454,26 @@ const usePrevValues = (value: any, callback: Function) => {
     }, [value, callback]);
 };
 
-const StorySlider: React.FunctionComponent<SProps> = ({stories, CloseStory, display, slideIndex, index}: any) => {
+const StorySlider: React.FunctionComponent<SProps> = ({stories, CloseStory, display, index}: any) => {
 
+    console.log(display)
     const [storyState, setStoryState] = useState({
         slideIndex: 0,
         stories: stories,
         heartIndex: []
     })
+    const [state, setState] = useState<{ nav1: Slider | undefined, nav2: Slider | undefined }>({
+        nav1: undefined,
+        nav2: undefined
+    })
 
     let slider: Slider;
+    let subSlide: Slider;
+
     const handleSlideIndex = ({target: {value}}: any) => {
+        console.log(value, "slider handleSlideindex")
         const parsedVal = parseInt(value);
-        slider.slickGoTo(parsedVal)
+        slider?.slickGoTo(parsedVal)
         if (value !== '') {
             setStoryState({
                 ...storyState,
@@ -432,8 +489,8 @@ const StorySlider: React.FunctionComponent<SProps> = ({stories, CloseStory, disp
         let cloneIcon = target.cloneNode();
 
         cloneIcon.classList.add('animation-icon');
-        target.setAttribute('src', `${process.env.REACT_APP_BACKEND_HOST}static/icons/ico_heart_on.png`);
-        cloneIcon.setAttribute('src', `${process.env.REACT_APP_BACKEND_HOST}static/icons/ico_heart_on.png`);
+        target.setAttribute('src', `${process.env.REACT_APP_ABSOLUTE_HOST}static/icons/ico_heart_on.png`);
+        cloneIcon.setAttribute('src', `${process.env.REACT_APP_ABSOLUTE_HOST}static/icons/ico_heart_on.png`);
 
         heartBtn.insertAdjacentElement('beforeend', cloneIcon);
 
@@ -453,7 +510,7 @@ const StorySlider: React.FunctionComponent<SProps> = ({stories, CloseStory, disp
         infinite: true,
         autoplay: true,
         speed: 300,
-        autoplaySpeed: 6700,
+        autoplaySpeed: 6000,
         slidesToShow: 1,
         slidesToScroll: 1,
         nextArrow: <NextArrow/>,
@@ -462,66 +519,82 @@ const StorySlider: React.FunctionComponent<SProps> = ({stories, CloseStory, disp
     };
 
 
-    // usePrevValues(
-    //     useMemo(() => ({
-    //         count,
-    //         upperCount
-    //     }), [count, upperCount]),
-    //     useCallback(prevValues => {
-    //         console.log("callback invoked");
-    //         if (prevValues.count + 1 === count) {
-    //             console.log("inner done");
-    //         }
-    //
-    //         if (prevValues.upperCount + 1 === upperCount) {
-    //             console.log("outer done");
-    //         }
-    //     }, [count, upperCount])
-    // );
+    usePrevValues(
+        useMemo(() => (index), [index]),
+        useCallback((prevValues: any) => {
+            if (prevValues === index) {
+                console.log("callback invoked", prevValues, index);
+                const parsedIndex = parseInt(index);
+                slider?.slickGoTo(parsedIndex)
+            } else {
+                console.log("callback", prevValues, index);
+                const parsedIndex = parseInt(index);
+                slider?.slickGoTo(parsedIndex)
+            }
+        }, [index])
+    );
 
-    // componentDidUpdate (prevProps, prevState) {
-    //     if(prevProps.index !== this.props.index) {
-    //         const parsedIndex = parseInt(this.props.index);
-    //         this.slider.slickGoTo(parsedIndex)
-    //         this.setState({
-    //             slideIndex: parsedIndex
-    //         })
-    //     } else {
-    //         const parsedIndex = parseInt(this.props.index);
-    //         this.slider.slickGoTo(parsedIndex)
-    //     }
-    // }
     return (
         <StoryContainer display={display}>
-            <div className="close" onClick={CloseStory}/>
-            {stories.map((story: any, i: number) =>
-                <StoryHeart onClick={e => handleAddHeart(e, i)}
-                            style={{display: i === slideIndex ? 'block' : 'none'}} key={i}>
-                    <div className='heartBtn'>
-                        <img src={`${process.env.REACT_APP_BACKEND_HOST}static/icons/ico_heart_off.png`} alt='하트버튼'/>
-                        <span></span>
+            <div className="close" onClick={CloseStory}></div>
+            <StoryBox>
+                <LeftSide>
+                    <div className={"side_stories_box"}>
+                        <div className={"side_stories_content"}>
+                            <Slider asNavFor={state.nav1} ref={(slider: Slider) => subSlide = slider}
+                                    slidesToShow={4} vertical={true}
+                                    focusOnSelect={true} className={"side_items"}>
+                                {
+                                    stories.map((story: any, i: number) => {
+                                        return (
+                                            <div key={i} className={"side_item"}>
+                                                {story.url}
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </Slider>
+                        </div>
                     </div>
-                </StoryHeart>
-            )}
-            <Slider {...settings} ref={(slider: Slider) => slider = slider}>
-                {stories.map((story: any, i: number) =>
-                    <Story
-                        key={i}
-                        color={story.color}
-                        main_copy={story.main_copy}
-                        sub_copy={story.sub_copy}
-                        src={`${process.env.REACT_APP_ACTIVE_IMG}img/banner/image/${story.relation_id}/${story.img}`}
-                        alt={story.alt}
-                        href={story.url}
-                        value={slideIndex}
-                        onChange={(e: any) => handleSlideIndex(e)}
-                        bar={i === slideIndex ? '100' : '0'}
-                        display={i === slideIndex ? 'block' : 'none'}
-                        ani={i === slideIndex ? 'animation' : ''}
-                        displayurl={story.url === null || story.url === '' ? 'none' : 'flex'}
-                    />
-                )}
-            </Slider>
+                </LeftSide>
+                <TopSide/>
+                <RightSide>
+                    <Slider asNavFor={state.nav2} {...settings} ref={(slide: Slider) => slider = slide}>
+                        {stories.map((story: any, i: number) =>
+                            <React.Fragment key={i}>
+                                <Story
+                                    color={story.color}
+                                    main_copy={story.main_copy}
+                                    sub_copy={story.sub_copy}
+                                    src={`${process.env.REACT_APP_ACTIVE_IMG}img/banner/image/${story.relation_id}/${story.img}`}
+                                    alt={story.alt}
+                                    href={story.url}
+                                    value={storyState.slideIndex}
+                                    onChange={(e: any) => handleSlideIndex(e)}
+                                    bar={i === storyState.slideIndex ? '100' : '0'}
+                                    display={i === storyState.slideIndex ? 'block' : 'none'}
+                                    ani={i === storyState.slideIndex ? 'animation' : ''}
+                                    displayurl={story.url === null || story.url === '' ? 'none' : 'flex'}
+                                >
+
+                                </Story>
+                                <StoryHeart onClick={e => handleAddHeart(e, i)}
+                                            style={{display: i === storyState.slideIndex ? 'block' : 'none'}}>
+                                    <div className='heartBtn'>
+                                        <img
+                                            src={`${process.env.REACT_APP_ABSOLUTE_HOST}static/icons/ico_heart_off.png`}
+                                            alt='하트버튼'/>
+                                        <span></span>
+                                    </div>
+                                </StoryHeart>
+                            </React.Fragment>
+                        )}
+                    </Slider>
+                </RightSide>
+
+
+            </StoryBox>
+
         </StoryContainer>
     )
 }
@@ -543,7 +616,7 @@ const Story: React.FunctionComponent<SProps> = (props) => (
                 </StoryTitle>
                 <StoryLink className={props.ani}>
                     <A href={props.href} displayurl={props.displayurl}>
-                        <img src={`${process.env.REACT_APP_BACKEND_HOST}static/icons/ico_circle_arrow_up.png`}
+                        <img src={`${process.env.REACT_APP_ABSOLUTE_HOST}static/icons/ico_circle_arrow_up.png`}
                              alt='화살표아이콘'/>
                         <span>자세히보기</span>
                     </A>

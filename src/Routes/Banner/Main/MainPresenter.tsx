@@ -6,7 +6,6 @@ import ContentCard from "../../../Components/Banner/ContentCard";
 import Context from "../../../Context/context";
 import theme from "@saraceninc/saracen-style-ts/lib/theme";
 import SS from "@saraceninc/saracen-style-ts";
-import Stories from "../../../Components/Banner/Slider/Stories";
 
 const MainPresenter: React.FunctionComponent = () => {
 
@@ -53,6 +52,7 @@ const MainPresenter: React.FunctionComponent = () => {
                 }/>
             <BannerLayout
                 main={true}
+                slider={true}
                 name={"메인 배너&미니 배너"}
                 maxWidth={"760px"} height={"435px"}
                 bgColor={"yellow"}
@@ -63,80 +63,7 @@ const MainPresenter: React.FunctionComponent = () => {
                                         margin={"0 0 0 5px"}
                                         theme={theme.blue} onClick={() => setMainBeltOpen(!mainBeltOpen)}>로고
                             CHANGE</SS.Core.Button>
-                        <Stories stories={[
-                            {
-                                admin_id: 0,
-                                alt: "도전! 9월의 구매왕",
-                                back_img: null,
-                                back_img_pos: null,
-                                color: "#fecf5f",
-                                created_at: "2020-09-01 00:00:01",
-                                id: 848,
-                                img: "8eaeba06617d04f39709078d0368bf22.jpg",
-                                main_copy: "도전! 9월의 구매왕",
-                                mini_img: null,
-                                relation_id: 1598862270,
-                                seq: 0,
-                                sub_copy: "9월 구매왕에 도전하라!",
-                                type: "sara_story",
-                                updated_at: "2020-09-01 00:00:01",
-                                url: "https://thesaracen.com/event/detail/1567"
-                            },
-                            {
-                                admin_id: 0,
-                                alt: "도전! 9월의 구매왕",
-                                back_img: null,
-                                back_img_pos: null,
-                                color: "#fecf5f",
-                                created_at: "2020-09-01 00:00:01",
-                                id: 848,
-                                img: "8eaeba06617d04f39709078d0368bf22.jpg",
-                                main_copy: "도전! 9월의 구매왕",
-                                mini_img: null,
-                                relation_id: 1598862270,
-                                seq: 0,
-                                sub_copy: "9월 구매왕에 도전하라!",
-                                type: "sara_story",
-                                updated_at: "2020-09-01 00:00:01",
-                                url: "https://thesaracen.com/event/detail/1567"
-                            },
-                            {
-                                admin_id: 0,
-                                alt: "도전! 9월의 구매왕",
-                                back_img: null,
-                                back_img_pos: null,
-                                color: "#fecf5f",
-                                created_at: "2020-09-01 00:00:01",
-                                id: 848,
-                                img: "8eaeba06617d04f39709078d0368bf22.jpg",
-                                main_copy: "도전! 9월의 구매왕",
-                                mini_img: null,
-                                relation_id: 1598862270,
-                                seq: 0,
-                                sub_copy: "9월 구매왕에 도전하라!",
-                                type: "sara_story",
-                                updated_at: "2020-09-01 00:00:01",
-                                url: "https://thesaracen.com/event/detail/1567"
-                            },
-                            {
-                                admin_id: 0,
-                                alt: "도전! 9월의 구매왕",
-                                back_img: null,
-                                back_img_pos: null,
-                                color: "#fecf5f",
-                                created_at: "2020-09-01 00:00:01",
-                                id: 848,
-                                img: "8eaeba06617d04f39709078d0368bf22.jpg",
-                                main_copy: "도전! 9월의 구매왕",
-                                mini_img: null,
-                                relation_id: 1598862270,
-                                seq: 0,
-                                sub_copy: "9월 구매왕에 도전하라!",
-                                type: "sara_story",
-                                updated_at: "2020-09-01 00:00:01",
-                                url: "https://thesaracen.com/event/detail/1567"
-                            }
-                        ]}/>
+
                         {mainBeltOpen ?
                             <>
                                 <ContentCard/>
