@@ -62,7 +62,7 @@ const Stories: React.FunctionComponent<IProps> = (props) => {
                 index={state.index}
             />
             <div className="story">
-                <ul className="sara_story_1">
+                <ul className="sara_story_1" style={{padding : "0"}}>
                     {state.groupedStories.map((story: any, i) =>
                         <li className="js_story" key={i} onClick={e => handleOpenStory(e, i)}>
                             <span>{story.alt}</span>

@@ -4,11 +4,16 @@ import ContentCard from "../../../Components/Banner/ContentCard";
 import InputCard from "../../../Components/Banner/InputCard";
 import ReserveComponent from "../../../Components/Banner/ReserveComponent";
 
-const MakeupPresenter : React.FunctionComponent = () => {
+interface IProps {
+    bannerList?: []
+    banner?: { relationId: string, img: string }
+}
+
+const MakeupPresenter: React.FunctionComponent<IProps> = ({bannerList, banner}) => {
     return (
-        <BannerLayout name={"메이크업&화장"} height={"435px"} children={
+        <BannerLayout banner={banner} name={"메이크업&화장"} height={"435px"} children={
             <>
-                <ContentCard/>
+                <ContentCard bannerList={bannerList}/>
                 <InputCard uploadHeight={"435px"}/>
                 <ReserveComponent/>
             </>

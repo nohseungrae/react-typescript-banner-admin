@@ -159,6 +159,16 @@ const StoryContainer = styled.div<SProps>`
       }
     }
 `;
+const Logo = styled.div`
+    position: absolute;
+    top: 0;
+    left: 65px;
+    z-index: 10;
+    background : url("https://saracen.azureedge.net/img/banner/image/0/edd57fd9b06b654fc2461612734f5c44.jpg") no-repeat center center;
+    width : 250px;
+    height : 70px;
+`;
+
 const StoryBox = styled.div`
 display: flex;
   height: 100%;
@@ -178,15 +188,55 @@ position: relative;
     padding : 5px;
       .side_stories_content{
         width :100%;
+        height : 100%;
+        .slick-track{
+          display: flex;
+          flex-flow: column nowrap;
+          height : auto !important;
+        }
+        .slick-current .item_wrap{
+          background-color: #ffffff1A;
+        }
         .side_items {
           padding : 2px;
           .side_item{
             padding : 2px;
             color : #ffffff;
+            .item_wrap {
+              border-radius: 6px;
+              margin : 0 5px;
+              padding : 8px;
+              display : flex;
+              .item_left {
+                margin-right : 10px;
+                >div { margin : 2px ;width : 60px;height: 60px; overflow: hidden; border-radius: 50%;}
+                img {width : 100%;height: 100%;object-fit: cover;}
+              }
+              .item_right {
+                width : 100%;
+                display: flex;
+                align-items: center;
+                > div {
+                  display : flex;
+                  flex-direction: column;
+                  flex-grow: 1;
+                  > div:last-child span {
+                    font-size : 12px;
+                  }
+                }
+              }
+            }
           }
         }  
       }
   }
+`;
+const SpanBox = styled.div`
+    padding : 2px 0;
+    display : inline-block;
+    span {
+      font-size : 14px;
+    }
 `;
 const TopSide = styled.div`
 position : absolute;
@@ -259,7 +309,7 @@ const Title = keyframes`
     opacity: 0;  
   }
   to{
-    margin-bottom: 10px;
+    margin-bottom: 60px;
     opacity: 1;
   }
 `
@@ -274,10 +324,20 @@ const Links = keyframes`
     opacity: 1;
   }
 `
+const Heart = keyframes`
+  from {
+    transform: translate(50%,100px);
+    opacity: 0;
+  }
+  to{
+    transform: translate(50%, 0);
+    opacity: 1;
+  }
+`
 
 const StoryFooter = styled.div`
     position: absolute;
-    bottom: 10px;
+    bottom: 50px;
     width: 100%;
     z-index: 999;
 `
@@ -285,7 +345,7 @@ const StoryFooter = styled.div`
 const StoryTitle = styled.div`
     display: flex;
     flex-flow: column wrap;
-    margin-bottom: 10px;
+    margin-bottom: 60px;
     padding: 0 15px;
     color: #fff;
     transition: margin-bottom, opacity 0.5s linear;
@@ -335,12 +395,13 @@ const StoryHeart = styled.div`
     cursor: pointer;
     //border-left: 1px solid #eaeaea;
     position: absolute;
-    bottom: 9px;
-    right: 10px;
+    bottom: 60px;
+    right: 5%;
     width: 55px;
     height: 30px;
     z-index: 1000;
-    animation: ${Links} linear .5s;
+    transform: translate(50%, 0);
+    animation: ${Heart} linear .5s;
     & .heartBtn {
       font-size: 2em;
       position: relative;
@@ -412,7 +473,7 @@ const Progress: React.FunctionComponent<SProps> = ({width, display, bar}) => (
 const NextArrow = ({className, style, onClick}: any) => {
     return (
         <div className={className} style={{
-            ...style, position: "relative", flexGrow: 1, height: "100%", transform: "none"
+            ...style, position: "relative", flexGrow: 1, height: "100%"
         }} onClick={onClick}>
             <ArrowForwardIosSharpIcon style={{
                 color: "gray",
@@ -431,7 +492,7 @@ const PrevArrow = ({className, style, onClick}: any) => {
         <div
             className={className}
             style={{
-                ...style, position: "relative", flexGrow: 1, height: "100%", transform: "none"
+                ...style, position: "relative", flexGrow: 1, height: "100%"
             }} onClick={onClick}
         >
             <ArrowBackIosSharpIcon style={{
@@ -508,7 +569,8 @@ const StorySlider: React.FunctionComponent<SProps> = ({stories, CloseStory, disp
     const settings = {
         dots: false,
         infinite: true,
-        autoplay: true,
+        autoplay: false
+        ,
         speed: 300,
         autoplaySpeed: 6000,
         slidesToShow: 1,
@@ -522,6 +584,10 @@ const StorySlider: React.FunctionComponent<SProps> = ({stories, CloseStory, disp
     usePrevValues(
         useMemo(() => (index), [index]),
         useCallback((prevValues: any) => {
+            setState({
+                nav1: slider,
+                nav2: subSlide
+            })
             if (prevValues === index) {
                 console.log("callback invoked", prevValues, index);
                 const parsedIndex = parseInt(index);
@@ -537,18 +603,37 @@ const StorySlider: React.FunctionComponent<SProps> = ({stories, CloseStory, disp
     return (
         <StoryContainer display={display}>
             <div className="close" onClick={CloseStory}></div>
+            <Logo></Logo>
             <StoryBox>
                 <LeftSide>
                     <div className={"side_stories_box"}>
                         <div className={"side_stories_content"}>
-                            <Slider asNavFor={state.nav1} ref={(slider: Slider) => subSlide = slider}
+                            <Slider asNavFor={state?.nav1} ref={(slider: Slider) => subSlide = slider}
                                     slidesToShow={4} vertical={true}
+                                    speed={300}
                                     focusOnSelect={true} className={"side_items"}>
                                 {
                                     stories.map((story: any, i: number) => {
                                         return (
                                             <div key={i} className={"side_item"}>
-                                                {story.url}
+                                                <div className={"item_wrap"}>
+                                                    <div className={"item_left"}>
+                                                        <div>
+                                                            <img
+                                                                src={`${process.env.REACT_APP_ACTIVE_IMG}/img/banner/image/${story.relation_id}/${story.img}`}/>
+                                                        </div>
+                                                    </div>
+                                                    <div className={"item_right"}>
+                                                        <div>
+                                                            <SpanBox>
+                                                                <span>{story.main_copy}</span>
+                                                            </SpanBox>
+                                                            <SpanBox>
+                                                                <span>{story.sub_copy}</span>
+                                                            </SpanBox>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         )
                                     })

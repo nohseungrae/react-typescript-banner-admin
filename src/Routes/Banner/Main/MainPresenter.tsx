@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import BannerLayout from "../../../Components/Banner/Layout";
 import InputCard from "../../../Components/Banner/InputCard";
 import ReserveComponent from "../../../Components/Banner/ReserveComponent";
@@ -7,17 +7,23 @@ import Context from "../../../Context/context";
 import theme from "@saraceninc/saracen-style-ts/lib/theme";
 import SS from "@saraceninc/saracen-style-ts";
 
-const MainPresenter: React.FunctionComponent = () => {
+interface IProps {
+    bannerList?: []
+    saraStory?: []
+    banners: { logo: any, top: any }
+}
+
+const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners}) => {
 
     const {beltOpen, setBeltOpen, logoOpen, setLogoOpen, mainBeltOpen, setMainBeltOpen} = useContext(Context)
-
     return (
         <>
             <BannerLayout
+                banner={banners?.top}
                 main={true}
                 name={"띠 배너"}
                 maxWidth={"1150px"} height={"75px"}
-                bgColor={"black"}
+                bgColor={banners.top?.color}
                 children={
                     <>
                         <SS.Core.Button style={{position: "absolute", top: "0", right: "0"}} padding={"2px"}
@@ -33,6 +39,7 @@ const MainPresenter: React.FunctionComponent = () => {
                     </>
                 }/>
             <BannerLayout
+                banner={banners?.logo}
                 main={true}
                 name={"로고"}
                 maxWidth={"250px"} height={"70px"}
@@ -52,6 +59,7 @@ const MainPresenter: React.FunctionComponent = () => {
                 }/>
             <BannerLayout
                 main={true}
+                saraStory={saraStory}
                 slider={true}
                 name={"메인 배너&미니 배너"}
                 maxWidth={"760px"} height={"435px"}
@@ -66,7 +74,7 @@ const MainPresenter: React.FunctionComponent = () => {
 
                         {mainBeltOpen ?
                             <>
-                                <ContentCard/>
+                                <ContentCard bannerList={saraStory}/>
                                 <InputCard uploadHeight={"435px"}/>
                                 <ReserveComponent/>
                             </>

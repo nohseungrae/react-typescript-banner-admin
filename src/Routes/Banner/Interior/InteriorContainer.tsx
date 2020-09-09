@@ -1,9 +1,17 @@
 import React from 'react';
 import InteriorPresenter from "./InteriorPresenter";
+import {useQuery} from "@apollo/client";
+import {GET_BANNERS_BY_CATEGORYID} from "../../../Graphql";
 
-const InteriorContainer = () => {
+const InteriorContainer: React.FunctionComponent<any> = ({match: {params: {categoryId, num}}}) => {
 
-    return <InteriorPresenter/>;
+    const {data} = useQuery(GET_BANNERS_BY_CATEGORYID,
+        {
+            variables: {categoryId: parseInt(categoryId)}
+        })
+
+    return <InteriorPresenter bannerList={data?.getBannerListByGraphAndCategoryId}
+                              banner={data?.getBannerListByGraphAndCategoryId[parseInt(num)]}/>;
 
 };
 

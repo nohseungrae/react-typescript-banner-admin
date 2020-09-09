@@ -94,44 +94,44 @@ const LoggedInRoutes: React.FunctionComponent = () => (
                     title: "배너",
                     deps: [
                         {
-                            to: "/banners/main/1",
+                            to: "/banners/main/0",
                             title: "메인",
                             paths: ["/banners/main"],
                         },
                         {
-                            to: "/banners/care/1",
+                            to: "/banners/care/434/0",
                             title: "케어",
-                            paths: ["/banners/care"],
+                            paths: ["/banners/care/434"],
                         },
                         {
-                            to: "/banners/nailart/1",
+                            to: "/banners/nailart/2/0",
                             title: "네일아트",
-                            paths: ["/banners/nailart"],
+                            paths: ["/banners/nailart/2"],
                         },
                         {
-                            to: "/banners/makeup/1",
+                            to: "/banners/makeup/358/0",
                             title: "메이크업&화장",
-                            paths: ["/banners/makeup"],
+                            paths: ["/banners/makeup/358"],
                         },
                         {
-                            to: "/banners/hair/1",
+                            to: "/banners/hair/538/0",
                             title: "헤어미용",
-                            paths: ["/banners/hair"],
+                            paths: ["/banners/hair/538"],
                         },
                         {
-                            to: "/banners/massage/1",
+                            to: "/banners/massage/702/0",
                             title: "스파&마사지",
-                            paths: ["/banners/massage"],
+                            paths: ["/banners/massage/702"],
                         },
                         {
-                            to: "/banners/interior/1",
+                            to: "/banners/interior/204/0",
                             title: "샵인테리어&가구",
-                            paths: ["/banners/interior"],
+                            paths: ["/banners/interior/204"],
                         },
                         {
-                            to: "/banners/accessory/1",
+                            to: "/banners/accessory/513/0",
                             title: "액세서리",
-                            paths: ["/banners/accessory"],
+                            paths: ["/banners/accessory/513"],
                         },
                         {
                             to: "/banners/apploading",
@@ -139,9 +139,9 @@ const LoggedInRoutes: React.FunctionComponent = () => (
                             paths: ["/banners/apploading"],
                         },
                         {
-                            to: "/banners/ads/1",
+                            to: "/banners/ads/0/0",
                             title: "광고배너",
-                            paths: ["/banners/ads"],
+                            paths: ["/banners/ads/0"],
                         },
                     ],
                 },
@@ -165,14 +165,14 @@ const LoggedInRoutes: React.FunctionComponent = () => (
             <Switch>
                 {/*도큐먼트용*/}
                 <Route path="/banners/main/:num" exact={true} component={Main}/>
-                <Route path="/banners/care/:num" component={Care}/>
-                <Route path="/banners/nailart/:num" component={NailArt}/>
-                <Route path="/banners/makeup/:num" component={Makeup}/>
-                <Route path="/banners/hair/:num" component={Hair}/>
-                <Route path="/banners/massage/:num" component={Massage}/>
-                <Route path="/banners/interior/:num" component={Interior}/>
-                <Route path="/banners/accessory/:num" component={Accessory}/>
-                <Route path="/banners/ads/:num" component={Ads}/>
+                <Route path="/banners/care/:categoryId/:num" component={Care}/>
+                <Route path="/banners/nailart/:categoryId/:num" component={NailArt}/>
+                <Route path="/banners/makeup/:categoryId/:num" component={Makeup}/>
+                <Route path="/banners/hair/:categoryId/:num" component={Hair}/>
+                <Route path="/banners/massage/:categoryId/:num" component={Massage}/>
+                <Route path="/banners/interior/:categoryId/:num" component={Interior}/>
+                <Route path="/banners/accessory/:categoryId/:num" component={Accessory}/>
+                <Route path="/banners/ads/:categoryId/:num" component={Ads}/>
                 <Route path="/banners/apploading" component={AppLoading}/>
                 {/*필수요소 - 로그인 : 삭제불가*/}
                 <Route path="/auth/login" exact={true} component={Login}/>

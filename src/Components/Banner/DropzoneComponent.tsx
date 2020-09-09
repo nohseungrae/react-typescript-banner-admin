@@ -47,7 +47,7 @@ const Preview = styled.div<DropProps>`
     min-height : ${props => props.uploadHeight};
     position: relative;
     &::before{
-    content : "이벤트 사진 - 업로드가능";
+    content : "";
     z-index: ${props => !props.exist ? "1" : "-1"};
     position : absolute;
     top: 30%;

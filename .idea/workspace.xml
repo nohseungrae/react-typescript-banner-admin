@@ -20,14 +20,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e21bbc26-2a9f-49b5-a204-c26d0209568e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ApolloClient.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Graphql/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/App/AppContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/App/AppContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/App/AppPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/App/AppPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Banner/ContentCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/ContentCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Banner/DropzoneComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/DropzoneComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/Layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/Slider/Stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/Slider/Stories.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/Slider/StorySlider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/Slider/StorySlider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Context/contextProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Context/contextProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Accessory/AccessoryContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Accessory/AccessoryContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Accessory/AccessoryPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Accessory/AccessoryPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/BannerContainer.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/BannerPresenter.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Care/CareContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Care/CareContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Care/CarePresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Care/CarePresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Interior/InteriorContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Interior/InteriorContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Interior/InteriorPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Interior/InteriorPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Main/MainContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Main/MainContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Main/MainPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Main/MainPresenter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Massage/MassageContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Massage/MassageContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Massage/MassagePresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Massage/MassagePresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/NailArt/NailArtContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/NailArt/NailArtContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/NailArt/NailArtPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/NailArt/NailArtPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AzureUpload/azureUpload.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.blob.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.blob.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.file.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.file.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.queue.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.queue.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.table.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AzureUpload/bundle/azure-storage.table.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +80,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Routes/Banner/Main" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
@@ -86,7 +120,15 @@
       <workItem from="1598572888543" duration="20734000" />
       <workItem from="1598831787294" duration="21073000" />
       <workItem from="1598919108168" duration="22279000" />
-      <workItem from="1599005068172" duration="23038000" />
+      <workItem from="1599005068172" duration="23264000" />
+      <workItem from="1599092813367" duration="9571000" />
+      <workItem from="1599113420320" duration="543000" />
+      <workItem from="1599177829709" duration="588000" />
+      <workItem from="1599183904238" duration="600000" />
+      <workItem from="1599438069040" duration="3290000" />
+      <workItem from="1599452056771" duration="1332000" />
+      <workItem from="1599523250561" duration="8675000" />
+      <workItem from="1599609722878" duration="17689000" />
     </task>
     <servers />
   </component>
@@ -110,22 +152,22 @@
       <screen x="2560" y="23" width="1920" height="1057" />
     </state>
     <state x="3333" y="274" key="#com.intellij.ide.util.MemberChooser/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598326734543" />
-    <state x="630" y="354" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1599036466706">
+    <state x="630" y="354" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1599641925006">
       <screen x="0" y="23" width="2560" height="1332" />
     </state>
-    <state x="630" y="354" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1599036466706" />
+    <state x="630" y="354" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1599641925006" />
     <state x="3108" y="164" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1598943856570">
       <screen x="2560" y="23" width="1920" height="1057" />
     </state>
     <state x="3108" y="164" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598943856570" />
-    <state x="1208" y="200" width="988" height="855" key="find.popup" timestamp="1598931638945">
+    <state x="1208" y="200" width="988" height="855" key="find.popup" timestamp="1599104826707">
       <screen x="0" y="23" width="2560" height="1332" />
     </state>
-    <state x="1208" y="200" width="988" height="855" key="find.popup/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598931638945" />
-    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1599030457305">
+    <state x="1208" y="200" width="988" height="855" key="find.popup/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1599104826707" />
+    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1599628528030">
       <screen x="2560" y="23" width="1920" height="1057" />
     </state>
-    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1599030457305" />
+    <state x="3185" y="258" width="670" height="676" key="search.everywhere.popup/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1599628528030" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
