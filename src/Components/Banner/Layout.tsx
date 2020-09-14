@@ -192,8 +192,6 @@ const BasicLayout: React.FunctionComponent<IProps> = ({
     if (height === "70px" || height === "500px") {
         imgBoxWidth = "fit-content"
     }
-
-    console.log(saraStory)
     return (
         <Row style={{position: "relative"}}>
             <Col height={height}>
@@ -202,26 +200,7 @@ const BasicLayout: React.FunctionComponent<IProps> = ({
                                              theme={theme.pink}>적용중</SS.Core.Button>
                 </Text>
                 {slider ?
-                    <SaracenStoryBanner stories={saraStory ? saraStory : [
-                        {
-                            adminId: 0,
-                            alt: "한 눈에 보는, 사라센 회원 혜택!!",
-                            backImg: null,
-                            backImgPos: null,
-                            color: "#fce9ed",
-                            createdAt: "2020-09-02T15:00:01.000Z",
-                            id: "851",
-                            img: "9474efca272f0381ff3056a4dccae4bd.jpg",
-                            mainCopy: "한 눈에 보는, 사라센 회원 혜택!!",
-                            miniImg: null,
-                            relationId: 1599029344,
-                            seq: 99,
-                            subCopy: "",
-                            type: "sara_story",
-                            updatedAt: "2020-09-07T00:11:44.000Z",
-                            url: "https://thesaracen.com/cs/bbs-detail/69916/"
-                        },
-                    ]}/> :
+                    (saraStory ? <SaracenStoryBanner stories={saraStory}/> : null) :
                     <SS.Core.Col
                         style={{
                             alignItems: "center",

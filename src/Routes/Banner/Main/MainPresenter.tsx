@@ -6,16 +6,19 @@ import ContentCard from "../../../Components/Banner/ContentCard";
 import Context from "../../../Context/context";
 import theme from "@saraceninc/saracen-style-ts/lib/theme";
 import SS from "@saraceninc/saracen-style-ts";
+import {IStory} from "saracen-storybanner/lib/Stories";
 
 interface IProps {
     bannerList?: []
-    saraStory?: []
+    saraStory: any[]
     banners: { logo: any, top: any }
+    mainBanner : any
 }
 
-const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners}) => {
+const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners,mainBanner}) => {
 
     const {beltOpen, setBeltOpen, logoOpen, setLogoOpen, mainBeltOpen, setMainBeltOpen} = useContext(Context)
+    console.log(saraStory)
     return (
         <>
             <BannerLayout
@@ -23,7 +26,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners}) =>
                 main={true}
                 name={"띠 배너"}
                 maxWidth={"1150px"} height={"75px"}
-                bgColor={banners.top?.color}
+                bgColor={banners?.top?.color}
                 children={
                     <>
                         <SS.Core.Button style={{position: "absolute", top: "0", right: "0"}} padding={"2px"}
@@ -50,7 +53,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners}) =>
                             CHANGE</SS.Core.Button>
                         {logoOpen ?
                             <>
-                                <InputCard uploadHeight={"70px"}/>
+                                <InputCard logo={true} uploadHeight={"70px"}/>
                                 <ReserveComponent/>
                             </>
                             :
@@ -61,7 +64,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners}) =>
                 main={true}
                 saraStory={saraStory}
                 slider={true}
-                name={"메인 배너&미니 배너"}
+                name={"사라스토리"}
                 maxWidth={"760px"} height={"435px"}
                 bgColor={"yellow"}
                 margin={"0 0 0 190px"}
@@ -75,7 +78,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners}) =>
                         {mainBeltOpen ?
                             <>
                                 <ContentCard bannerList={saraStory}/>
-                                <InputCard uploadHeight={"435px"}/>
+                                <InputCard story={true}  banner={mainBanner} uploadHeight={"435px"}/>
                                 <ReserveComponent/>
                             </>
                             :

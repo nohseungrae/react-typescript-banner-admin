@@ -97,7 +97,7 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight}) => {
         // Make sure to revoke the data uris to avoid memory leaks
         console.log(files)
         if (files.length > 0) {
-            const image = document.querySelector("#image") as any
+            const image = document.querySelector("#img") as any
             setTimeout(() => {
                 image.dispatchEvent(new Event("blur", {bubbles: false}))
             }, [500])

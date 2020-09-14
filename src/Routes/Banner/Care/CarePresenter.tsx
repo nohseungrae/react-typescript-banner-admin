@@ -6,7 +6,12 @@ import ContentCard from "../../../Components/Banner/ContentCard";
 
 interface IProps {
     bannerList?: []
-    banner?: { relationId: string, img: string }
+    banner?: {
+        id: number, relationId: number,
+        img: string, type: string,
+        url: string, alt: string,
+        mainCopy: string
+    }
 }
 
 const CarePresenter: React.FunctionComponent<IProps> = ({bannerList, banner}) => {
@@ -16,7 +21,7 @@ const CarePresenter: React.FunctionComponent<IProps> = ({bannerList, banner}) =>
                       children={
                           <>
                               <ContentCard bannerList={bannerList}/>
-                              <InputCard uploadHeight={"435px"}/>
+                              <InputCard banner={banner} uploadHeight={"435px"}/>
                               <ReserveComponent/>
                           </>
                       }/>

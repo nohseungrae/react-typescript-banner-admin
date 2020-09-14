@@ -34,3 +34,49 @@ export const GET_BANNERS_BY_TYPE = gql`
         }
     }
 `;
+
+export const ADD_BANNER = gql`
+    mutation Banner($bannerData : BannerInput!){
+        addBannerByGraph(bannerData : $bannerData){
+            adminId
+            alt
+            backImg
+            backImgPos
+            color
+            createdAt
+            id
+            img
+            mainCopy
+            miniImg
+            relationId
+            seq
+            subCopy
+            type
+            updatedAt
+            url
+        }
+    }
+`;
+
+export const UPDATE_BANNER = gql`
+    mutation Banner($bannerUpdateData : BannerInput!, $id : Float!){
+        updateBannerByGraph(bannerUpdateData : $bannerUpdateData, id : $id){
+            adminId
+            alt
+            backImg
+            backImgPos
+            color
+            createdAt
+            id
+            img
+            mainCopy
+            miniImg
+            relationId
+            seq
+            subCopy
+            type
+            updatedAt
+            url
+        }
+    }
+`;
