@@ -11,7 +11,7 @@ const InteriorContainer: React.FunctionComponent<any> = ({match: {params: {categ
         })
 
     return <InteriorPresenter bannerList={data?.getBannerListByGraphAndCategoryId}
-                              banner={data?.getBannerListByGraphAndCategoryId[parseInt(num)]}/>;
+                              banner={{interior: data?.getBannerListByGraphAndCategoryId[parseInt(num)]}}/>;
 
 };
 

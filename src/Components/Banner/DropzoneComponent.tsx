@@ -21,7 +21,6 @@ const Drop = styled.div<DropProps>`
         &::before {
           content:  "";
           position: absolute;
-          ${props => props.exist ? "width : 0" : "width : 6px"};
           height : 40px;
           left : 50%;
           top : 50%;
@@ -33,7 +32,6 @@ const Drop = styled.div<DropProps>`
           content:  "";
           position: absolute;
           width : 40px;
-          ${props => props.exist ? "height : 0" : "height : 6px"};
           left : 50%;
           top : 50%;
           border-radius: 5px;
@@ -55,20 +53,20 @@ const Preview = styled.div<DropProps>`
     font-weight: bold;
     color : #3f51b5;
     transform: translate(-50%,0%);
- 
     }
 `;
 
 interface IProps {
     uploadHeight?: string
     pathname?: string
+    imgPath?: string
 }
 
 interface FileProps extends File {
     preview: string | undefined
 }
 
-const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight}) => {
+const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight, imgPath}) => {
 
     const {
         files, setFiles, setFilename, setReserveCheck, pathname
@@ -83,19 +81,22 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight}) => {
         }
     });
 
-    const thumbs = files.map((file: FileProps) => (
-        <div style={{overflow: "auto", height: "100%", width: "100%"}} key={file.name}>
+    const thumbs = (file: FileProps | undefined) => (
+        <div style={{overflow: "auto", height: "100%", width: "100%"}} key={file?.name}>
             {
-                file.preview ? <img style={{maxWidth: "100%"}}
-                                    src={file?.preview}
-                /> : <></>
+                file?.preview ? <img style={{maxWidth: "100%"}}
+                                     src={file?.preview}
+                /> : <img style={{maxWidth: "100%"}}
+                          src={`${process.env.REACT_APP_ACTIVE_IMG}img/banner/image/${imgPath}`}
+                />
             }
+            {console.log(file)}
         </div>
-    ));
+    );
 
     useEffect(() => {
         // Make sure to revoke the data uris to avoid memory leaks
-        console.log(files)
+
         if (files.length > 0) {
             const image = document.querySelector("#img") as any
             setTimeout(() => {
@@ -104,9 +105,7 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight}) => {
             files.forEach((file: FileProps) => {
                 setFilename(file.name);
             });
-
         }
-
     }, [files]);
 
     useEffect(() => {
@@ -128,8 +127,9 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight}) => {
         <Inner className="container">
             <Drop {...getRootProps({className: 'dropzone'})} exist={acceptedFiles.length > 0 ? true : false}>
                 <input {...getInputProps()} />
-                <Preview exist={acceptedFiles.length > 0 ? true : false} uploadHeight={uploadHeight}>
-                    {thumbs}
+                <Preview exist={acceptedFiles.length > 0 || imgPath ? true : false} uploadHeight={uploadHeight}>
+                    {files?.map((file: FileProps) => (thumbs(file)))}
+                    {imgPath && files.length < 1 ? thumbs(undefined) : ""}
                 </Preview>
             </Drop>
 

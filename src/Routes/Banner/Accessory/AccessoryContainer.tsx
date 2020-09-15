@@ -11,7 +11,7 @@ const AccessoryContainer: React.FunctionComponent<any> = ({match: {params: {cate
         })
 
     return <AccessoryPresenter bannerList={data?.getBannerListByGraphAndCategoryId}
-                               banner={data?.getBannerListByGraphAndCategoryId[parseInt(num)]}/>;
+                               banner={{accessory: data?.getBannerListByGraphAndCategoryId[parseInt(num)]}}/>;
 };
 
 export default AccessoryContainer;

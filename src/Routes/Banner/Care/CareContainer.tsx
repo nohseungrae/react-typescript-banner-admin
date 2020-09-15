@@ -9,9 +9,8 @@ const CareContainer: React.FunctionComponent<any> = ({match: {params: {categoryI
         {
             variables: {categoryId: parseInt(categoryId)}
         })
-
     return <CarePresenter bannerList={data?.getBannerListByGraphAndCategoryId}
-                          banner={data?.getBannerListByGraphAndCategoryId[parseInt(num)]}/>;
+                          banner={{care: data?.getBannerListByGraphAndCategoryId[parseInt(num)]}}/>;
 };
 
 export default CareContainer;

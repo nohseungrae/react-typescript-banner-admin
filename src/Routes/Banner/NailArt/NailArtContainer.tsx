@@ -11,7 +11,7 @@ const NailArtContainer: React.FunctionComponent<any> = ({match: {params: {catego
         })
 
     return <NailArtPresenter bannerList={data?.getBannerListByGraphAndCategoryId}
-                             banner={data?.getBannerListByGraphAndCategoryId[parseInt(num)]}/>;
+                             banner={{nailArt: data?.getBannerListByGraphAndCategoryId[parseInt(num)]}}/>;
 };
 
 export default NailArtContainer;

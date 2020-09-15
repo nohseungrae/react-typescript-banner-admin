@@ -7,7 +7,7 @@ const AppLoadingPresenter = () => {
     return (
         <BannerLayout name={"앱로딩화면"} height={"fit-content"} imgBoxWidth={"fit-content"} children={
             <>
-                <InputCard uploadHeight={"fit-content"}/>
+                {/*<InputCard uploadHeight={"fit-content"}/>*/}
                 <ReserveComponent/>
             </>
         }/>

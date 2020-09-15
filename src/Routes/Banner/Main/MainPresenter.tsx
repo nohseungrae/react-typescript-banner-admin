@@ -12,10 +12,10 @@ interface IProps {
     bannerList?: []
     saraStory: any[]
     banners: { logo: any, top: any }
-    mainBanner : any
+    mainBanner: any
 }
 
-const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners,mainBanner}) => {
+const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mainBanner}) => {
 
     const {beltOpen, setBeltOpen, logoOpen, setLogoOpen, mainBeltOpen, setMainBeltOpen} = useContext(Context)
     console.log(saraStory)
@@ -34,7 +34,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners,main
                             CHANGE</SS.Core.Button>
                         {beltOpen ?
                             <>
-                                <InputCard uploadHeight={"75px"}/>
+                                <InputCard top={true} banner={banners.top} uploadHeight={"75px"}/>
                                 <ReserveComponent/>
                             </>
                             :
@@ -53,7 +53,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners,main
                             CHANGE</SS.Core.Button>
                         {logoOpen ?
                             <>
-                                <InputCard logo={true} uploadHeight={"70px"}/>
+                                <InputCard logo={true} banner={banners.logo} uploadHeight={"70px"}/>
                                 <ReserveComponent/>
                             </>
                             :
@@ -78,7 +78,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners,main
                         {mainBeltOpen ?
                             <>
                                 <ContentCard bannerList={saraStory}/>
-                                <InputCard story={true}  banner={mainBanner} uploadHeight={"435px"}/>
+                                <InputCard story={true} banner={mainBanner} uploadHeight={"435px"}/>
                                 <ReserveComponent/>
                             </>
                             :

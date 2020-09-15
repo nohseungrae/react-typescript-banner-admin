@@ -50,22 +50,50 @@ let ContactFormSchema = yup.object().shape({
     subCopy: yup.string().required("빈 칸을 채워주세요."),
     color: yup.string().required("빈 칸을 채워주세요."),
     seq: yup.number().min(0, "숫자를 채워주세요").required("빈 칸을 채워주세요."),
-    img: yup.string().required("이미지를 채워주세요.")
+    img: yup.string().required("이미지를 채워주세요."),
+    backImg: yup.string().required("이미지를 채워주세요.")
 })
 
+export interface IBanner {
+    id?: number,
+    relationId?: number,
+    img?: string,
+    type?: string,
+    url?: string,
+    alt?: string,
+    color?: string,
+    seq?: number,
+    subCopy?: string,
+    mainCopy?: string,
+    backImgPos?: string,
+    backImg?: string
+}
+
+export interface IBanners {
+    saraStory?: IBanner,
+    logo?: IBanner,
+    top?: IBanner,
+    accessory?: IBanner,
+    care?: IBanner,
+    hair?: IBanner,
+    nailArt?: IBanner,
+    interior?: IBanner,
+    makeUp?: IBanner,
+    massage?: IBanner
+    // [key: string]: IBanner;
+}
+
 interface IProps {
+    bannerIndex?: number
     uploadHeight?: string
-    banner?: {
-        id: number, relationId: number,
-        img: string, type: string,
-        url: string, alt: string,
-        mainCopy: string
-    }
+    banner: IBanners
     story?: boolean
     logo?: boolean
+    top?: boolean
 }
 
 interface Values {
+    backImg?: string;
     type?: string;
     relationId?: number;
     adminId?: number;
@@ -76,11 +104,19 @@ interface Values {
     color?: string;
     seq?: number;
     alt?: string;
+    backImgPos?: string
 
 }
 
 
-const InputCard: React.FunctionComponent<IProps> = ({uploadHeight, banner, story, logo}) => {
+const InputCard: React.FunctionComponent<IProps> = ({
+                                                        uploadHeight,
+                                                        banner,
+                                                        story,
+                                                        logo,
+                                                        top,
+                                                        bannerIndex
+                                                    }) => {
 
         const {
             reserveCheck, handleReserve, filename, files,
@@ -88,34 +124,46 @@ const InputCard: React.FunctionComponent<IProps> = ({uploadHeight, banner, story
         } = useContext(Context);
 
         const [flash, setFlash] = useState(false);
-        let initalValues: Values = {
-            type: banner?.type,
-            relationId: banner?.relationId,
-            adminId: 0,
-            img: '',
-            url: '',
-            alt: ''
-        }
-        useEffect(() => {
+        const [initalValues, setValueData] = useState<IBanners>()
+        const [key, setKey] = useState<string>()
 
-        }, [])
+        const valueChange = (e: any) => {
+            const {target: {name}} = e;
+            const {target: {value}} = e;
+            console.log("에바")
+            if (initalValues) {
+                setValueData({
+                    [key as keyof IBanners]: {
+                        ...initalValues[key as keyof IBanners],
+                        [name]: value
+                    }
+                })
+            }
+        }
+
+        useEffect(() => {
+            if (banner) {
+                const keyArray: string[] = Object.keys(banner);
+                setKey(keyArray[0]);
+                console.log(banner[keyArray[0] as keyof IBanners])
+                setValueData({
+                        ...initalValues,
+                        [keyArray[0]]: banner[keyArray[0] as keyof IBanners]
+                    }
+                )
+            }
+
+
+        }, [bannerIndex])
 
         const [updateBanner, {data, loading}] = useMutation(UPDATE_BANNER)
 
+        console.log(initalValues)
         return (
             <SS.Core.Row>
                 <Col className={"formik"}>
                     <Formik
-                        initialValues={
-                            story ?
-                                initalValues = {
-                                    ...initalValues,
-                                    mainCopy: '',
-                                    subCopy: '',
-                                    color: '',
-                                    seq: -1
-                                } : initalValues
-                        }
+                        initialValues={initalValues as IBanners}
                         validationSchema={ContactFormSchema}
                         onSubmit={async (
                             values: Values,
@@ -134,8 +182,8 @@ const InputCard: React.FunctionComponent<IProps> = ({uploadHeight, banner, story
                             // });
                             await updateBanner({
                                 variables: {
-                                    bannerUpdateData: {...values, relationId: banner?.relationId, type: banner?.type},
-                                    id: banner?.id
+                                    // bannerUpdateData: {...values, relationId: banner?.relationId, type: banner?.type},
+                                    // id: banner?.id
                                 }
                             })
                         }}
@@ -148,18 +196,41 @@ const InputCard: React.FunctionComponent<IProps> = ({uploadHeight, banner, story
                                  setFieldValue,
                              }: any) => (
                                 <>
-                                    {console.log(initalValues)}
-                                    <DropzoneComponent uploadHeight={uploadHeight}/>
+                                    {/*<DropzoneComponent imgPath={`${banner?.relationId}/${banner?.img}`}*/}
+                                    {/*                   uploadHeight={uploadHeight}/>*/}
                                     <FormUpload>
-                                        {story ?
-                                            <>
-                                                <Group
+                                        {
+                                            logo ?
+                                                <>
+                                                    {/*<DropzoneComponent imgPath={`${banner?.relationId}/${banner?.backImg}`}*/}
+                                                    {/*                   uploadHeight={uploadHeight}/>*/}
+                                                    <Group
+                                                        margin={"dense"}
+                                                        error={errors.backImgPos && touched.backImgPos}
+                                                        onChange={valueChange}
+                                                        autoComplete="backImgPos"
+                                                        name="backImgPos"
+                                                        variant="outlined"
+                                                        value={initalValues && (bannerIndex === initalValues[key as keyof IBanners]?.id) ? initalValues[key as keyof IBanners]?.backImgPos : ""}
+                                                        id="backImgPos"
+                                                        label="위치"
+                                                        placeholder="박스 위치를 설정하여 주십시오."
+                                                        color={"secondary"}
+                                                        helperText={
+                                                            errors.backImgPos && touched.backImgPos
+                                                                ? errors.backImgPos
+                                                                : null
+                                                        }
+                                                    />
+                                                </>
+                                                : <Group
                                                     margin={"dense"}
                                                     error={errors?.alt && touched?.alt}
-                                                    onChange={handleChange}
+                                                    onChange={valueChange}
                                                     autoComplete="alt"
                                                     name="alt"
                                                     variant="outlined"
+                                                    value={initalValues && (bannerIndex === initalValues[key as keyof IBanners]?.id) ? initalValues[key as keyof IBanners]?.alt : ""}
                                                     id="alt"
                                                     label="제목"
                                                     color={"secondary"}
@@ -169,13 +240,36 @@ const InputCard: React.FunctionComponent<IProps> = ({uploadHeight, banner, story
                                                             : null
                                                     }
                                                 />
+                                        }
+                                        {top ?
+                                            <Group
+                                                margin={"dense"}
+                                                error={errors?.color && touched?.color}
+                                                onChange={valueChange}
+                                                autoComplete="color"
+                                                name="color"
+                                                variant="outlined"
+                                                value={initalValues && (bannerIndex === initalValues[key as keyof IBanners]?.id) ? initalValues[key as keyof IBanners]?.color : ""}
+                                                id="color"
+                                                label="배경색"
+                                                color={"secondary"}
+                                                helperText={
+                                                    errors?.color && touched?.color
+                                                        ? errors?.color
+                                                        : null
+                                                }
+                                            />
+                                            : <></>}
+                                        {story ?
+                                            <>
                                                 <Group
                                                     margin={"dense"}
                                                     error={errors?.mainCopy && touched?.mainCopy}
-                                                    onChange={handleChange}
+                                                    onChange={valueChange}
                                                     autoComplete="mainCopy"
                                                     name="mainCopy"
                                                     variant="outlined"
+                                                    value={initalValues && (bannerIndex === initalValues[key as keyof IBanners]?.id) ? initalValues[key as keyof IBanners]?.mainCopy : ""}
                                                     id="mainCopy"
                                                     label="메인카피"
                                                     color={"secondary"}
@@ -188,10 +282,11 @@ const InputCard: React.FunctionComponent<IProps> = ({uploadHeight, banner, story
                                                 <Group
                                                     margin={"dense"}
                                                     error={errors?.subCopy && touched?.subCopy}
-                                                    onChange={handleChange}
+                                                    onChange={valueChange}
                                                     autoComplete="subCopy"
                                                     name="subCopy"
                                                     variant="outlined"
+                                                    value={initalValues && (bannerIndex === initalValues[key as keyof IBanners]?.id) ? initalValues[key as keyof IBanners]?.subCopy : ""}
                                                     id="subCopy"
                                                     label="서브카피"
                                                     color={"secondary"}
@@ -204,10 +299,11 @@ const InputCard: React.FunctionComponent<IProps> = ({uploadHeight, banner, story
                                                 <Group
                                                     margin={"dense"}
                                                     error={errors?.color && touched?.color}
-                                                    onChange={handleChange}
+                                                    onChange={valueChange}
                                                     autoComplete="color"
                                                     name="color"
                                                     variant="outlined"
+                                                    value={initalValues && (bannerIndex === initalValues[key as keyof IBanners]?.id) ? initalValues[key as keyof IBanners]?.color : ""}
                                                     id="color"
                                                     label="배경색"
                                                     color={"secondary"}
@@ -220,10 +316,11 @@ const InputCard: React.FunctionComponent<IProps> = ({uploadHeight, banner, story
                                                 <Group
                                                     margin={"dense"}
                                                     error={errors?.seq && touched?.seq}
-                                                    onChange={handleChange}
+                                                    onChange={valueChange}
                                                     autoComplete="seq"
                                                     name="seq"
                                                     variant="outlined"
+                                                    value={initalValues && (bannerIndex === initalValues[key as keyof IBanners]?.id) ? initalValues[key as keyof IBanners]?.seq : ""}
                                                     id="seq"
                                                     label="순서"
                                                     color={"secondary"}
@@ -233,82 +330,24 @@ const InputCard: React.FunctionComponent<IProps> = ({uploadHeight, banner, story
                                                             : null
                                                     }
                                                 />
-                                                <Group
-                                                    margin={"dense"}
-                                                    error={errors.url && touched.url}
-                                                    onChange={handleChange}
-                                                    autoComplete="url"
-                                                    name="url"
-                                                    variant="outlined"
-                                                    id="url"
-                                                    label="링크"
-                                                    color={"secondary"}
-                                                    helperText={
-                                                        errors.url && touched.url
-                                                            ? errors.url
-                                                            : null
-                                                    }
-                                                />
+
                                             </>
                                             : <></>
                                         }
-                                        {
-                                            logo ?
-                                                <>
-                                                    <Group
-                                                        margin={"dense"}
-                                                        error={errors.miniImg && touched.miniImg}
-                                                        autoComplete="miniImg"
-                                                        onBlur={() => setFieldValue('miniImg', filename)}
-                                                        name="miniImg"
-                                                        variant="outlined"
-                                                        id="miniImg"
-                                                        placeholder="위 박스를 클릭하여 이미지를 올려주세요."
-                                                        value={filename ? filename : ""}
-                                                        disabled={filename ? false : true}
-                                                        color={"secondary"}
-                                                        autoFocus
-                                                        helperText={
-                                                            errors.miniImg && touched.miniImg
-                                                                ? errors.miniImg
-                                                                : null
-                                                        }
-                                                    />
-                                                    <Group
-                                                        margin={"dense"}
-                                                        error={errors.backImgPos && touched.backImgPos}
-                                                        onChange={handleChange}
-                                                        autoComplete="backImgPos"
-                                                        name="backImgPos"
-                                                        variant="outlined"
-                                                        id="backImgPos"
-                                                        placeholder="위 박스를 클릭하여 이미지를 올려주세요."
-                                                        value={filename ? filename : ""}
-                                                        disabled={filename ? false : true}
-                                                        color={"secondary"}
-                                                        autoFocus
-                                                        helperText={
-                                                            errors.backImgPos && touched.backImgPos
-                                                                ? errors.backImgPos
-                                                                : null
-                                                        }
-                                                    />
-                                                </>
-                                                : <></>
-                                        }
                                         <Group
                                             margin={"dense"}
-                                            error={errors?.alt && touched?.alt}
-                                            onChange={handleChange}
-                                            autoComplete="alt"
-                                            name="alt"
+                                            error={errors.url && touched.url}
+                                            onChange={valueChange}
+                                            autoComplete="url"
+                                            name="url"
                                             variant="outlined"
-                                            id="alt"
-                                            label="제목"
+                                            value={initalValues && (bannerIndex === initalValues[key as keyof IBanners]?.id) ? initalValues[key as keyof IBanners]?.url : ""}
+                                            id="url"
+                                            label="링크"
                                             color={"secondary"}
                                             helperText={
-                                                errors?.alt && touched?.alt
-                                                    ? errors?.alt
+                                                errors.url && touched.url
+                                                    ? errors.url
                                                     : null
                                             }
                                         />
@@ -320,8 +359,8 @@ const InputCard: React.FunctionComponent<IProps> = ({uploadHeight, banner, story
                                             name="img"
                                             variant="outlined"
                                             id="img"
-                                            placeholder="위 박스를 클릭하여 이미지를 올려주세요."
-                                            value={filename ? filename : ""}
+                                            placeholder="위 박스를 클릭하여 사진 이미지를 올려주세요."
+                                            value={initalValues && (bannerIndex === initalValues[key as keyof IBanners]?.id) ? initalValues[key as keyof IBanners]?.img : ""}
                                             disabled={filename ? false : true}
                                             color={"secondary"}
                                             autoFocus
@@ -331,6 +370,28 @@ const InputCard: React.FunctionComponent<IProps> = ({uploadHeight, banner, story
                                                     : null
                                             }
                                         />
+                                        {logo ?
+                                            <>
+                                                <Group
+                                                    margin={"dense"}
+                                                    error={errors.backImg && touched.backImg}
+                                                    autoComplete="backImg"
+                                                    onBlur={() => setFieldValue('backImg', filename)}
+                                                    name="backImg"
+                                                    variant="outlined"
+                                                    id="backImg"
+                                                    placeholder="위 박스를 클릭하여 배경이미지를 올려주세요."
+                                                    value={initalValues && (bannerIndex === initalValues[key as keyof IBanners]?.id) ? initalValues[key as keyof IBanners]?.backImg : ""}
+                                                    disabled={filename ? false : true}
+                                                    color={"secondary"}
+                                                    helperText={
+                                                        errors.backImg && touched.backImg
+                                                            ? errors.backImg
+                                                            : null
+                                                    }
+                                                />
+                                            </>
+                                            : <></>}
                                         <SS.Core.RowF>
                                             <Button
                                                 type="submit"

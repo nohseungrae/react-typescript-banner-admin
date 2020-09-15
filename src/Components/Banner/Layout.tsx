@@ -175,6 +175,40 @@ interface IProps {
     saraStory?: any
 }
 
+
+const BannerLayout: React.FunctionComponent<IProps> = ({
+                                                           slider,
+                                                           children, main,
+                                                           height,
+                                                           maxWidth,
+                                                           imgBoxWidth,
+                                                           bgColor,
+                                                           name,
+                                                           margin,
+                                                           banner,
+                                                           saraStory
+                                                       }) => {
+
+    return (
+        <SS.Core.Container>
+            <SS.Core.Inner>
+                {main ?
+                    <>
+                        <BasicLayout main={main} slider={slider} name={name} height={height} maxWidth={maxWidth}
+                                     bgColor={bgColor}
+                                     margin={margin}
+                                     saraStory={saraStory}
+                                     banner={banner}
+                                     children={children}/>
+                    </>
+
+                    :
+                    <BasicLayout name={name} height={height} banner={banner} children={children}/>
+                }
+            </SS.Core.Inner>
+        </SS.Core.Container>
+    );
+};
 const BasicLayout: React.FunctionComponent<IProps> = ({
                                                           slider,
                                                           main,
@@ -216,38 +250,4 @@ const BasicLayout: React.FunctionComponent<IProps> = ({
         </Row>
     )
 }
-const BannerLayout: React.FunctionComponent<IProps> = ({
-                                                           slider,
-                                                           children, main,
-                                                           height,
-                                                           maxWidth,
-                                                           imgBoxWidth,
-                                                           bgColor,
-                                                           name,
-                                                           margin,
-                                                           banner,
-                                                           saraStory
-                                                       }) => {
-
-    return (
-        <SS.Core.Container>
-            <SS.Core.Inner>
-                {main ?
-                    <>
-                        <BasicLayout main={main} slider={slider} name={name} height={height} maxWidth={maxWidth}
-                                     bgColor={bgColor}
-                                     margin={margin}
-                                     saraStory={saraStory}
-                                     banner={banner}
-                                     children={children}/>
-                    </>
-
-                    :
-                    <BasicLayout name={name} height={height} banner={banner} children={children}/>
-                }
-            </SS.Core.Inner>
-        </SS.Core.Container>
-    );
-};
-
 export default BannerLayout;

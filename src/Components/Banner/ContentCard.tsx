@@ -29,7 +29,7 @@ const ContentCard = withRouter(({match, bannerList}: any) => {
     const goToHere = match.path.split("/")[2];
     const {params: {num, categoryId}} = match;
 
-    console.log(bannerList)
+    console.log(bannerList,match)
 
     return (
         <SS.Core.RowF style={
@@ -41,7 +41,7 @@ const ContentCard = withRouter(({match, bannerList}: any) => {
         }>
             {
                 bannerList?.length > 0 && bannerList?.map((list: any, index: number) => {
-                    console.log(num, index)
+                    console.log(num, index,list.id)
                     if (num.length > 1) {
                         return <Redirect to={"/"}/>
                     }

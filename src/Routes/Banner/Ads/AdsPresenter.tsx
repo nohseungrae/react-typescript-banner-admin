@@ -9,7 +9,7 @@ const AdsPresenter: React.FunctionComponent = () => {
         <BannerLayout name={"광고배너"} children={
             <>
                 <ContentCard/>
-                <InputCard/>
+                {/*<InputCard/>*/}
                 <ReserveComponent/>
             </>
         }/>

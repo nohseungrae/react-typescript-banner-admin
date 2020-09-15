@@ -11,7 +11,7 @@ const MassageContainer: React.FunctionComponent<any> = ({match: {params: {catego
         })
 
     return <MassagePresenter bannerList={data?.getBannerListByGraphAndCategoryId}
-                             banner={data?.getBannerListByGraphAndCategoryId[parseInt(num)]}/>;
+                             banner={{massage: data?.getBannerListByGraphAndCategoryId[parseInt(num)]}}/>;
 
 };
 

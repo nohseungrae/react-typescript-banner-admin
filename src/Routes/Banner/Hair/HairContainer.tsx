@@ -12,7 +12,7 @@ const HairContainer: React.FunctionComponent<any> = ({match: {params: {categoryI
         })
 
     return <HairPresenter bannerList={data?.getBannerListByGraphAndCategoryId}
-                          banner={data?.getBannerListByGraphAndCategoryId[parseInt(num)]}/>;
+                          banner={{hair: data?.getBannerListByGraphAndCategoryId[parseInt(num)]}}/>;
 
 };
 
