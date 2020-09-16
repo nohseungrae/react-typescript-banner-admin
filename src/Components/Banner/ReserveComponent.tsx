@@ -22,7 +22,11 @@ padding : 0 5px;
 margin : 0;
 `;
 
-const ReserveComponent = () => {
+interface IProps {
+    banner: any
+}
+
+const ReserveComponent: React.FunctionComponent<IProps> = ({banner}) => {
 
     const {reserveCheck} = useContext(Context);
 
@@ -37,7 +41,6 @@ const ReserveComponent = () => {
         setStartDate(null);
         setEndDate(null);
     };
-
     // 월/일
     const getFormattedDate = (date: Date) => {
         const month = date.toLocaleDateString('ko-KR', {month: 'long',});
@@ -57,7 +60,7 @@ const ReserveComponent = () => {
 
     useEffect((): void => {
         setLoading(false);
-    },[]);
+    }, []);
     return (
         <SS.Core.Row>
             {!reserveCheck ? <></> :

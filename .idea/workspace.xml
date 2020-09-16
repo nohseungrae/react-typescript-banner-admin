@@ -20,27 +20,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e21bbc26-2a9f-49b5-a204-c26d0209568e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Banner/ContentCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/ContentCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/DropzoneComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/DropzoneComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/InputCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/InputCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Accessory/AccessoryContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Accessory/AccessoryContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Banner/ReserveComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/ReserveComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Context/contextProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Context/contextProvider.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Accessory/AccessoryPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Accessory/AccessoryPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Ads/AdsContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Ads/AdsContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Ads/AdsPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Ads/AdsPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/AppLoading/AppLoadingContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/AppLoading/AppLoadingContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/Banner/AppLoading/AppLoadingPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/AppLoading/AppLoadingPresenter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Care/CareContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Care/CareContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Care/CarePresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Care/CarePresenter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairPresenter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Interior/InteriorContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Interior/InteriorContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Interior/InteriorPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Interior/InteriorPresenter.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Main/MainPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Main/MainPresenter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupPresenter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Massage/MassageContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Massage/MassageContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Massage/MassagePresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Massage/MassagePresenter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/NailArt/NailArtContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/NailArt/NailArtContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/Banner/NailArt/NailArtPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/NailArt/NailArtPresenter.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,19 +62,19 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/Components/Banner/Slider" />
-      <recent name="$PROJECT_DIR$/src/Context" />
-      <recent name="$PROJECT_DIR$/src/utils/AzureUpload" />
-      <recent name="$PROJECT_DIR$/src/utils" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/assets/images" />
       <recent name="$PROJECT_DIR$/src/Routes/Banner/Main" />
       <recent name="$PROJECT_DIR$/src/Routes/Banner/Ads" />
       <recent name="$PROJECT_DIR$/src/Routes/Banner/Accessory" />
       <recent name="$PROJECT_DIR$/src/Routes/Banner/Interior" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Components/Banner/Slider" />
+      <recent name="$PROJECT_DIR$/src/Context" />
+      <recent name="$PROJECT_DIR$/src/utils/AzureUpload" />
+      <recent name="$PROJECT_DIR$/src/utils" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -113,7 +110,8 @@
       <workItem from="1599721857605" duration="5248000" />
       <workItem from="1599782552449" duration="7732000" />
       <workItem from="1600042611272" duration="17016000" />
-      <workItem from="1600128515513" duration="23012000" />
+      <workItem from="1600128515513" duration="23203000" />
+      <workItem from="1600215215861" duration="19154000" />
     </task>
     <servers />
   </component>

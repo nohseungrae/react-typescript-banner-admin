@@ -243,7 +243,7 @@ const BasicLayout: React.FunctionComponent<IProps> = ({
                             backgroundColor: bgColor
                         }}>
                         <img
-                            src={`${process.env.REACT_APP_ACTIVE_IMG}img/banner/image/${banner?.relationId}/${banner?.img}`}/>
+                            src={`${banner?.type === "app_splash_image" ? process.env.REACT_APP_ACTIVE_IMG + "img/app/splash" : process.env.REACT_APP_SARACEN_IMG + "img/banner/image/" + banner?.relationId}/${banner?.img}`}/>
                     </SS.Core.Col>}
             </Col>
             {children}

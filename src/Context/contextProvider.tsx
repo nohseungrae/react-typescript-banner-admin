@@ -15,7 +15,7 @@ const ContextProvider: React.FunctionComponent = ({children}) => {
 
 
     const [reserveCheck, setReserveCheck] = useState<boolean>(false);
-    const [files, setFiles] = useState<[]>([]);
+    const [files, setFiles] = useState({});
     const [filename, setFilename] = useState<string>("");
 
     const [pathname, setPathname] = useState<string>("");
@@ -28,7 +28,7 @@ const ContextProvider: React.FunctionComponent = ({children}) => {
     const provider = {
         beltOpen, logoOpen, mainBeltOpen,
         setBeltOpen, setLogoOpen, setMainBeltOpen,
-        reserveCheck,setReserveCheck,
+        reserveCheck, setReserveCheck,
         handleReserve,
         pathname, setPathname,
         files, setFiles, filename, setFilename,

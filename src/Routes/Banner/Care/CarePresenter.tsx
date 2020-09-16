@@ -17,7 +17,7 @@ const CarePresenter: React.FunctionComponent<IProps> = ({bannerList, banner}) =>
                           <>
                               <ContentCard bannerList={bannerList}/>
                               <InputCard banner={banner} bannerIndex={banner?.care?.id} uploadHeight={"435px"}/>
-                              <ReserveComponent/>
+                              <ReserveComponent banner={banner}/>
                           </>
                       }/>
     );

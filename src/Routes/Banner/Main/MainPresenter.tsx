@@ -18,7 +18,27 @@ interface IProps {
 const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mainBanner}) => {
 
     const {beltOpen, setBeltOpen, logoOpen, setLogoOpen, mainBeltOpen, setMainBeltOpen} = useContext(Context)
-    console.log(saraStory)
+    const logo = {logo: banners.logo}
+    const top = {top: banners.top}
+    const story = {story: mainBanner};
+
+    const beltClick = () => {
+        setBeltOpen(!beltOpen)
+        setLogoOpen(false)
+        setMainBeltOpen(false)
+    }
+    const logoClick = () => {
+        setBeltOpen(false)
+        setLogoOpen(!logoOpen)
+        setMainBeltOpen(false)
+    }
+    const mainBeltClick = () => {
+        setBeltOpen(false)
+        setLogoOpen(false)
+        setMainBeltOpen(!mainBeltOpen)
+    }
+
+
     return (
         <>
             <BannerLayout
@@ -30,12 +50,12 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mai
                 children={
                     <>
                         <SS.Core.Button style={{position: "absolute", top: "0", right: "0"}} padding={"2px"}
-                                        theme={theme.blue} onClick={() => setBeltOpen(!beltOpen)}>띠
+                                        theme={theme.blue} onClick={beltClick}>띠
                             CHANGE</SS.Core.Button>
                         {beltOpen ?
                             <>
-                                <InputCard top={true} banner={banners.top} uploadHeight={"75px"}/>
-                                <ReserveComponent/>
+                                <InputCard top={true} banner={top} bannerIndex={top?.top?.id} uploadHeight={"75px"}/>
+                                <ReserveComponent banner={top}/>
                             </>
                             :
                             <></>}
@@ -49,12 +69,13 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mai
                 children={
                     <>
                         <SS.Core.Button style={{position: "absolute", top: "0", right: "0"}} padding={"2px"}
-                                        theme={theme.blue} onClick={() => setLogoOpen(!logoOpen)}>로고
+                                        theme={theme.blue} onClick={logoClick}>로고
                             CHANGE</SS.Core.Button>
                         {logoOpen ?
                             <>
-                                <InputCard logo={true} banner={banners.logo} uploadHeight={"70px"}/>
-                                <ReserveComponent/>
+                                <InputCard logo={true} banner={logo} bannerIndex={logo?.logo?.id}
+                                           uploadHeight={"70px"}/>
+                                <ReserveComponent banner={logo}/>
                             </>
                             :
                             <></>}
@@ -72,14 +93,15 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mai
                     <>
                         <SS.Core.Button style={{position: "absolute", top: "0", right: "0"}} padding={"2px"}
                                         margin={"0 0 0 5px"}
-                                        theme={theme.blue} onClick={() => setMainBeltOpen(!mainBeltOpen)}>로고
+                                        theme={theme.blue} onClick={mainBeltClick}>로고
                             CHANGE</SS.Core.Button>
 
                         {mainBeltOpen ?
                             <>
                                 <ContentCard bannerList={saraStory}/>
-                                <InputCard story={true} banner={mainBanner} uploadHeight={"435px"}/>
-                                <ReserveComponent/>
+                                <InputCard story={true} banner={story} bannerIndex={story?.story?.id}
+                                           uploadHeight={"435px"}/>
+                                <ReserveComponent banner={story}/>
                             </>
                             :
                             <></>}
