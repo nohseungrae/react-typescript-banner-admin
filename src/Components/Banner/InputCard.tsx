@@ -130,6 +130,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
         const [initalValues, setValueData] = useState<IBanners>()
         const [key, setKey] = useState<string>()
 
+        //TODO input 데이타들이 업데이트 될 때 함수 발동
         const valueChange = (e: any) => {
             const {target: {name}} = e;
             const {target: {value}} = e;
@@ -143,20 +144,28 @@ const InputCard: React.FunctionComponent<IProps> = ({
                 })
             }
         }
+        //TODO input 데이타들이 업데이트 될 때 함수 발동
 
+
+        //TODO Filename이 업데이트 되었다면 initialValues를 업데이트 해준다.
         const imgValueSetting = (field: string) => {
+            console.log(initalValues, field, filename, "----이름 세팅")
             if (initalValues) {
                 setValueData({
                     [key as keyof IBanners]: {
                         ...initalValues[key as keyof IBanners],
-                        [field]: filename
+                        [field]: filename[field] ? filename[field] : initalValues?.[key as keyof IBanners]?.[field as keyof IBanner]
                     }
                 })
             }
         }
+        //TODO Filename이 업데이트 되었다면 initialValues를 업데이트 해준다.
 
 
         useEffect(() => {
+            if (reserveCheck) {
+                handleReserve(false)
+            }
             if (banner) {
                 setKey(keyArray[0]);
                 console.log(banner[keyArray[0] as keyof IBanners])
@@ -168,13 +177,10 @@ const InputCard: React.FunctionComponent<IProps> = ({
             }
         }, [bannerIndex])
 
-        useEffect(() => {
-            if (reserveCheck) {
-                handleReserve(false)
-            }
-        }, [bannerIndex])
-
-
+        // useEffect(() => {
+        //
+        //     console.log(initalValues,filename)
+        // }, [initalValues])
         const [updateBanner, {data, loading}] = useMutation(UPDATE_BANNER)
 
         return (
@@ -220,7 +226,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                         uploadHeight={uploadHeight}/>
                                     {logo ? <DropzoneComponent
                                         imgPath={`${banner[key as keyof IBanners]?.relationId}/${banner[key as keyof IBanners]?.backImg}`}
-                                        name={"배경"}  whichImg={'backImg'}
+                                        name={"배경"} whichImg={'backImg'}
                                         uploadHeight={uploadHeight}/> : <></>}
                                     <FormUpload>
                                         {
@@ -384,9 +390,8 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                             placeholder="위 박스를 클릭하여 사진 이미지를 올려주세요."
                                             label={"사진 이미지"}
                                             value={initalValues && (bannerIndex === initalValues[key as keyof IBanners]?.id) ? initalValues[key as keyof IBanners]?.img || '' : ""}
-                                            disabled={filename ? false : true}
+                                            disabled={true}
                                             color={"secondary"}
-                                            autoFocus
                                             helperText={
                                                 errors.img && touched.img
                                                     ? errors.img
@@ -406,7 +411,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                     placeholder="위 박스를 클릭하여 배경이미지를 올려주세요."
                                                     label={"배경 이미지"}
                                                     value={initalValues && (bannerIndex === initalValues[key as keyof IBanners]?.id) ? initalValues[key as keyof IBanners]?.backImg || '' : ""}
-                                                    disabled={filename ? false : true}
+                                                    disabled={true}
                                                     color={"secondary"}
                                                     helperText={
                                                         errors.backImg && touched.backImg

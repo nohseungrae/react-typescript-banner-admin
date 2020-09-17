@@ -74,13 +74,17 @@ interface FileProps extends File {
 const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight, imgPath, name, whichImg}) => {
 
     const {
-        files, setFiles, setFilename, setReserveCheck, pathname
+        files, setFiles, filename, setFilename, setReserveCheck, pathname
     } = useContext(Context)
 
+
+    //TODO DropZone에 파일은 넣었을 경우 발동하는 FileSetting 함수---
     const {getRootProps, getInputProps, acceptedFiles}: DropzoneState = useDropzone({
         accept: 'image/*',
         onDrop: (acceptedFiles: any) => {
-            console.log(acceptedFiles, whichImg);
+            //이곳에서 contextAPI 에 있는 files 스테이트를 업데이트 해준다.
+            //whichImg 가 img면 {img : "--"}, backImg면  {backImg : "--"}
+            console.log(files, whichImg, "acceptfiles")
             setFiles({
                 ...files,
                 [whichImg]: acceptedFiles.map((file: FileProps) => Object.assign(file, {
@@ -90,6 +94,21 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight, imgPa
 
         }
     });
+    //TODO DropZone에 파일은 넣었을 경우 발동하는 FileSetting 함수---
+
+    //TODO File을 업데이트 한 후에 name만 꺼내서 사용하고 싶으므로 name 스테이트 업데이트함수
+    const fileNameSetting = (files: any) => {
+        console.log("filename setting func ", files, whichImg)
+
+        const copy = files[whichImg]?.map((file: FileProps) => {
+            setFilename({
+                ...filename,
+                [whichImg]: file.name
+            })
+        });
+        console.log(copy)
+    }
+    //TODO File을 업데이트 한 후에 name만 꺼내서 사용하고 싶으므로 name 스테이트 업데이트함수
 
     const thumbs = (file: FileProps | undefined) => (
         <div style={{overflow: "auto", height: "100%", width: "100%"}} key={file?.name}>
@@ -105,18 +124,17 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight, imgPa
 
     useEffect(() => {
         // Make sure to revoke the data uris to avoid memory leaks
-
-        console.log(files)
+        console.log(files, "acceptfile 후에 files")
         if (files[whichImg]?.length > 0) {
+            console.log(files, whichImg, "---Dropzone");
             const image = document.querySelector("#img") as HTMLDivElement
+            const backImg = document.querySelector("#backImg") as HTMLDivElement
             setTimeout(() => {
-                image.dispatchEvent(new Event("blur", {bubbles: false}))
-            }, [500])
-            files[whichImg]?.forEach((file: FileProps) => {
-                setFilename({
-                    [whichImg] : file.name
-                });
-            });
+                image?.dispatchEvent(new Event("blur", {bubbles: false}))
+                backImg?.dispatchEvent(new Event("blur", {bubbles: false}))
+            }, [500]);
+            fileNameSetting(files)
+
         }
     }, [files]);
 
@@ -126,13 +144,15 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight, imgPa
                 URL.revokeObjectURL(file.preview as string)
                 delete file.preview;
             })
-            setFilename("");
-            setReserveCheck(false)
-            setFiles({});
-            console.log(files, "-----여기는 pathname useEffect", pathname)
+            setFilename({
+                ...filename,
+                [whichImg]: ""
+            })
         }
 
-    }, [pathname])
+    }, [])
+
+    console.log("test", files, filename)
 
 
     return (
@@ -143,8 +163,7 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight, imgPa
             <Drop {...getRootProps({className: 'dropzone'})} exist={acceptedFiles.length > 0 ? true : false}>
                 <input {...getInputProps()} />
                 <Preview exist={acceptedFiles.length > 0 || imgPath ? true : false} uploadHeight={uploadHeight}>
-                    {imgPath && files[whichImg]?.map((file: FileProps) => (thumbs(file)))}
-                    {imgPath && files[whichImg]?.length < 1 ? thumbs(undefined) : ""}
+                    {files[whichImg] ? files[whichImg].map((file: FileProps) => thumbs(file)) : thumbs(undefined)}
                 </Preview>
             </Drop>
 

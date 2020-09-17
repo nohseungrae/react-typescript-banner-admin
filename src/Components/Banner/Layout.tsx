@@ -233,18 +233,18 @@ const BasicLayout: React.FunctionComponent<IProps> = ({
                     {name} 사진<SS.Core.Button padding={"2px"} margin={"0 0 0 5px"}
                                              theme={theme.pink}>적용중</SS.Core.Button>
                 </Text>
-                {slider ?
-                    (saraStory ? <SaracenStoryBanner stories={saraStory}/> : null) :
-                    <SS.Core.Col
-                        style={{
-                            alignItems: "center",
-                            height: height,
-                            width: imgBoxWidth ? imgBoxWidth : "100%",
-                            backgroundColor: bgColor
-                        }}>
-                        <img
-                            src={`${banner?.type === "app_splash_image" ? process.env.REACT_APP_ACTIVE_IMG + "img/app/splash" : process.env.REACT_APP_SARACEN_IMG + "img/banner/image/" + banner?.relationId}/${banner?.img}`}/>
-                    </SS.Core.Col>}
+                {/*{slider ?*/}
+                {/*    (saraStory ? <SaracenStoryBanner stories={saraStory}/> : null) :*/}
+                {/*    <SS.Core.Col*/}
+                {/*        style={{*/}
+                {/*            alignItems: "center",*/}
+                {/*            height: height,*/}
+                {/*            width: imgBoxWidth ? imgBoxWidth : "100%",*/}
+                {/*            backgroundColor: bgColor*/}
+                {/*        }}>*/}
+                {/*        <img*/}
+                {/*            src={`${banner?.type === "app_splash_image" ? process.env.REACT_APP_ACTIVE_IMG + "img/app/splash" : process.env.REACT_APP_SARACEN_IMG + "img/banner/image/" + banner?.relationId}/${banner?.img}`}/>*/}
+                {/*    </SS.Core.Col>}*/}
             </Col>
             {children}
         </Row>
