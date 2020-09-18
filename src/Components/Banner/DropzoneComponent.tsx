@@ -3,6 +3,7 @@ import {DropzoneState, useDropzone} from "react-dropzone";
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
 import Context from "../../Context/context";
+import {IBanners} from "./InputCard";
 
 interface DropProps {
     exist?: boolean
@@ -71,10 +72,16 @@ interface FileProps extends File {
     preview: string | undefined
 }
 
-const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight, imgPath, name, whichImg}) => {
+const DropzoneComponent: React.FunctionComponent<IProps> = ({
+                                                                uploadHeight,
+                                                                imgPath,
+                                                                name,
+                                                                whichImg,
+                                                            }) => {
 
     const {
-        files, setFiles, filename, setFilename, setReserveCheck, pathname
+        files, setFiles, filename, setFilename, setReserveCheck, pathname,
+        initialValues, setValueData, key
     } = useContext(Context)
 
 
@@ -95,20 +102,6 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight, imgPa
         }
     });
     //TODO DropZone에 파일은 넣었을 경우 발동하는 FileSetting 함수---
-
-    //TODO File을 업데이트 한 후에 name만 꺼내서 사용하고 싶으므로 name 스테이트 업데이트함수
-    const fileNameSetting = (files: any) => {
-        console.log("filename setting func ", files, whichImg)
-
-        const copy = files[whichImg]?.map((file: FileProps) => {
-            setFilename({
-                ...filename,
-                [whichImg]: file.name
-            })
-        });
-        console.log(copy)
-    }
-    //TODO File을 업데이트 한 후에 name만 꺼내서 사용하고 싶으므로 name 스테이트 업데이트함수
 
     const thumbs = (file: FileProps | undefined) => (
         <div style={{overflow: "auto", height: "100%", width: "100%"}} key={file?.name}>
@@ -133,7 +126,18 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight, imgPa
                 image?.dispatchEvent(new Event("blur", {bubbles: false}))
                 backImg?.dispatchEvent(new Event("blur", {bubbles: false}))
             }, [500]);
-            fileNameSetting(files)
+
+            //TODO File을 업데이트 한 후에 name만 꺼내서 사용하고 싶으므로 name 스테이트 업데이트함수
+            const fileNameSetting = ((files: any) => {
+                setValueData({
+                    [key as keyof IBanners]: {
+                        ...initialValues[key as keyof IBanners],
+                        img: Object.keys(files).includes("img") ? files?.img[0].name : initialValues[key as keyof IBanners].img,
+                        backImg: Object.keys(files).includes("backImg") ? files?.backImg[0].name : initialValues[key as keyof IBanners].backImg
+                    }
+                })
+            })(files)
+            //TODO File을 업데이트 한 후에 name만 꺼내서 사용하고 싶으므로 name 스테이트 업데이트함수
 
         }
     }, [files]);
@@ -151,8 +155,6 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({uploadHeight, imgPa
         }
 
     }, [])
-
-    console.log("test", files, filename)
 
 
     return (

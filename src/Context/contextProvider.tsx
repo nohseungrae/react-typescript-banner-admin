@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Context from "./context";
+import {IBanners} from "../Components/Banner/InputCard";
 
 interface IUpload {
     description: string,
@@ -13,10 +14,16 @@ const ContextProvider: React.FunctionComponent = ({children}) => {
     const [logoOpen, setLogoOpen] = useState<boolean>(false);
     const [mainBeltOpen, setMainBeltOpen] = useState<boolean>(false);
 
-
     const [reserveCheck, setReserveCheck] = useState<boolean>(false);
     const [files, setFiles] = useState({});
-    const [filename, setFilename] = useState<string>("");
+
+    const [initialValues, setValueData] = useState<IBanners>()
+    const [key, setKey] = useState<string>()
+
+    const [filename, setFilename] = useState({
+        img: "",
+        backImg: ""
+    });
 
     const [pathname, setPathname] = useState<string>("");
     const [formData, setFormData] = useState<IUpload>();
@@ -32,7 +39,9 @@ const ContextProvider: React.FunctionComponent = ({children}) => {
         handleReserve,
         pathname, setPathname,
         files, setFiles, filename, setFilename,
-        formData, setFormData
+        formData, setFormData,
+        initialValues,setValueData,
+        key,setKey
     };
     return <Context.Provider value={provider}>{children}</Context.Provider>;
 };

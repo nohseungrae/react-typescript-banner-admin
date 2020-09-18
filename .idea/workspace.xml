@@ -24,6 +24,7 @@
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/DropzoneComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/DropzoneComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/InputCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/InputCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Context/contextProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Context/contextProvider.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +98,8 @@
       <workItem from="1600042611272" duration="17016000" />
       <workItem from="1600128515513" duration="23203000" />
       <workItem from="1600215215861" duration="19321000" />
-      <workItem from="1600300736116" duration="18079000" />
+      <workItem from="1600300736116" duration="18351000" />
+      <workItem from="1600387120603" duration="17758000" />
     </task>
     <servers />
   </component>
@@ -137,10 +139,10 @@
       <screen x="2560" y="23" width="1920" height="1057" />
     </state>
     <state width="1899" height="290" key="GridCell.Tab.0.right/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1599715350691" />
-    <state x="2654" y="239" width="1290" height="681" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1600331060420">
-      <screen x="2560" y="23" width="1920" height="1057" />
+    <state x="125" y="295" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1600391942118">
+      <screen x="0" y="23" width="2560" height="1332" />
     </state>
-    <state x="125" y="295" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1600074419685" />
+    <state x="125" y="295" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1600391942118" />
     <state x="2654" y="239" width="1290" height="681" key="com.intellij.history.integration.ui.views.FileHistoryDialog/2560.23.1920.1057/0.23.2560.1334@2560.23.1920.1057" timestamp="1600331060420" />
     <state x="3108" y="164" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1598943856570">
       <screen x="2560" y="23" width="1920" height="1057" />
