@@ -8,6 +8,13 @@ export const GET_BANNERS_BY_CATEGORYID = gql`
             relationId
             img
             alt
+            reservedBanners{
+                id
+                img
+                alt
+                url
+                reservationDate
+            }
         }
     }
 `;
@@ -31,6 +38,13 @@ export const GET_BANNERS_BY_TYPE = gql`
             type
             updatedAt
             url
+            reservedBanners{
+                id
+                img
+                alt
+                url
+                reservationDate
+            }
         }
     }
 `;

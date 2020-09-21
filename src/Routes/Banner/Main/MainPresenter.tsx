@@ -55,7 +55,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mai
                         {beltOpen ?
                             <>
                                 <InputCard top={true} banner={top} bannerIndex={top?.top?.id} uploadHeight={"75px"}/>
-                                <ReserveComponent banner={top}/>
+                                <ReserveComponent reservedBanners={top?.top?.reservedBanners}/>
                             </>
                             :
                             <></>}
@@ -75,7 +75,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mai
                             <>
                                 <InputCard logo={true} banner={logo} bannerIndex={logo?.logo?.id}
                                            uploadHeight={"70px"}/>
-                                <ReserveComponent banner={logo}/>
+                                <ReserveComponent reservedBanners={logo?.logo?.reservedBanners}/>
                             </>
                             :
                             <></>}
@@ -101,7 +101,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mai
                                 <ContentCard bannerList={saraStory}/>
                                 <InputCard story={true} banner={story} bannerIndex={story?.story?.id}
                                            uploadHeight={"435px"}/>
-                                <ReserveComponent banner={story}/>
+                                <ReserveComponent reservedBanners={story?.story?.reservedBanners}/>
                             </>
                             :
                             <></>}

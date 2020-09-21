@@ -27,7 +27,12 @@ const MainContainer: React.FunctionComponent<any> = ({match: {params: {categoryI
             return comparison;
         }
         useEffect(() => {
-            const topAndLogo = data?.getBannerListByGraphAndType.filter((item: any) => item.type.includes('logo') || item.type.includes('top_banner'));
+            const topAndLogo = data?.getBannerListByGraphAndType.filter((item: any) => item.type.includes('logo') || item.type.includes('top_banner'))
+                .sort((a: any, b: any) => {
+                    // console.log(a, b)
+
+                    return parseInt(a.id) - parseInt(b.id)
+                })
             const storyFilter = data?.getBannerListByGraphAndType.filter((item: any) => item.type.includes("sara_story")).sort(compare)
             if (data?.getBannerListByGraphAndType) {
                 setBanners(

@@ -15,7 +15,7 @@ const NailArtPresenter: React.FunctionComponent<IProps> = ({bannerList, banner})
             <>
                 <ContentCard bannerList={bannerList}/>
                 <InputCard banner={banner} bannerIndex={banner?.nailArt?.id} uploadHeight={"435px"}/>
-                <ReserveComponent banner={banner}/>
+                <ReserveComponent reservedBanners={banner?.nailArt?.reservedBanners}/>
             </>
         }/>
     );

@@ -6,7 +6,7 @@ import ReserveComponent from "../../../Components/Banner/ReserveComponent";
 
 interface IProps {
     bannerList?: []
-    banner: { massage : IBanner }
+    banner: { massage: IBanner }
 }
 
 const MassagePresenter: React.FunctionComponent<IProps> = ({bannerList, banner}) => {
@@ -15,7 +15,7 @@ const MassagePresenter: React.FunctionComponent<IProps> = ({bannerList, banner})
             <>
                 <ContentCard bannerList={bannerList}/>
                 <InputCard banner={banner} bannerIndex={banner?.massage?.id} uploadHeight={"435px"}/>
-                <ReserveComponent banner={banner}/>
+                <ReserveComponent reservedBanners={banner?.massage?.reservedBanners}/>
             </>
         }/>
     );

@@ -21,10 +21,24 @@
   <component name="ChangeListManager">
     <list default="true" id="e21bbc26-2a9f-49b5-a204-c26d0209568e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/DropzoneComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/DropzoneComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Banner/InputCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/InputCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Banner/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Context/contextProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Context/contextProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Banner/ReserveComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/ReserveComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Banner/TableComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Banner/TableComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graphql/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphql/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Accessory/AccessoryPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Accessory/AccessoryPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Ads/AdsPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Ads/AdsPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/AppLoading/AppLoadingPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/AppLoading/AppLoadingPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Care/CarePresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Care/CarePresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Hair/HairPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Interior/InteriorPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Interior/InteriorPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Main/MainContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Main/MainContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Main/MainPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Main/MainPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Makeup/MakeupPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/Massage/MassagePresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/Massage/MassagePresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/Banner/NailArt/NailArtPresenter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/Banner/NailArt/NailArtPresenter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +113,9 @@
       <workItem from="1600128515513" duration="23203000" />
       <workItem from="1600215215861" duration="19321000" />
       <workItem from="1600300736116" duration="18351000" />
-      <workItem from="1600387120603" duration="17758000" />
+      <workItem from="1600387120603" duration="17789000" />
+      <workItem from="1600646649443" duration="137000" />
+      <workItem from="1600647146643" duration="18360000" />
     </task>
     <servers />
   </component>
@@ -139,15 +155,15 @@
       <screen x="2560" y="23" width="1920" height="1057" />
     </state>
     <state width="1899" height="290" key="GridCell.Tab.0.right/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1599715350691" />
-    <state x="125" y="295" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1600391942118">
+    <state x="458" y="269" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1600656491448">
       <screen x="0" y="23" width="2560" height="1332" />
     </state>
-    <state x="125" y="295" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1600391942118" />
+    <state x="458" y="269" width="1720" height="857" key="com.intellij.history.integration.ui.views.FileHistoryDialog/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1600656491448" />
     <state x="2654" y="239" width="1290" height="681" key="com.intellij.history.integration.ui.views.FileHistoryDialog/2560.23.1920.1057/0.23.2560.1334@2560.23.1920.1057" timestamp="1600331060420" />
-    <state x="3108" y="164" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1598943856570">
+    <state x="3108" y="164" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1600665361212">
       <screen x="2560" y="23" width="1920" height="1057" />
     </state>
-    <state x="3108" y="164" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1598943856570" />
+    <state x="3108" y="164" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/2560.23.1920.1057/0.23.2560.1332@2560.23.1920.1057" timestamp="1600665361212" />
     <state x="1208" y="200" width="988" height="855" key="find.popup" timestamp="1600327958639">
       <screen x="0" y="23" width="2560" height="1332" />
     </state>
@@ -168,7 +184,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/Routes/Banner/Main/MainContainer.tsx</url>
-          <line>34</line>
+          <line>39</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

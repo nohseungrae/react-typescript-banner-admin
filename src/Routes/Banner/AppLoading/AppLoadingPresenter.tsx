@@ -14,7 +14,7 @@ const AppLoadingPresenter: React.FunctionComponent<IProps> = ({banner}) => {
                           <>
                               <InputCard banner={banner} bannerIndex={banner?.appLoading?.id}
                                          uploadHeight={"fit-content"}/>
-                              <ReserveComponent banner={banner}/>
+                              <ReserveComponent reservedBanners={banner?.appLoading?.reservedBanners}/>
                           </>
                       }/>
     );

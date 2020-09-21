@@ -14,6 +14,7 @@ import Context from "../../Context/context";
 import Alert from "@material-ui/lab/Alert"
 import {ADD_BANNER, UPDATE_BANNER} from "../../Graphql";
 import {useMutation} from "@apollo/client";
+import moment from "moment";
 
 const styles: any = {
     alert: {
@@ -57,6 +58,7 @@ export interface IBanner {
     backImgPos?: string,
     backImg?: string,
     adminId?: number
+    reservedBanners?: []
 }
 
 export interface IBanners {
@@ -116,9 +118,14 @@ const InputCard: React.FunctionComponent<IProps> = ({
             initialValues, setValueData,
             key, setKey
         } = useContext(Context);
+
+        const [updateBanner, {data: updateResult, loading}] = useMutation(UPDATE_BANNER)
+
         const keyArray: string[] = Object.keys(banner);
 
         const [flash, setFlash] = useState(false);
+
+        const [path, setPath] = useState<string>();
 
         let ContactFormSchema = yup.object().shape({
             img: yup.string().nullable(true),
@@ -136,7 +143,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
         const valueChange = (e: any, setFieldValue: Function) => {
             const {target: {name}} = e;
             const {target: {value}} = e;
-            console.log("에바")
+            console.log("에바", initialValues)
             if (initialValues) {
                 setValueData({
                     [key as keyof IBanners]: {
@@ -149,16 +156,40 @@ const InputCard: React.FunctionComponent<IProps> = ({
         }
         //TODO input 데이타들이 업데이트 될 때 함수 발동
 
+        const valueSubmit = async (values: Values) => {
+
+            let obj: any = {
+                adminId: 0,
+                relationId: banner[key as keyof IBanners]?.relationId
+            };
+            Object.keys(values).forEach(k => {
+                if (initialValues[key][k]) {
+                    const valueData = initialValues[key][k];
+                    obj[k] = valueData;
+                }
+            });
+            const id: string | undefined = bannerIndex?.toString();
+            await updateBanner({
+                variables: {
+                    bannerUpdateData: obj,
+                    id: parseInt(id as string)
+                }
+            })
+        }
+
+        useEffect(() => {
+            if(updateResult?.updateBannerByGraph){
+                alert("업데이트 되었습니다.")
+            }
+        }, [updateResult])
 
         //TODO Filename이 업데이트 되었다면 initialValues를 업데이트 해준다.
         const imgValueSetting = (field: string, setFieldValue: Function) => {
             console.log(initialValues, field, filename, "----이름 세팅")
             if (initialValues) {
                 setValueData({
-                    [key as keyof IBanners]: {
-                        ...initialValues[key as keyof IBanners],
-                        [field]: filename[field] ? filename[field] : initialValues?.[key as keyof IBanners]?.[field as keyof IBanner]
-                    }
+                    ...initialValues,
+                    [field]: filename[field] ? filename[field] : initialValues?.[field as keyof IBanner]
                 })
                 setFieldValue(field, filename)
             }
@@ -179,8 +210,8 @@ const InputCard: React.FunctionComponent<IProps> = ({
                     }
                 )
             }
+
         }, [bannerIndex])
-        const [updateBanner, {data, loading}] = useMutation(UPDATE_BANNER)
 
         return (
             <SS.Core.Row>
@@ -201,32 +232,21 @@ const InputCard: React.FunctionComponent<IProps> = ({
                             backImgPos: banner[keyArray[0] as keyof IBanners]?.backImgPos
                         }}
                         validationSchema={ContactFormSchema}
-                        onSubmit={
-                            async (values, actions: FormikHelpers<any>) => {
-                                console.log(values, files)
-                                if (reserveCheck) {
-                                    setFlash(true)
-                                    setTimeout(() => {
-                                        setFlash(false)
-                                    }, [3000])
-                                    return false
-                                }
-                                //
-                                // setFormData({
-                                //     ...formData, ...values,
-                                //     file: files[0]
-                                // });
-                                // await updateBanner({
-                                //     variables: {
-                                //         bannerUpdateData: {
-                                //             ...values,
-                                //             relationId: values?.relationId,
-                                //             type: values?.type
-                                //         },
-                                //         id: bannerIndex
-                                //     }
-                                // })
+                        onSubmit={async (values: Values) => {
+                            if (reserveCheck) {
+                                setFlash(true)
+                                setTimeout(() => {
+                                    setFlash(false)
+                                }, [3000])
+                            } else {
+                                await valueSubmit(values);
                             }
+                        }
+                            //
+                            // setFormData({
+                            //     ...formData, ...values,
+                            //     file: files[0]
+                            // });
                         }
                     >
                         {
@@ -238,11 +258,17 @@ const InputCard: React.FunctionComponent<IProps> = ({
                              }: any) => (
                                 <>
                                     <DropzoneComponent
-                                        imgPath={`${banner[key as keyof IBanners]?.relationId}/${banner[key as keyof IBanners]?.img}`}
+                                        imgPath={
+                                            key === 'appLoading' ?
+                                                `${process.env.REACT_APP_ACTIVE_IMG}img/app/splash/${banner?.[keyArray[0] as keyof IBanners]?.img}`
+                                                :
+                                                `${process.env.REACT_APP_SARACEN_IMG}img/banner/image/${banner?.[key as keyof IBanners]?.relationId}/${banner?.[key as keyof IBanners]?.img}`
+
+                                        }
                                         name={"사진"} whichImg={'img'}
                                         uploadHeight={uploadHeight}/>
                                     {logo ? <DropzoneComponent
-                                        imgPath={`${banner[key as keyof IBanners]?.relationId}/${banner[key as keyof IBanners]?.backImg}`}
+                                        imgPath={path}
                                         name={"배경"} whichImg={'backImg'}
                                         uploadHeight={uploadHeight}/> : <></>}
                                     <FormUpload>
@@ -256,7 +282,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                     autoComplete="backImgPos"
                                                     name="backImgPos"
                                                     variant="outlined"
-                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues?.[key as keyof IBanners]?.backImgPos || '' : ''}
+                                                    value={bannerIndex === initialValues?.[keyArray[0] as keyof IBanners]?.id ? initialValues?.[keyArray[0] as keyof IBanners]?.backImgPos || '' : ''}
                                                     id="backImgPos"
                                                     label="위치"
                                                     placeholder="박스 위치를 설정하여 주십시오."
@@ -276,7 +302,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                     autoComplete="alt"
                                                     name="alt"
                                                     variant="outlined"
-                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues[key as keyof IBanners]?.alt || '' : ""}
+                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues?.[key as keyof IBanners]?.alt || '' : ""}
                                                     id="alt"
                                                     label="제목"
                                                     color={"secondary"}
@@ -296,7 +322,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                 autoComplete="color"
                                                 name="color"
                                                 variant="outlined"
-                                                value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues[key as keyof IBanners]?.color || '' : ""}
+                                                value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues?.[key as keyof IBanners]?.color || '' : ""}
                                                 id="color"
                                                 label="배경색"
                                                 color={"secondary"}
@@ -317,7 +343,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                     autoComplete="mainCopy"
                                                     name="mainCopy"
                                                     variant="outlined"
-                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues[key as keyof IBanners]?.mainCopy || '' : ""}
+                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues?.[key as keyof IBanners]?.mainCopy || '' : ""}
                                                     id="mainCopy"
                                                     label="메인카피"
                                                     color={"secondary"}
@@ -335,7 +361,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                     autoComplete="subCopy"
                                                     name="subCopy"
                                                     variant="outlined"
-                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues[key as keyof IBanners]?.subCopy || '' : ""}
+                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues?.[key as keyof IBanners]?.subCopy || '' : ""}
                                                     id="subCopy"
                                                     label="서브카피"
                                                     color={"secondary"}
@@ -353,7 +379,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                     autoComplete="color"
                                                     name="color"
                                                     variant="outlined"
-                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues[key as keyof IBanners]?.color || '' : ""}
+                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues?.[key as keyof IBanners]?.color || '' : ""}
                                                     id="color"
                                                     label="배경색"
                                                     color={"secondary"}
@@ -371,7 +397,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                     autoComplete="seq"
                                                     name="seq"
                                                     variant="outlined"
-                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues[key as keyof IBanners]?.seq || '' : ""}
+                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues?.[key as keyof IBanners]?.seq || '' : ""}
                                                     id="seq"
                                                     label="순서"
                                                     color={"secondary"}
@@ -394,7 +420,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                 autoComplete="url"
                                                 name="url"
                                                 variant="outlined"
-                                                value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues[key as keyof IBanners]?.url || '' : ""}
+                                                value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues?.[key as keyof IBanners]?.url || '' : ""}
                                                 id="url"
                                                 label="링크"
                                                 color={"secondary"}
@@ -414,7 +440,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                             id="img"
                                             placeholder="위 박스를 클릭하여 사진 이미지를 올려주세요."
                                             label={"사진 이미지"}
-                                            value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues[key as keyof IBanners]?.img || '' : ""}
+                                            value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues?.[key as keyof IBanners]?.img || '' : ""}
                                             disabled={true}
                                             color={"secondary"}
                                             helperText={
@@ -435,7 +461,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                     id="backImg"
                                                     placeholder="위 박스를 클릭하여 배경이미지를 올려주세요."
                                                     label={"배경 이미지"}
-                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues[key as keyof IBanners]?.backImg || '' : ""}
+                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues?.[key as keyof IBanners]?.backImg || '' : ""}
                                                     disabled={true}
                                                     color={"secondary"}
                                                     helperText={
@@ -465,7 +491,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                             <SS.Core.Text display={"flex"} alignItems={"center"} flex={"1"}
                                                           justifyContent={"flex-end"}>
                                                 마지막 수정일 : <SS.Core.Span fontSize={"transparent"}
-                                                                        margin={"0 20px 0 5px"}>{`날짜`}</SS.Core.Span>
+                                                                        margin={"0 20px 0 5px"}>{moment(initialValues?.[key]?.updatedAt).format('YYYY.MM.DD')}</SS.Core.Span>
                                                 마지막 수정자 : <SS.Core.Span fontSize={"transparent"}
                                                                         margin={"0 0 0 5px"}>{`김승석`}</SS.Core.Span>
                                             </SS.Core.Text>

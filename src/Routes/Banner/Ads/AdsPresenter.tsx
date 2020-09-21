@@ -15,7 +15,7 @@ const AdsPresenter: React.FunctionComponent<IProps> = ({banner, bannerList}) => 
             <>
                 <ContentCard bannerList={bannerList}/>
                 <InputCard banner={banner} bannerIndex={banner?.ads?.id}/>
-                <ReserveComponent banner={banner}/>
+                <ReserveComponent reservedBanners={banner?.ads?.reservedBanners}/>
             </>
         }/>
     );

@@ -12,12 +12,12 @@ interface IProps {
 const CarePresenter: React.FunctionComponent<IProps> = ({bannerList, banner}) => {
 
     return (
-        <BannerLayout banner={banner.care} name={"케어"} height={"435px"}
+        <BannerLayout banner={banner?.care} name={"케어"} height={"435px"}
                       children={
                           <>
                               <ContentCard bannerList={bannerList}/>
                               <InputCard banner={banner} bannerIndex={banner?.care?.id} uploadHeight={"435px"}/>
-                              <ReserveComponent banner={banner}/>
+                              <ReserveComponent reservedBanners={banner?.care?.reservedBanners}/>
                           </>
                       }/>
     );

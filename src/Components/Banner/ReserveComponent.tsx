@@ -23,10 +23,10 @@ margin : 0;
 `;
 
 interface IProps {
-    banner: any
+    reservedBanners: any
 }
 
-const ReserveComponent: React.FunctionComponent<IProps> = ({banner}) => {
+const ReserveComponent: React.FunctionComponent<IProps> = ({reservedBanners}) => {
 
     const {reserveCheck} = useContext(Context);
 
@@ -93,7 +93,7 @@ const ReserveComponent: React.FunctionComponent<IProps> = ({banner}) => {
                     </ResetBtn>
                 </Col>
             }
-            <TableComponent/>
+            <TableComponent reservedBanners={reservedBanners}/>
         </SS.Core.Row>
     );
 };

@@ -109,7 +109,7 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
                 file?.preview ? <img style={{maxWidth: "100%"}}
                                      src={file?.preview}
                 /> : <img style={{maxWidth: "100%"}}
-                          src={`${process.env.REACT_APP_SARACEN_IMG}img/banner/image/${imgPath}`}
+                          src={imgPath}
                 />
             }
         </div>
@@ -154,7 +154,7 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
             })
         }
 
-    }, [])
+    }, [imgPath])
 
 
     return (

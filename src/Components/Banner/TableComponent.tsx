@@ -1,16 +1,25 @@
-import React from 'react';
+import React, {FunctionComponent} from 'react';
 import SS from "@saraceninc/saracen-style-ts";
 import theme from "@saraceninc/saracen-style-ts/lib/theme";
 import styled from "styled-components";
+import moment from "moment";
 
 const Col = styled(SS.Core.Col)`
 box-shadow: 0 2px 0 rgba(90,97,105,.11), 0 4px 8px rgba(90,97,105,.12), 0 10px 10px rgba(90,97,105,.06), 0 7px 70px rgba(90,97,105,.1);
 display: flex;
+td {
+    width: 25%;
+    word-break: break-all;
+}
 `;
 
-const TableComponent = () => {
+interface IProps {
+    reservedBanners: []
+}
+
+const TableComponent: FunctionComponent<IProps> = ({reservedBanners}) => {
     const Thead = () => (
-        <thead style={{backgroundColor : theme.pink}}>
+        <thead style={{backgroundColor: theme.pink}}>
         <tr>
             <th>이미지</th>
             <th>설명</th>
@@ -21,26 +30,31 @@ const TableComponent = () => {
         </thead>
     );
 
-    const Tbody = () => (
+    const Tbody: FunctionComponent<IProps> = ({reservedBanners}) => (
         <tbody>
-        <tr>
-            <td>안뇽</td>
-            <td>안뇽</td>
-            <td>스크린샷 2020-05-21 오후 2.06.16.png</td>
-            <td>안뇽</td>
-            <td>
-                <SS.Core.Button theme={"#3f51b5"}>
-                    삭제
-                </SS.Core.Button>
-            </td>
-        </tr>
+        {
+            reservedBanners?.map((item: any) => (
+                <tr>
+                    <td>{item.img}</td>
+                    <td>{item.alt}</td>
+                    <td>{item.url}</td>
+                    <td>{moment(item.reservationDate).format('YYYY.MM.DD HH:mm:ss')}</td>
+                    <td>
+                        <SS.Core.Button theme={"#3f51b5"}>
+                            삭제
+                        </SS.Core.Button>
+                    </td>
+                </tr>)
+            )
+        }
+
         </tbody>
     );
     return (
         <Col>
             <SS.Core.Table>
                 <Thead></Thead>
-                <Tbody></Tbody>
+                <Tbody reservedBanners={reservedBanners}></Tbody>
             </SS.Core.Table>
         </Col>
     );
