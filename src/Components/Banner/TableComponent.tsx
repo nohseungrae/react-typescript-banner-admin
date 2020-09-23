@@ -33,8 +33,8 @@ const TableComponent: FunctionComponent<IProps> = ({reservedBanners}) => {
     const Tbody: FunctionComponent<IProps> = ({reservedBanners}) => (
         <tbody>
         {
-            reservedBanners?.map((item: any) => (
-                <tr>
+            reservedBanners?.map((item: any, i : number) => (
+                <tr key={i}>
                     <td>{item.img}</td>
                     <td>{item.alt}</td>
                     <td>{item.url}</td>

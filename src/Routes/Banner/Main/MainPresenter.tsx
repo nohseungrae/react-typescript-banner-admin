@@ -50,7 +50,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mai
                 children={
                     <>
                         <SS.Core.Button style={{position: "absolute", top: "0", right: "0"}} padding={"2px"}
-                                        theme={theme.blue} onClick={beltClick}>띠
+                                        theme={theme.blue} onClick={beltClick}>
                             CHANGE</SS.Core.Button>
                         {beltOpen ?
                             <>
@@ -69,7 +69,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mai
                 children={
                     <>
                         <SS.Core.Button style={{position: "absolute", top: "0", right: "0"}} padding={"2px"}
-                                        theme={theme.blue} onClick={logoClick}>로고
+                                        theme={theme.blue} onClick={logoClick}>
                             CHANGE</SS.Core.Button>
                         {logoOpen ?
                             <>
@@ -93,12 +93,12 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mai
                     <>
                         <SS.Core.Button style={{position: "absolute", top: "0", right: "0"}} padding={"2px"}
                                         margin={"0 0 0 5px"}
-                                        theme={theme.blue} onClick={mainBeltClick}>로고
+                                        theme={theme.blue} onClick={mainBeltClick}>
                             CHANGE</SS.Core.Button>
 
                         {mainBeltOpen ?
                             <>
-                                <ContentCard bannerList={saraStory}/>
+                                <ContentCard dynamic={true} bannerList={saraStory}/>
                                 <InputCard story={true} banner={story} bannerIndex={story?.story?.id}
                                            uploadHeight={"435px"}/>
                                 <ReserveComponent reservedBanners={story?.story?.reservedBanners}/>

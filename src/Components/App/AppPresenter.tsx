@@ -96,7 +96,7 @@ const LoggedInRoutes: React.FunctionComponent = () => (
                         {
                             to: "/banners/main/sara_story/0",
                             title: "메인",
-                            paths: ["/banners/main/sara_story"],
+                            paths: ["/banners/main/sara_story/"],
                         },
                         {
                             to: "/banners/care/434/0",

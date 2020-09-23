@@ -226,6 +226,7 @@ const BasicLayout: React.FunctionComponent<IProps> = ({
     if (height === "70px" || height === "500px") {
         imgBoxWidth = "fit-content"
     }
+    console.log(saraStory)
     return (
         <Row style={{position: "relative"}}>
             <Col height={height}>

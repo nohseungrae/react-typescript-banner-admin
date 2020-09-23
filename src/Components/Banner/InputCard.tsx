@@ -164,7 +164,10 @@ const InputCard: React.FunctionComponent<IProps> = ({
             };
             Object.keys(values).forEach(k => {
                 if (initialValues[key][k]) {
-                    const valueData = initialValues[key][k];
+                    let valueData = initialValues[key][k];
+                    if (k === "seq") {
+                        valueData = parseInt(valueData)
+                    }
                     obj[k] = valueData;
                 }
             });
@@ -178,7 +181,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
         }
 
         useEffect(() => {
-            if(updateResult?.updateBannerByGraph){
+            if (updateResult?.updateBannerByGraph) {
                 alert("업데이트 되었습니다.")
             }
         }, [updateResult])
@@ -240,13 +243,12 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                 }, [3000])
                             } else {
                                 await valueSubmit(values);
+                                setFormData({
+                                    ...formData, ...values,
+                                    file: files[0]
+                                });
                             }
                         }
-                            //
-                            // setFormData({
-                            //     ...formData, ...values,
-                            //     file: files[0]
-                            // });
                         }
                     >
                         {
@@ -265,10 +267,16 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                 `${process.env.REACT_APP_SARACEN_IMG}img/banner/image/${banner?.[key as keyof IBanners]?.relationId}/${banner?.[key as keyof IBanners]?.img}`
 
                                         }
+                                        bannerIndex={bannerIndex?.toString()}
                                         name={"사진"} whichImg={'img'}
                                         uploadHeight={uploadHeight}/>
                                     {logo ? <DropzoneComponent
-                                        imgPath={path}
+                                        imgPath={
+                                            key === 'appLoading' ?
+                                                `${process.env.REACT_APP_ACTIVE_IMG}img/app/splash/${banner?.[keyArray[0] as keyof IBanners]?.backImg}`
+                                                :
+                                                `${process.env.REACT_APP_SARACEN_IMG}img/banner/image/${banner?.[key as keyof IBanners]?.relationId}/${banner?.[key as keyof IBanners]?.backImg}`
+                                        }
                                         name={"배경"} whichImg={'backImg'}
                                         uploadHeight={uploadHeight}/> : <></>}
                                     <FormUpload>

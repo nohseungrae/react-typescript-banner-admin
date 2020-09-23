@@ -36,7 +36,7 @@ export const GET_BANNERS_BY_TYPE = gql`
             seq
             subCopy
             type
-            updatedAt
+
             url
             reservedBanners{
                 id
@@ -66,7 +66,6 @@ export const ADD_BANNER = gql`
             seq
             subCopy
             type
-            updatedAt
             url
         }
     }
@@ -92,5 +91,11 @@ export const UPDATE_BANNER = gql`
             updatedAt
             url
         }
+    }
+`;
+
+export const DELETE_BANNER = gql`
+    mutation deleteBanner($id : Float!){
+        deleteBannerByGraph(id : $id)
     }
 `;
