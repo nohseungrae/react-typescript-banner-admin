@@ -1,11 +1,11 @@
 import React from 'react';
 import AppLoadingPresenter from "./AppLoadingPresenter";
 import {useQuery} from "@apollo/client";
-import {GET_BANNERS_BY_TYPE} from "../../../Graphql";
+import {GET_BANNERS_ASIWANT} from "../../../Graphql";
 
 const AppLoadingContainer = () => {
 
-    const {data} = useQuery(GET_BANNERS_BY_TYPE, {
+    const {data} = useQuery(GET_BANNERS_ASIWANT, {
         variables: {
             typeAndCategoryIdInput: {
                 type: "app_splash_image"
@@ -13,7 +13,7 @@ const AppLoadingContainer = () => {
         }
     })
 
-    return <AppLoadingPresenter banner={{appLoading: data?.getBannerListByGraphAndType[0]}}/>
+    return <AppLoadingPresenter banner={{appLoading: data?.getNewBanners[0]}}/>
 };
 
 export default AppLoadingContainer;

@@ -1,5 +1,35 @@
 import {gql} from "@apollo/client";
 
+export const GET_BANNERS_ASIWANT = gql`
+    query getNewBanners($typeAndCategoryIdInput : TypeAndCategoryIdInput!){
+        getNewBanners(typeAndCategoryIdInput : $typeAndCategoryIdInput){
+            adminId
+            alt
+            backImg
+            backImgPos
+            color
+            createdAt
+            updatedAt
+            id
+            img
+            mainCopy
+            miniImg
+            relationId
+            seq
+            subCopy
+            type
+            url
+            reservedBanners{
+                id
+                img
+                alt
+                url
+                reservationDate
+            }
+        }
+    }
+`;
+
 export const GET_BANNERS_BY_CATEGORYID = gql`
     query getBannerList($categoryId : Float!){
         getBannerListByGraphAndCategoryId(categoryId : $categoryId){
@@ -8,6 +38,7 @@ export const GET_BANNERS_BY_CATEGORYID = gql`
             relationId
             img
             alt
+            updatedAt
             reservedBanners{
                 id
                 img

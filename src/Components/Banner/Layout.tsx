@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
 import theme from "@saraceninc/saracen-style-ts/lib/theme";
@@ -226,7 +226,7 @@ const BasicLayout: React.FunctionComponent<IProps> = ({
     if (height === "70px" || height === "500px") {
         imgBoxWidth = "fit-content"
     }
-    console.log(saraStory)
+
     return (
         <Row style={{position: "relative"}}>
             <Col height={height}>

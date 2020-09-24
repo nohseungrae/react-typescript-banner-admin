@@ -143,16 +143,14 @@ const InputCard: React.FunctionComponent<IProps> = ({
         const valueChange = (e: any, setFieldValue: Function) => {
             const {target: {name}} = e;
             const {target: {value}} = e;
-            console.log("에바", initialValues)
-            if (initialValues) {
-                setValueData({
-                    [key as keyof IBanners]: {
-                        ...initialValues[key as keyof IBanners],
-                        [name]: value
-                    }
-                })
-                setFieldValue(name, value)
-            }
+
+            setValueData({
+                [key as keyof IBanners]: {
+                    ...initialValues[key as keyof IBanners],
+                    [name]: value
+                }
+            })
+            setFieldValue(name, value)
         }
         //TODO input 데이타들이 업데이트 될 때 함수 발동
 
@@ -181,9 +179,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
         }
 
         useEffect(() => {
-            if (updateResult?.updateBannerByGraph) {
-                alert("업데이트 되었습니다.")
-            }
+
         }, [updateResult])
 
         //TODO Filename이 업데이트 되었다면 initialValues를 업데이트 해준다.
@@ -204,9 +200,11 @@ const InputCard: React.FunctionComponent<IProps> = ({
             if (reserveCheck) {
                 handleReserve(false)
             }
+            if (updateResult?.updateBannerByGraph) {
+                alert("업데이트 되었습니다.")
+            }
             if (banner) {
                 setKey(keyArray[0]);
-                console.log(banner[keyArray[0] as keyof IBanners])
                 setValueData({
                         ...initialValues,
                         [keyArray[0]]: banner[keyArray[0] as keyof IBanners]
@@ -214,7 +212,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                 )
             }
 
-        }, [bannerIndex])
+        }, [bannerIndex, updateResult])
 
         return (
             <SS.Core.Row>
@@ -269,6 +267,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                         }
                                         bannerIndex={bannerIndex?.toString()}
                                         name={"사진"} whichImg={'img'}
+                                        story={story}
                                         uploadHeight={uploadHeight}/>
                                     {logo ? <DropzoneComponent
                                         imgPath={
@@ -278,6 +277,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                 `${process.env.REACT_APP_SARACEN_IMG}img/banner/image/${banner?.[key as keyof IBanners]?.relationId}/${banner?.[key as keyof IBanners]?.backImg}`
                                         }
                                         name={"배경"} whichImg={'backImg'}
+                                        story={story}
                                         uploadHeight={uploadHeight}/> : <></>}
                                     <FormUpload>
                                         {
@@ -290,7 +290,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                     autoComplete="backImgPos"
                                                     name="backImgPos"
                                                     variant="outlined"
-                                                    value={bannerIndex === initialValues?.[keyArray[0] as keyof IBanners]?.id ? initialValues?.[keyArray[0] as keyof IBanners]?.backImgPos || '' : ''}
+                                                    value={initialValues?.[keyArray[0] as keyof IBanners]?.id ? initialValues?.[keyArray[0] as keyof IBanners]?.backImgPos || '' : ''}
                                                     id="backImgPos"
                                                     label="위치"
                                                     placeholder="박스 위치를 설정하여 주십시오."
@@ -499,7 +499,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                             <SS.Core.Text display={"flex"} alignItems={"center"} flex={"1"}
                                                           justifyContent={"flex-end"}>
                                                 마지막 수정일 : <SS.Core.Span fontSize={"transparent"}
-                                                                        margin={"0 20px 0 5px"}>{moment(initialValues?.[key]?.updatedAt).format('YYYY.MM.DD')}</SS.Core.Span>
+                                                                        margin={"0 20px 0 5px"}>{moment(initialValues?.[key]?.updatedAt).format('YYYY.MM.DD h:mm a')}</SS.Core.Span>
                                                 마지막 수정자 : <SS.Core.Span fontSize={"transparent"}
                                                                         margin={"0 0 0 5px"}>{`김승석`}</SS.Core.Span>
                                             </SS.Core.Text>

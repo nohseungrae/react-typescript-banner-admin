@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Context from "../../Context/context";
 import {IBanners} from "./InputCard";
 import {ApolloCache, useMutation} from "@apollo/client";
-import {DELETE_BANNER, GET_BANNERS_BY_TYPE} from "../../Graphql";
+import {DELETE_BANNER, GET_BANNERS_ASIWANT, GET_BANNERS_BY_TYPE} from "../../Graphql";
 
 interface DropProps {
     exist?: boolean
@@ -76,6 +76,7 @@ interface IProps {
     name: string
     whichImg: string
     bannerIndex?: string
+    story?: boolean
 }
 
 interface FileProps extends File {
@@ -87,27 +88,29 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
                                                                 imgPath,
                                                                 name,
                                                                 whichImg,
-                                                                bannerIndex
+                                                                bannerIndex,
+                                                                story
                                                             }) => {
 
     const {
-        files, setFiles, filename, setFilename, setReserveCheck, pathname,
+        files, setFiles, filename, setFilename, setDelete,
         initialValues, setValueData, key
     } = useContext(Context)
-    const [removeBanner] = useMutation(DELETE_BANNER, {
+
+    const [removeBanner, {data}] = useMutation(DELETE_BANNER, {
         update(cache: ApolloCache<any>, {data: {deleteBannerByGraph}}) {
-            const {getBannerListByGraphAndType}: any = cache.readQuery({
-                query: GET_BANNERS_BY_TYPE,
+            const {getNewBanners}: any = cache.readQuery({
+                query: GET_BANNERS_ASIWANT,
                 variables: {typeAndCategoryIdInput: {type: ["sara_story"], relationId: 0}}
             });
-            const temp = getBannerListByGraphAndType.map((item: any) => item);
+            const temp = getNewBanners.map((item: any) => item);
             const refetchData = temp?.splice(temp.findIndex((e: any) => e.id === bannerIndex), 1)
             const finalData = temp.filter((item: any) => item !== refetchData[0])
             console.log(temp, refetchData)
             cache.writeQuery({
-                query: GET_BANNERS_BY_TYPE,
+                query: GET_BANNERS_ASIWANT,
                 variables: {typeAndCategoryIdInput: {type: ["sara_story"], relationId: 0}},
-                data: {getBannerListByGraphAndType: finalData}
+                data: {getNewBanners: finalData}
             })
         }
     })
@@ -191,14 +194,23 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
         console.log(imgPath)
     }, [imgPath])
 
+    useEffect(() => {
+        if (data?.deleteBannerByGraph) {
+            setDelete(true)
+        }
+    }, [data?.deleteBannerByGraph])
+
     return (
         <Inner className="container">
             <div style={{paddingBottom: "15px", fontWeight: "bold", display: "inline-block"}}>
                 적용시킬 {name} 이미지 : {initialValues?.[key]?.[whichImg] ? "있음" : "없음"}
             </div>
-            <SS.Core.Button style={{backgroundColor: "#3f51b5"}} onClick={() => deleteBanner(bannerIndex as string)}>
-                삭제
-            </SS.Core.Button>
+            {
+                story ? <SS.Core.Button style={{backgroundColor: "#3f51b5"}}
+                                        onClick={() => deleteBanner(bannerIndex as string)}>
+                    삭제
+                </SS.Core.Button> : <></>
+            }
             <Drop {...getRootProps({className: 'dropzone'})} exist={acceptedFiles.length > 0 ? true : false}>
                 <input {...getInputProps()} />
                 <Preview exist={acceptedFiles.length > 0 || imgPath ? true : false} uploadHeight={uploadHeight}>

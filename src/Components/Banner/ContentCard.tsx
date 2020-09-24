@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link, withRouter, Redirect} from "react-router-dom"
 import styled from "styled-components";
 import SS from "@saraceninc/saracen-style-ts";
 import {ApolloCache, gql, useMutation} from "@apollo/client";
-import {ADD_BANNER, DELETE_BANNER, GET_BANNERS_BY_TYPE} from "../../Graphql";
+import {ADD_BANNER, DELETE_BANNER, GET_BANNERS_ASIWANT, GET_BANNERS_BY_TYPE} from "../../Graphql";
 import {IBanners} from "./InputCard";
 import {getMilliseconds} from "date-fns";
+import Context from "../../Context/context";
 
 interface SProps {
     click?: boolean
@@ -35,20 +36,22 @@ const AddBtn = styled(SS.Core.Button)`
 
 const ContentCard = withRouter(({history, match, bannerList, dynamic}: any) => {
 
+    const {deleteResult, setDelete} = useContext(Context)
+
     const goToHere = match.path.split("/")[2];
     const {params: {num, categoryId}} = match;
 
     const [createBanner, {data}] = useMutation(ADD_BANNER, {
         update(cache: ApolloCache<any>, {data: {addBannerByGraph}}) {
-            const {getBannerListByGraphAndType}: any = cache.readQuery({
-                query: GET_BANNERS_BY_TYPE,
+            const {getNewBanners}: any = cache.readQuery({
+                query: GET_BANNERS_ASIWANT,
                 variables: {typeAndCategoryIdInput: {type: ["sara_story"], relationId: 0}}
             });
-            console.log(getBannerListByGraphAndType, addBannerByGraph)
+            console.log(getNewBanners, addBannerByGraph)
             cache.writeQuery({
-                query: GET_BANNERS_BY_TYPE,
+                query: GET_BANNERS_ASIWANT,
                 variables: {typeAndCategoryIdInput: {type: ["sara_story"], relationId: 0}},
-                data: {getBannerListByGraphAndType: getBannerListByGraphAndType.concat([addBannerByGraph])}
+                data: {getNewBanners: getNewBanners.concat([addBannerByGraph])}
             })
         }
     });
@@ -92,12 +95,12 @@ const ContentCard = withRouter(({history, match, bannerList, dynamic}: any) => {
     useEffect(() => {
         const splitUrl = match.url.split("/");
         const baseUrl = splitUrl.map((x: string, i: number) => splitUrl.length - 1 === i ? null : x);
-        if(bannerList)
-        history.push(baseUrl.join("/") + `${bannerList?.length - 1}`);
-    }, [bannerList])
+        if (deleteResult) {
+            history.push(baseUrl.join("/") + `${bannerList?.length - 1}`);
+            setDelete(false)
+        }
+    }, [deleteResult])
 
-
-    console.log(bannerList, match, history, match.url.split("/").join("/"))
 
     return (
         <SS.Core.RowF style={

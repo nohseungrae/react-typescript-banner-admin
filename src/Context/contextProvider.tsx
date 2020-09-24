@@ -28,6 +28,9 @@ const ContextProvider: React.FunctionComponent = ({children}) => {
     const [pathname, setPathname] = useState<string>("");
     const [formData, setFormData] = useState<IUpload>();
 
+    const [deleteResult, setDelete] = useState<boolean>(false)
+    const [addResult, setAdd] = useState<boolean>(false)
+
     const handleReserve = () => {
         setReserveCheck(!reserveCheck)
     }
@@ -40,8 +43,10 @@ const ContextProvider: React.FunctionComponent = ({children}) => {
         pathname, setPathname,
         files, setFiles, filename, setFilename,
         formData, setFormData,
-        initialValues,setValueData,
-        key,setKey
+        initialValues, setValueData,
+        key, setKey,
+        deleteResult, setDelete,
+        addResult, setAdd
     };
     return <Context.Provider value={provider}>{children}</Context.Provider>;
 };
