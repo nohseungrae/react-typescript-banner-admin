@@ -6,9 +6,13 @@ import {Redirect} from "react-router-dom";
 
 const MainContainer: React.FunctionComponent<any> = ({match: {params: {categoryId, num}}}) => {
 
-        const variables = {type: ["sara_story"], relationId: 0}
+        const variables = {
+            typeAndCategoryIdInput: {
+                type: ["sara_story"], relationId: 0
+            }
+        }
         const {data, refetch} = useQuery(GET_BANNERS_ASIWANT, {
-            variables: {typeAndCategoryIdInput: variables}
+            variables
         })
 
         const [saraMain, setSaraMain] = useState<any>();
@@ -53,7 +57,8 @@ const MainContainer: React.FunctionComponent<any> = ({match: {params: {categoryI
         //     return <Redirect to={"/"}/>
         // }
 
-        return <MainPresenter saraStory={saraMain} banners={banners} mainBanner={saraMain ? saraMain[parseInt(num)] : []}/>;
+        return <MainPresenter saraStory={saraMain} banners={banners} mainBanner={saraMain ? saraMain[parseInt(num)] : []}
+                              variables={variables}/>;
 
     }
 ;

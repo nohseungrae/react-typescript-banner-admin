@@ -116,6 +116,9 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
     })
     const deleteBanner = async (id: string) => {
 
+        if(!id){
+            return setDelete(true)
+        }
         await removeBanner({
             variables: {
                 id: parseInt(id as string)
@@ -170,8 +173,8 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
                 setValueData({
                     [key as keyof IBanners]: {
                         ...initialValues[key as keyof IBanners],
-                        img: Object.keys(files).includes("img") ? files?.img[0].name : initialValues[key as keyof IBanners].img,
-                        backImg: Object.keys(files).includes("backImg") ? files?.backImg[0].name : initialValues[key as keyof IBanners].backImg
+                        img: Object.keys(files).includes("img") ? files?.img[0]?.name : initialValues[key as keyof IBanners]?.img,
+                        backImg: Object.keys(files).includes("backImg") ? files?.backImg[0]?.name : initialValues[key as keyof IBanners]?.backImg
                     }
                 })
             })(files)

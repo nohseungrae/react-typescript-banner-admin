@@ -12,9 +12,10 @@ import DropzoneComponent from "./DropzoneComponent";
 import {styled as styledMaterial} from "@material-ui/core/styles";
 import Context from "../../Context/context";
 import Alert from "@material-ui/lab/Alert"
-import {ADD_BANNER, UPDATE_BANNER} from "../../Graphql";
-import {useMutation} from "@apollo/client";
+import {ADD_BANNER, ADD_RESERVEDBANNER, GET_BANNERS_ASIWANT, UPDATE_BANNER} from "../../Graphql";
+import {ApolloCache, useMutation} from "@apollo/client";
 import moment from "moment";
+import {generateRandom} from "./ContentCard";
 
 const styles: any = {
     alert: {
@@ -58,6 +59,7 @@ export interface IBanner {
     backImgPos?: string,
     backImg?: string,
     adminId?: number
+    updatedAt?: string
     reservedBanners?: []
 }
 
@@ -84,6 +86,7 @@ interface IProps {
     story?: boolean
     logo?: boolean
     top?: boolean
+    variables?: any
 }
 
 interface Values {
@@ -109,19 +112,75 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                         story,
                                                         logo,
                                                         top,
-                                                        bannerIndex
+                                                        bannerIndex,
+                                                        variables
                                                     }) => {
 
         const {
             reserveCheck, handleReserve, filename, files,
             formData, setFormData,
             initialValues, setValueData,
-            key, setKey
+            key, setKey,
+            startDate
         } = useContext(Context);
 
-        const [updateBanner, {data: updateResult, loading}] = useMutation(UPDATE_BANNER)
+        const [createBanner, {data}] = useMutation(ADD_BANNER, {
+            update(cache: ApolloCache<any>, {data: {addBannerByGraph}}) {
+                const {getNewBanners}: any = cache.readQuery({
+                    query: GET_BANNERS_ASIWANT,
+                    variables
+                });
+                console.log(getNewBanners, addBannerByGraph)
+                cache.writeQuery({
+                    query: GET_BANNERS_ASIWANT,
+                    variables,
+                    data: {getNewBanners: getNewBanners.concat([addBannerByGraph])}
+                })
+            }
+        });
+        const [updateBanner, {data: updateResult, loading}] = useMutation(UPDATE_BANNER, {
+            update(cache: ApolloCache<any>, {data: {updateBannerByGraph}}) {
+                console.log(variables)
+                const {getNewBanners}: any = cache.readQuery({
+                    query: GET_BANNERS_ASIWANT,
+                    variables
+                });
+                const newBanners = getNewBanners.map((item: any) => item.id === updateBannerByGraph ? item = updateBannerByGraph : item)
+                cache.writeQuery({
+                    query: GET_BANNERS_ASIWANT,
+                    variables,
+                    data: {getNewBanners: newBanners}
+                })
+                if (updateBannerByGraph) {
+                    setUpdatedAt(updateBannerByGraph?.updatedAt);
+                    alert("업데이트 완료")
+                }
+            }
+        })
+
+        const [addReservedBanner, {data: addReservedResult}] = useMutation(ADD_RESERVEDBANNER,{
+            update(cache: ApolloCache<any>, {data: {updateBannerByGraph}}) {
+                console.log(variables)
+                const {getNewBanners}: any = cache.readQuery({
+                    query: GET_BANNERS_ASIWANT,
+                    variables
+                });
+                const newBanners = getNewBanners.map((item: any) => item.id === updateBannerByGraph ? item = updateBannerByGraph : item)
+                cache.writeQuery({
+                    query: GET_BANNERS_ASIWANT,
+                    variables,
+                    data: {getNewBanners: newBanners}
+                })
+                if (updateBannerByGraph) {
+                    setUpdatedAt(updateBannerByGraph?.updatedAt);
+                    alert("업데이트 완료")
+                }
+            }
+        })
 
         const keyArray: string[] = Object.keys(banner);
+
+        const [updatedAt, setUpdatedAt] = useState<string>();
 
         const [flash, setFlash] = useState(false);
 
@@ -136,10 +195,10 @@ const InputCard: React.FunctionComponent<IProps> = ({
             mainCopy: yup.string().nullable(true),
             subCopy: yup.string().nullable(true),
             color: yup.string().nullable(true),
-            seq: yup.number().min(0, "숫자를 채워주세요").nullable(true),
+            seq: yup.number().min(0, "숫자를 채워주세요").max(100, "100을 넘길 수 없습니다.").nullable(false).required("채워주세요"),
         })
 
-        //TODO input 데이타들이 업데이트 될 때 함수 발동
+//TODO input 데이타들이 업데이트 될 때 함수 발동
         const valueChange = (e: any, setFieldValue: Function) => {
             const {target: {name}} = e;
             const {target: {value}} = e;
@@ -152,7 +211,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
             })
             setFieldValue(name, value)
         }
-        //TODO input 데이타들이 업데이트 될 때 함수 발동
+//TODO input 데이타들이 업데이트 될 때 함수 발동
 
         const valueSubmit = async (values: Values) => {
 
@@ -160,29 +219,65 @@ const InputCard: React.FunctionComponent<IProps> = ({
                 adminId: 0,
                 relationId: banner[key as keyof IBanners]?.relationId
             };
-            Object.keys(values).forEach(k => {
-                if (initialValues[key][k]) {
+            const id: string | undefined = bannerIndex?.toString();
+
+            if (id) {
+                Object.keys(values).forEach(k => {
+                    if (initialValues[key][k]) {
+                        let valueData = initialValues[key][k];
+                        if (k === "seq") {
+                            valueData = parseInt(valueData)
+                        }
+                        obj[k] = valueData;
+                    }
+                });
+                await updateBanner({
+                    variables: {
+                        bannerUpdateData: obj,
+                        id: parseInt(id as string)
+                    }
+                })
+                if (reserveCheck && startDate) {
+                    obj.reservationDate = Date.parse(startDate);
+                    await addReservedBanner({
+                        variables: {
+                            reservedBannerData: obj
+                        }
+                    })
+                }
+            } else {
+                Object.keys(values).forEach(k => {
                     let valueData = initialValues[key][k];
                     if (k === "seq") {
                         valueData = parseInt(valueData)
+                        if (!valueData) {
+                            valueData = 99
+                        }
                     }
                     obj[k] = valueData;
+                });
+                obj.type = variables.typeAndCategoryIdInput.type[0]
+                obj.adminId = 0;
+                obj.relationId = variables.typeAndCategoryIdInput.relationId === 0 ? generateRandom(0, 100000) : variables.typeAndCategoryIdInput.relationId
+                console.log("여기는 추가 :", initialValues, obj, variables)
+                await createBanner({
+                    variables: {
+                        bannerData: obj
+                    }
+                })
+                if (reserveCheck && startDate) {
+                    obj.reservationDate = Date.parse(startDate);
+                    await addReservedBanner({
+                        variables: {
+                            reservedBannerData: obj
+                        }
+                    })
                 }
-            });
-            const id: string | undefined = bannerIndex?.toString();
-            await updateBanner({
-                variables: {
-                    bannerUpdateData: obj,
-                    id: parseInt(id as string)
-                }
-            })
+            }
+
         }
 
-        useEffect(() => {
-
-        }, [updateResult])
-
-        //TODO Filename이 업데이트 되었다면 initialValues를 업데이트 해준다.
+//TODO Filename이 업데이트 되었다면 initialValues를 업데이트 해준다.
         const imgValueSetting = (field: string, setFieldValue: Function) => {
             console.log(initialValues, field, filename, "----이름 세팅")
             if (initialValues) {
@@ -193,16 +288,10 @@ const InputCard: React.FunctionComponent<IProps> = ({
                 setFieldValue(field, filename)
             }
         }
-        //TODO Filename이 업데이트 되었다면 initialValues를 업데이트 해준다.
+//TODO Filename이 업데이트 되었다면 initialValues를 업데이트 해준다.
 
 
         useEffect(() => {
-            if (reserveCheck) {
-                handleReserve(false)
-            }
-            if (updateResult?.updateBannerByGraph) {
-                alert("업데이트 되었습니다.")
-            }
             if (banner) {
                 setKey(keyArray[0]);
                 setValueData({
@@ -211,8 +300,12 @@ const InputCard: React.FunctionComponent<IProps> = ({
                     }
                 )
             }
-
-        }, [bannerIndex, updateResult])
+            if (reserveCheck) {
+                handleReserve(false)
+            }
+            console.log(banner)
+            setUpdatedAt(banner?.[keyArray[0] as keyof IBanners]?.updatedAt)
+        }, [bannerIndex])
 
         return (
             <SS.Core.Row>
@@ -234,18 +327,20 @@ const InputCard: React.FunctionComponent<IProps> = ({
                         }}
                         validationSchema={ContactFormSchema}
                         onSubmit={async (values: Values) => {
-                            if (reserveCheck) {
+                            console.log(values)
+                            if (reserveCheck && startDate === null) {
                                 setFlash(true)
                                 setTimeout(() => {
                                     setFlash(false)
                                 }, [3000])
-                            } else {
-                                await valueSubmit(values);
-                                setFormData({
-                                    ...formData, ...values,
-                                    file: files[0]
-                                });
+                                return false
                             }
+
+                            await valueSubmit(values);
+                            setFormData({
+                                ...formData, ...values,
+                                file: files[0]
+                            });
                         }
                         }
                     >
@@ -405,7 +500,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                     autoComplete="seq"
                                                     name="seq"
                                                     variant="outlined"
-                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues?.[key as keyof IBanners]?.seq || '' : ""}
+                                                    value={bannerIndex === initialValues?.[key as keyof IBanners]?.id ? initialValues?.[key as keyof IBanners]?.seq || 0 : 0}
                                                     id="seq"
                                                     label="순서"
                                                     color={"secondary"}
@@ -499,7 +594,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                             <SS.Core.Text display={"flex"} alignItems={"center"} flex={"1"}
                                                           justifyContent={"flex-end"}>
                                                 마지막 수정일 : <SS.Core.Span fontSize={"transparent"}
-                                                                        margin={"0 20px 0 5px"}>{moment(initialValues?.[key]?.updatedAt).format('YYYY.MM.DD h:mm a')}</SS.Core.Span>
+                                                                        margin={"0 20px 0 5px"}>{moment(updatedAt).format('YYYY.MM.DD h:mm a')}</SS.Core.Span>
                                                 마지막 수정자 : <SS.Core.Span fontSize={"transparent"}
                                                                         margin={"0 0 0 5px"}>{`김승석`}</SS.Core.Span>
                                             </SS.Core.Text>

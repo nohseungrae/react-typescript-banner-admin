@@ -13,9 +13,10 @@ interface IProps {
     saraStory: any[]
     banners: { logo: any, top: any }
     mainBanner: any
+    variables: any
 }
 
-const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mainBanner}) => {
+const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mainBanner, variables}) => {
 
     const {beltOpen, setBeltOpen, logoOpen, setLogoOpen, mainBeltOpen, setMainBeltOpen} = useContext(Context)
     const logo = {logo: banners.logo}
@@ -54,7 +55,8 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mai
                             CHANGE</SS.Core.Button>
                         {beltOpen ?
                             <>
-                                <InputCard top={true} banner={top} bannerIndex={top?.top?.id} uploadHeight={"75px"}/>
+                                <InputCard top={true} banner={top} bannerIndex={top?.top?.id} uploadHeight={"75px"}
+                                           variables={variables}/>
                                 <ReserveComponent reservedBanners={top?.top?.reservedBanners}/>
                             </>
                             :
@@ -74,7 +76,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mai
                         {logoOpen ?
                             <>
                                 <InputCard logo={true} banner={logo} bannerIndex={logo?.logo?.id}
-                                           uploadHeight={"70px"}/>
+                                           uploadHeight={"70px"} variables={variables}/>
                                 <ReserveComponent reservedBanners={logo?.logo?.reservedBanners}/>
                             </>
                             :
@@ -100,7 +102,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({saraStory, banners, mai
                             <>
                                 <ContentCard dynamic={true} bannerList={saraStory}/>
                                 <InputCard story={true} banner={story} bannerIndex={story?.story?.id}
-                                           uploadHeight={"435px"}/>
+                                           uploadHeight={"435px"} variables={variables}/>
                                 <ReserveComponent reservedBanners={story?.story?.reservedBanners}/>
                             </>
                             :

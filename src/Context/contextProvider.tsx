@@ -25,6 +25,8 @@ const ContextProvider: React.FunctionComponent = ({children}) => {
         backImg: ""
     });
 
+    const [startDate, setStartDate] = useState<Date | null>();
+
     const [pathname, setPathname] = useState<string>("");
     const [formData, setFormData] = useState<IUpload>();
 
@@ -46,7 +48,8 @@ const ContextProvider: React.FunctionComponent = ({children}) => {
         initialValues, setValueData,
         key, setKey,
         deleteResult, setDelete,
-        addResult, setAdd
+        addResult, setAdd,
+        startDate, setStartDate
     };
     return <Context.Provider value={provider}>{children}</Context.Provider>;
 };

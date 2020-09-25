@@ -125,6 +125,29 @@ export const UPDATE_BANNER = gql`
     }
 `;
 
+export const ADD_RESERVEDBANNER = gql`
+    mutation addReservedBanner($reservedBannerData : ReservedBannerInput!){
+        addReservedBannerByGraph(reservedBannerData : $reservedBannerData){
+            adminId
+            alt
+            backImg
+            backImgPos
+            color
+            createdAt
+            id
+            img
+            mainCopy
+            miniImg
+            relationId
+            seq
+            subCopy
+            type
+            updatedAt
+            url
+        }
+    }
+`;
+
 export const DELETE_BANNER = gql`
     mutation deleteBanner($id : Float!){
         deleteBannerByGraph(id : $id)

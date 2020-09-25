@@ -28,10 +28,10 @@ interface IProps {
 
 const ReserveComponent: React.FunctionComponent<IProps> = ({reservedBanners}) => {
 
-    const {reserveCheck} = useContext(Context);
+    const {reserveCheck, startDate, setStartDate} = useContext(Context);
 
     const [loading, setLoading] = useState<boolean>(true);
-    const [startDate, setStartDate] = useState<Date | null>();
+
     const [endDate, setEndDate] = useState<Date | null>();
 
     const handleStartDate = (date: Date) => {
@@ -61,6 +61,10 @@ const ReserveComponent: React.FunctionComponent<IProps> = ({reservedBanners}) =>
     useEffect((): void => {
         setLoading(false);
     }, []);
+
+    useEffect((): void => {
+        setStartDate(null)
+    }, [reserveCheck]);
     return (
         <SS.Core.Row>
             {!reserveCheck ? <></> :

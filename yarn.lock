@@ -10204,10 +10204,10 @@ sanitize.css@^10.0.0:
   resolved "https://registry.yarnpkg.com/sanitize.css/-/sanitize.css-10.0.0.tgz#b5cb2547e96d8629a60947544665243b1dc3657a"
   integrity sha512-vTxrZz4dX5W86M6oVWVdOVe72ZiPs41Oi7Z6Km4W5Turyz28mrXSJhhEBZoRtzJWIv3833WKVwLSDWWkEfupMg==
 
-saracen-storybanner@^0.0.25:
-  version "0.0.25"
-  resolved "http://localhost:4873/saracen-storybanner/-/saracen-storybanner-0.0.25.tgz#69fac21946698bcd7ff2d2a111d24184896745ae"
-  integrity sha512-Sl9xJf0/RGopC28deo+SnBM5ELhx3e4fkf6cRroCNQQCWCn/juLKrCehFZe1GuqSilz/CPjR1NQJDS/Vpi6RMw==
+saracen-storybanner@^0.0.26:
+  version "0.0.26"
+  resolved "http://localhost:4873/saracen-storybanner/-/saracen-storybanner-0.0.26.tgz#dc247b3135504dace0c1fbf13220d94cbf628d30"
+  integrity sha512-Kpp+MEBnxshVokYxdqTkIFL83/Dvocujn5m4Zf2acwMMgnvPzqZzb+3dV3S9ih97LZK0/qPjOV4VQXZie5aBOQ==
   dependencies:
     "@testing-library/jest-dom" "^4.2.4"
     "@testing-library/react" "^9.3.2"

@@ -33,7 +33,11 @@ const AddBtn = styled(SS.Core.Button)`
   padding : 0;
   flex-grow: 1;
 `;
-
+export const generateRandom = (min: number, max: number) => {
+    const ranNum = Math.abs(Math.floor(Math.random() * (max - min + 1)) + Math.floor(+new Date() / 10000));
+    console.log(ranNum)
+    return ranNum;
+}
 const ContentCard = withRouter(({history, match, bannerList, dynamic}: any) => {
 
     const {deleteResult, setDelete} = useContext(Context)
@@ -41,66 +45,30 @@ const ContentCard = withRouter(({history, match, bannerList, dynamic}: any) => {
     const goToHere = match.path.split("/")[2];
     const {params: {num, categoryId}} = match;
 
-    const [createBanner, {data}] = useMutation(ADD_BANNER, {
-        update(cache: ApolloCache<any>, {data: {addBannerByGraph}}) {
-            const {getNewBanners}: any = cache.readQuery({
-                query: GET_BANNERS_ASIWANT,
-                variables: {typeAndCategoryIdInput: {type: ["sara_story"], relationId: 0}}
-            });
-            console.log(getNewBanners, addBannerByGraph)
-            cache.writeQuery({
-                query: GET_BANNERS_ASIWANT,
-                variables: {typeAndCategoryIdInput: {type: ["sara_story"], relationId: 0}},
-                data: {getNewBanners: getNewBanners.concat([addBannerByGraph])}
-            })
-        }
-    });
-    const generateRandom = (min: number, max: number) => {
-        const ranNum = Math.abs(Math.floor(Math.random() * (max - min + 1)) + Math.floor(+new Date() / 10000));
-        console.log(ranNum)
-        return ranNum;
-    }
+    const [dumpList, setDumpList] = useState(bannerList);
+
     const addBanner = async () => {
-        const lastBanner = bannerList[bannerList.length - 1]
-        let obj: any = {
-            adminId: 0,
-            relationId: lastBanner.type === "sara_story" ? generateRandom(lastBanner.relationId, 1000000) : bannerList[0]?.relationId
-        };
-        Object.keys(lastBanner).forEach(k => {
-            if (lastBanner[k] &&
-                k !== "__typename" &&
-                k !== "id" &&
-                k !== "reservedBanners" &&
-                k !== "createdAt" &&
-                k !== 'relationId') {
-                let valueData = "";
-                if (k === "seq") {
-                    valueData = lastBanner[k] + 1
-                }
-                if (k === "type") {
-                    valueData = lastBanner[k]
-                }
-                obj[k] = valueData;
-            }
-        });
-        console.log(obj)
-        await createBanner({
-            variables: {
-                bannerData: obj
-            }
-        })
+        if(!dumpList[dumpList.length - 1].__typename){
+            alert("한 번에 하나씩 추가해주세요.")
+           return false
+        }
+        setDumpList([...dumpList, {}])
     }
 
+
+    useEffect(() => {
+        setDumpList(bannerList)
+    }, [bannerList])
 
     useEffect(() => {
         const splitUrl = match.url.split("/");
         const baseUrl = splitUrl.map((x: string, i: number) => splitUrl.length - 1 === i ? null : x);
         if (deleteResult) {
+            setDumpList(bannerList)
             history.push(baseUrl.join("/") + `${bannerList?.length - 1}`);
             setDelete(false)
         }
     }, [deleteResult])
-
 
     return (
         <SS.Core.RowF style={
@@ -112,7 +80,7 @@ const ContentCard = withRouter(({history, match, bannerList, dynamic}: any) => {
             } : {}
         }>
             {
-                bannerList?.length > 0 && bannerList?.map((list: any, index: number) => {
+                dumpList?.length > 0 && dumpList?.map((list: any, index: number) => {
 
                     return (
                         <Card key={index}
