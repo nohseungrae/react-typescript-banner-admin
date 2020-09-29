@@ -1,18 +1,23 @@
 import React from 'react';
 import MakeupPresenter from "./MakeupPresenter";
 import {useQuery} from "@apollo/client";
-import {GET_BANNERS_BY_CATEGORYID} from "../../../Graphql";
+import {GET_BANNERS_ASIWANT, GET_BANNERS_BY_CATEGORYID} from "../../../Graphql";
 
 
 const MakeupContainer: React.FunctionComponent<any> = ({match: {params: {categoryId, num}}}) => {
 
-    const {data} = useQuery(GET_BANNERS_BY_CATEGORYID,
+    const variables = {
+        typeAndCategoryIdInput: {relationId: parseInt(categoryId)}
+    }
+
+    const {data} = useQuery(GET_BANNERS_ASIWANT,
         {
-            variables: {categoryId: parseInt(categoryId)}
+            variables
         })
 
-    return <MakeupPresenter bannerList={data?.getBannerListByGraphAndCategoryId}
-                            banner={{makeUp: data?.getBannerListByGraphAndCategoryId[parseInt(num)]}}/>;
+    return <MakeupPresenter bannerList={data?.getNewBanners}
+                            variables={variables}
+                            banner={{makeUp: data?.getNewBanners[parseInt(num)]}}/>;
 
 };
 

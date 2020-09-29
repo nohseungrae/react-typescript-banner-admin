@@ -7,16 +7,16 @@ import ContentCard from "../../../Components/Banner/ContentCard";
 interface IProps {
     bannerList?: []
     banner: { ads: IBanner }
-    variables : any
+    variables: any
 }
 
-const AdsPresenter: React.FunctionComponent<IProps> = ({banner, bannerList,variables}) => {
+const AdsPresenter: React.FunctionComponent<IProps> = ({banner, bannerList, variables}) => {
     return (
         <BannerLayout banner={banner.ads} name={"광고배너"} children={
             <>
                 <ContentCard bannerList={bannerList}/>
-                <InputCard banner={banner} bannerIndex={banner?.ads?.id} variables={variables}/>
-                <ReserveComponent reservedBanners={banner?.ads?.reservedBanners}/>
+                <InputCard banner={banner} bannerIndex={banner?.ads?.id} variables={variables} maxWidth={930}/>
+                <ReserveComponent id={banner?.ads?.id} reservedBanners={banner?.ads?.reservedBanners} variables={variables}/>
             </>
         }/>
     );

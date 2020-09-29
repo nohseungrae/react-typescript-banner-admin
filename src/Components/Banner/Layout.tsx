@@ -191,7 +191,7 @@ const BannerLayout: React.FunctionComponent<IProps> = ({
 
     return (
         <SS.Core.Container>
-            <SS.Core.Inner>
+            <SS.Core.Col>
                 {main ?
                     <>
                         <BasicLayout main={main} slider={slider} name={name} height={height} maxWidth={maxWidth}
@@ -205,7 +205,7 @@ const BannerLayout: React.FunctionComponent<IProps> = ({
                     :
                     <BasicLayout name={name} height={height} banner={banner} children={children}/>
                 }
-            </SS.Core.Inner>
+            </SS.Core.Col>
         </SS.Core.Container>
     );
 };
@@ -223,16 +223,18 @@ const BasicLayout: React.FunctionComponent<IProps> = ({
                                                           saraStory
                                                       }) => {
 
-    if (height === "70px" || height === "500px") {
-        imgBoxWidth = "fit-content"
+    if (height === "70px" || height === "75px" || !height) {
+        imgBoxWidth = "fit-content";
+    } else {
+        height = "425px"
     }
-
+    console.log(saraStory, "Layout")
     return (
         <Row style={{position: "relative"}}>
             <Col height={height}>
                 <Text>
                     {name} 사진<SS.Core.Button padding={"2px"} margin={"0 0 0 5px"}
-                                             theme={theme.pink}>적용중</SS.Core.Button>
+                                             theme={banner?.img || !banner ? theme.pink : theme.purple}>{banner?.img || !banner ? "적용중" : "미적용중"}</SS.Core.Button>
                 </Text>
                 {slider ?
                     (saraStory ? <SaracenStoryBanner stories={saraStory}/> : null) :
@@ -243,7 +245,7 @@ const BasicLayout: React.FunctionComponent<IProps> = ({
                             width: imgBoxWidth ? imgBoxWidth : "100%",
                             backgroundColor: bgColor
                         }}>
-                        <img
+                        <img style={{height : "100%",width : "auto"}}
                             src={`${banner?.type === "app_splash_image" ? process.env.REACT_APP_ACTIVE_IMG + "img/app/splash" : process.env.REACT_APP_SARACEN_IMG + "img/banner/image/" + banner?.relationId}/${banner?.img}`}/>
                     </SS.Core.Col>}
             </Col>

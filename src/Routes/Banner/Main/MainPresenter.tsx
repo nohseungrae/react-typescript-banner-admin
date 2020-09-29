@@ -77,6 +77,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({
                   bannerIndex={top?.top?.id}
                   uploadHeight={"75px"}
                   variables={variables}
+                  maxWidth={1150}
                 />
                 <ReserveComponent
                   id={top?.top?.id}
@@ -114,6 +115,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({
                   bannerIndex={logo?.logo?.id}
                   uploadHeight={"70px"}
                   variables={variables}
+                  maxWidth={250}
                 />
                 <ReserveComponent
                   id={logo?.logo?.id}
@@ -157,6 +159,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({
                   bannerIndex={story?.story?.id}
                   uploadHeight={"435px"}
                   variables={variables}
+                  maxWidth={770}
                 />
                 <ReserveComponent
                   id={story?.story?.id}

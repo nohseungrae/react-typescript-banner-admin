@@ -7,15 +7,16 @@ import ContentCard from "../../../Components/Banner/ContentCard";
 interface IProps {
     bannerList?: []
     banner: { nailArt: IBanner }
+    variables : any
 }
 
-const NailArtPresenter: React.FunctionComponent<IProps> = ({bannerList, banner}) => {
+const NailArtPresenter: React.FunctionComponent<IProps> = ({bannerList, banner,variables}) => {
     return (
         <BannerLayout banner={banner.nailArt} name={"네일아트"} height={"435px"} children={
             <>
                 <ContentCard bannerList={bannerList}/>
-                <InputCard banner={banner} bannerIndex={banner?.nailArt?.id} uploadHeight={"435px"}/>
-                <ReserveComponent reservedBanners={banner?.nailArt?.reservedBanners}/>
+                <InputCard variables={variables} banner={banner} bannerIndex={banner?.nailArt?.id} uploadHeight={"435px"} maxWidth={930}/>
+                <ReserveComponent id={banner?.nailArt?.id} variables={variables} reservedBanners={banner?.nailArt?.reservedBanners}/>
             </>
         }/>
     );

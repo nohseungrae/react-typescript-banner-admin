@@ -55,7 +55,7 @@ const Preview = styled.div<DropProps>`
     display: flex;
     align-items: center;
     width :100%;
-    min-height : ${props => props.uploadHeight};
+    max-height : 425px;
     position: relative;
     &::before{
     content : "";
@@ -77,6 +77,7 @@ interface IProps {
     whichImg: string
     bannerIndex?: string
     story?: boolean
+    maxWidth: number
 }
 
 interface FileProps extends File {
@@ -89,7 +90,8 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
                                                                 name,
                                                                 whichImg,
                                                                 bannerIndex,
-                                                                story
+                                                                story,
+                                                                maxWidth
                                                             }) => {
 
     const {
@@ -116,7 +118,7 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
     })
     const deleteBanner = async (id: string) => {
 
-        if(!id){
+        if (!id) {
             return setDelete(true)
         }
         await removeBanner({
@@ -128,28 +130,47 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
 
     //TODO DropZone에 파일은 넣었을 경우 발동하는 FileSetting 함수---
     const {getRootProps, getInputProps, acceptedFiles}: DropzoneState = useDropzone({
-        accept: 'image/*',
-        onDrop: (acceptedFiles: any) => {
-            //이곳에서 contextAPI 에 있는 files 스테이트를 업데이트 해준다.
-            //whichImg 가 img면 {img : "--"}, backImg면  {backImg : "--"}
-            console.log(files, whichImg, "acceptfiles")
-            setFiles({
-                ...files,
-                [whichImg]: acceptedFiles.map((file: FileProps) => Object.assign(file, {
-                    preview: URL.createObjectURL(file)
-                }))
-            });
-
+            accept: 'image/*',
+            onDrop: (acceptedFiles: any) => {
+                //이곳에서 contextAPI 에 있는 files 스테이트를 업데이트 해준다.
+                //whichImg 가 img면 {img : "--"}, backImg면  {backImg : "--"}
+                const copy = URL.createObjectURL(acceptedFiles[0])
+                const img = new Image()
+                img.src = copy
+                img.onload = () => {
+                    console.log(img.width)
+                    if (maxWidth !== img.width) {
+                        alert(`가로 사이즈 : ${maxWidth}를 지켜주세요`)
+                        return false
+                    }
+                    const maxHeight = uploadHeight?.split("px")[0] as string;
+                    if (parseInt(maxHeight) !== img.height) {
+                        alert(`세로 사이즈 : ${maxHeight}를 지켜주세요`)
+                        return false
+                    }
+                    setFiles({
+                        ...files,
+                        [whichImg]: acceptedFiles.map((file: FileProps) => Object.assign(file, {
+                            preview: URL.createObjectURL(file)
+                        }))
+                    })
+                }
+            }
         }
-    });
-    //TODO DropZone에 파일은 넣었을 경우 발동하는 FileSetting 함수---
+        )
+    ;
+//TODO DropZone에 파일은 넣었을 경우 발동하는 FileSetting 함수---
 
     const thumbs = (file: FileProps | undefined) => (
-        <div style={{overflow: "auto", height: "100%", width: "100%"}} key={file?.name}>
+        <div style={{
+            overflow: "auto", maxHeight: "425px",
+            width: "100%", display: "flex",
+            justifyContent: "center"
+        }} key={file?.name}>
             {
-                file?.preview ? <img style={{maxWidth: "100%"}}
+                file?.preview ? <img style={{maxWidth: "100%",maxHeight : "100%"}}
                                      src={file?.preview}
-                /> : <img style={{maxWidth: "100%"}}
+                /> : <img style={{maxWidth: "100%",maxHeight : "100%"}}
                           src={imgPath}
                 />
             }
@@ -158,7 +179,6 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
 
     useEffect(() => {
         // Make sure to revoke the data uris to avoid memory leaks
-        console.log(files, "acceptfile 후에 files")
         if (files[whichImg]?.length > 0) {
             console.log(files, whichImg, "---Dropzone");
             const image = document.querySelector("#img") as HTMLDivElement
@@ -194,7 +214,6 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
                 [whichImg]: ""
             })
         }
-        console.log(imgPath)
     }, [imgPath])
 
     useEffect(() => {
@@ -207,6 +226,7 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
         <Inner className="container">
             <div style={{paddingBottom: "15px", fontWeight: "bold", display: "inline-block"}}>
                 적용시킬 {name} 이미지 : {initialValues?.[key]?.[whichImg] ? "있음" : "없음"}
+                <span style={{display: "inline-block", margin: "0 0 0 10px"}}></span>
             </div>
             {
                 story ? <SS.Core.Button style={{backgroundColor: "#3f51b5"}}
@@ -220,7 +240,6 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
                     {files[whichImg] ? files[whichImg].map((file: FileProps) => thumbs(file)) : thumbs(undefined)}
                 </Preview>
             </Drop>
-
         </Inner>
     );
 }

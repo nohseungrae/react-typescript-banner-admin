@@ -5,15 +5,17 @@ import {GET_BANNERS_ASIWANT} from "../../../Graphql";
 
 const AppLoadingContainer = () => {
 
-    const {data} = useQuery(GET_BANNERS_ASIWANT, {
-        variables: {
-            typeAndCategoryIdInput: {
-                type: "app_splash_image"
-            }
+    const variables = {
+        typeAndCategoryIdInput: {
+            type: "app_splash_image"
         }
+    }
+
+    const {data} = useQuery(GET_BANNERS_ASIWANT, {
+        variables
     })
 
-    return <AppLoadingPresenter banner={{appLoading: data?.getNewBanners[0]}}/>
+    return <AppLoadingPresenter variables={variables} banner={{appLoading: data?.getNewBanners[0]}}/>
 };
 
 export default AppLoadingContainer;

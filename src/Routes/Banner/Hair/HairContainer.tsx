@@ -1,18 +1,23 @@
 import React from 'react';
 import HairPresenter from "./HairPresenter";
 import {useQuery} from "@apollo/client";
-import {GET_BANNERS_BY_CATEGORYID} from "../../../Graphql";
+import {GET_BANNERS_ASIWANT, GET_BANNERS_BY_CATEGORYID} from "../../../Graphql";
 import CarePresenter from "../Care/CarePresenter";
 
 const HairContainer: React.FunctionComponent<any> = ({match: {params: {categoryId, num}}}) => {
 
-    const {data} = useQuery(GET_BANNERS_BY_CATEGORYID,
+    const variables = {
+        typeAndCategoryIdInput: {relationId: parseInt(categoryId)}
+    }
+
+    const {data} = useQuery(GET_BANNERS_ASIWANT,
         {
-            variables: {categoryId: parseInt(categoryId)}
+            variables
         })
 
-    return <HairPresenter bannerList={data?.getBannerListByGraphAndCategoryId}
-                          banner={{hair: data?.getBannerListByGraphAndCategoryId[parseInt(num)]}}/>;
+    return <HairPresenter bannerList={data?.getNewBanners}
+                          variables={variables}
+                          banner={{hair: data?.getNewBanners[parseInt(num)]}}/>;
 
 };
 

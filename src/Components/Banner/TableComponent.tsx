@@ -53,8 +53,8 @@ const TableComponent: FunctionComponent<IProps> = ({
     },
   });
 
-  const removeBtn = (id: string) => {
-    removeReservedBanner({
+  const removeBtn = async (id: string) => {
+    await removeReservedBanner({
       variables: {
         id: parseInt(id),
       },

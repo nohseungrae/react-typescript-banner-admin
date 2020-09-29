@@ -11,7 +11,7 @@ const MainContainer: React.FunctionComponent<any> = ({match: {params: {categoryI
                 type: ["sara_story"], relationId: 0
             }
         }
-        const {data, refetch} = useQuery(GET_BANNERS_ASIWANT, {
+        const {data} = useQuery(GET_BANNERS_ASIWANT, {
             variables
         })
 

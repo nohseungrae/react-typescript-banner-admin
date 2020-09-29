@@ -1,17 +1,22 @@
 import React from 'react';
 import MassagePresenter from "./MassagePresenter";
 import {useQuery} from "@apollo/client";
-import {GET_BANNERS_BY_CATEGORYID} from "../../../Graphql";
+import {GET_BANNERS_ASIWANT} from "../../../Graphql";
 
 const MassageContainer: React.FunctionComponent<any> = ({match: {params: {categoryId, num}}}) => {
 
-    const {data} = useQuery(GET_BANNERS_BY_CATEGORYID,
+    const variables = {
+        typeAndCategoryIdInput: {relationId: parseInt(categoryId)}
+    }
+
+    const {data} = useQuery(GET_BANNERS_ASIWANT,
         {
-            variables: {categoryId: parseInt(categoryId)}
+            variables
         })
 
-    return <MassagePresenter bannerList={data?.getBannerListByGraphAndCategoryId}
-                             banner={{massage: data?.getBannerListByGraphAndCategoryId[parseInt(num)]}}/>;
+    return <MassagePresenter bannerList={data?.getNewBanners}
+                             variables={variables}
+                             banner={{massage: data?.getNewBanners[parseInt(num)]}}/>;
 
 };
 

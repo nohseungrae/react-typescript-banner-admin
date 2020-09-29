@@ -6,18 +6,20 @@ import ContentCard from "../../../Components/Banner/ContentCard";
 
 interface IProps {
     bannerList?: []
-    banner : {care : IBanner}
+    banner: { care: IBanner }
+    variables: any
 }
 
-const CarePresenter: React.FunctionComponent<IProps> = ({bannerList, banner}) => {
+const CarePresenter: React.FunctionComponent<IProps> = ({bannerList, banner, variables}) => {
 
     return (
         <BannerLayout banner={banner?.care} name={"케어"} height={"435px"}
                       children={
                           <>
                               <ContentCard bannerList={bannerList}/>
-                              <InputCard banner={banner} bannerIndex={banner?.care?.id} uploadHeight={"435px"}/>
-                              <ReserveComponent reservedBanners={banner?.care?.reservedBanners}/>
+                              <InputCard banner={banner} bannerIndex={banner?.care?.id} uploadHeight={"435px"}
+                                         maxWidth={930} variables={variables}/>
+                              <ReserveComponent id={banner?.care?.id} reservedBanners={banner?.care?.reservedBanners} variables={variables}/>
                           </>
                       }/>
     );

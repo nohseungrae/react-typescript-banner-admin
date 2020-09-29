@@ -7,15 +7,16 @@ import ReserveComponent from "../../../Components/Banner/ReserveComponent";
 interface IProps {
     bannerList?: []
     banner: { makeUp: IBanner }
+    variables : any
 }
 
-const MakeupPresenter: React.FunctionComponent<IProps> = ({bannerList, banner}) => {
+const MakeupPresenter: React.FunctionComponent<IProps> = ({bannerList, banner,variables}) => {
     return (
-        <BannerLayout banner={banner.makeUp} name={"메이크업&화장"} height={"435px"} children={
+        <BannerLayout banner={banner?.makeUp} name={"메이크업&화장"} height={"435px"} children={
             <>
                 <ContentCard bannerList={bannerList}/>
-                <InputCard banner={banner} bannerIndex={banner?.makeUp?.id} uploadHeight={"435px"}/>
-                <ReserveComponent reservedBanners={banner?.makeUp?.reservedBanners}/>
+                <InputCard variables={variables} banner={banner} bannerIndex={banner?.makeUp?.id} uploadHeight={"435px"} maxWidth={930}/>
+                <ReserveComponent variables={variables} id={banner?.makeUp?.id} reservedBanners={banner?.makeUp?.reservedBanners}/>
             </>
         }/>
     );

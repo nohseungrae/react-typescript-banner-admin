@@ -1,17 +1,23 @@
 import React from "react";
 import NailArtPresenter from "./NailArtPresenter";
 import {useQuery} from "@apollo/client";
-import {GET_BANNERS_BY_CATEGORYID} from "../../../Graphql";
+import {GET_BANNERS_ASIWANT, GET_BANNERS_BY_CATEGORYID} from "../../../Graphql";
 
 const NailArtContainer: React.FunctionComponent<any> = ({match: {params: {categoryId, num}}}) => {
 
-    const {data} = useQuery(GET_BANNERS_BY_CATEGORYID,
+    const variables = {
+        typeAndCategoryIdInput: {
+            relationId : parseInt(categoryId)}
+    }
+
+    const {data} = useQuery(GET_BANNERS_ASIWANT,
         {
-            variables: {categoryId: parseInt(categoryId)}
+            variables
         })
 
-    return <NailArtPresenter bannerList={data?.getBannerListByGraphAndCategoryId}
-                             banner={{nailArt: data?.getBannerListByGraphAndCategoryId[parseInt(num)]}}/>;
+    return <NailArtPresenter bannerList={data?.getNewBanners}
+                             variables={variables}
+                             banner={{nailArt: data?.getNewBanners[parseInt(num)]}}/>;
 };
 
 export default NailArtContainer;

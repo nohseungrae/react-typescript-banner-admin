@@ -20,6 +20,7 @@ import Accessory from "../../Routes/Banner/Accessory";
 import AppLoading from "../../Routes/Banner/AppLoading";
 import Ads from "../../Routes/Banner/Ads";
 import Main from "../../Routes/Banner/Main";
+import Emergency from "../../Routes/Banner/Emergency";
 
 interface IProps {
     isLoggedIn: boolean;
@@ -134,6 +135,11 @@ const LoggedInRoutes: React.FunctionComponent = () => (
                             paths: ["/banners/accessory/513"],
                         },
                         {
+                            to: "/banners/emergency/0/0",
+                            title: "긴급배너",
+                            paths: ["/banners/emergency/0"],
+                        },
+                        {
                             to: "/banners/apploading",
                             title: "앱로딩화면",
                             paths: ["/banners/apploading"],
@@ -172,6 +178,7 @@ const LoggedInRoutes: React.FunctionComponent = () => (
                 <Route path="/banners/massage/:categoryId/:num" component={Massage}/>
                 <Route path="/banners/interior/:categoryId/:num" component={Interior}/>
                 <Route path="/banners/accessory/:categoryId/:num" component={Accessory}/>
+                <Route path="/banners/emergency/:categoryId/:num" component={Emergency}/>
                 <Route path="/banners/ads/:categoryId/:num" component={Ads}/>
                 <Route path="/banners/apploading" component={AppLoading}/>
                 {/*필수요소 - 로그인 : 삭제불가*/}
