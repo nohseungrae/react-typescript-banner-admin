@@ -83,7 +83,7 @@ export interface IBanners {
     massage?: IBanner;
     appLoading?: IBanner;
     ads?: IBanner;
-    emergency? : IBanner
+    emergency?: IBanner
     // [key: string]: IBanner;
 }
 
@@ -135,9 +135,10 @@ const InputCard: React.FunctionComponent<IProps> = ({
         key,
         setKey,
         startDate,
+        reservedDelete
     } = useContext(Context);
 
-    const [createBanner, {data}] = useMutation(ADD_BANNER, {
+    const [createBanner, {data, loading : createLoading}] = useMutation(ADD_BANNER, {
         update(cache: ApolloCache<any>, {data: {addBannerByGraph}}) {
             const {getNewBanners}: any = cache.readQuery({
                 query: GET_BANNERS_ASIWANT,
@@ -151,7 +152,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
             });
         },
     });
-    const [updateBanner, {data: updateResult, loading}] = useMutation(
+    const [updateBanner, {data: updateResult, loading: updateLoading}] = useMutation(
         UPDATE_BANNER,
         {
             update(cache: ApolloCache<any>, {data: {updateBannerByGraph}}) {
@@ -176,7 +177,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
         }
     );
 
-    const [addReservedBanner, {data: addReservedResult}] = useMutation(
+    const [addReservedBanner, {data: addReservedResult, loading: addReservedLoading}] = useMutation(
         ADD_RESERVEDBANNER,
         {
             update(cache: ApolloCache<any>, {data: {addReservedBannerByGraph}}) {
@@ -185,7 +186,16 @@ const InputCard: React.FunctionComponent<IProps> = ({
                     variables,
                 });
                 const addResult = Object.assign({}, addReservedBannerByGraph);
-                const finalData = getNewBanners.map((item: any) => item.id === bannerIndex ? item.reservedBanners.concat(addResult) : item)
+                const finalData = getNewBanners.map((item: any) => {
+                    if (item.id === bannerIndex) {
+                        const dump = {reservedBanners: []};
+                        dump.reservedBanners.push(addResult as never);
+                        const test = {...item, reservedBanners: dump.reservedBanners};
+                        console.log(test)
+                        return test;
+                    }
+                    return item;
+                })
 
                 console.log(finalData);
                 cache.writeQuery({
@@ -193,6 +203,9 @@ const InputCard: React.FunctionComponent<IProps> = ({
                     variables,
                     data: {getNewBanners: finalData},
                 });
+                if (addReservedBannerByGraph) {
+                    alert("예약되었습니다.");
+                }
             },
         }
     );
@@ -227,7 +240,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
         const {
             target: {value},
         } = e;
-        console.log(name,value)
+        console.log(name, value)
         setValueData({
             [key as keyof IBanners]: {
                 ...initialValues[key as keyof IBanners],
@@ -239,7 +252,10 @@ const InputCard: React.FunctionComponent<IProps> = ({
     //TODO input 데이타들이 업데이트 될 때 함수 발동
 
     const valueSubmit = async (values: Values) => {
-        console.log("save click");
+        console.log("save click", updateLoading);
+        if (updateLoading || addReservedLoading || createLoading) {
+            return false
+        }
         let obj: any = {
             adminId: 0,
             relationId: banner[key as keyof IBanners]?.relationId,
@@ -248,11 +264,11 @@ const InputCard: React.FunctionComponent<IProps> = ({
         console.log(initialValues)
         if (id) {
             Object.keys(values).forEach((k) => {
-                if (initialValues[key][k] || initialValues[key][k]==="") {
+                if (initialValues[key][k] || initialValues[key][k] === "") {
                     let valueData = initialValues[key][k];
 
                     console.log(valueData)
-                    if(valueData === ""){
+                    if (valueData === "") {
                         console.log("데이터 빈값")
                     }
                     if (k === "seq") {
@@ -261,21 +277,30 @@ const InputCard: React.FunctionComponent<IProps> = ({
                     obj[k] = valueData;
                 }
             });
-            console.log("id가 있으며 저장",obj,initialValues);
-            await updateBanner({
-                variables: {
-                    bannerUpdateData: obj,
-                    id: parseInt(id as string),
-                },
-            });
+            console.log("id가 있으며 저장", obj, initialValues);
             if (reserveCheck && startDate) {
                 obj.reservationDate = Date.parse(startDate);
+                console.log(obj.reservationDate, banner, "banner===========")
+                const validation: any = banner?.[key as keyof IBanners]?.reservedBanners?.filter((item: any) => Date.parse(item.reservationDate) === obj.reservationDate)
+                if (validation.length > 0) {
+                    alert("이미 예약된 배너가 있습니다.")
+                    return false
+                }
                 await addReservedBanner({
                     variables: {
                         reservedBannerData: obj,
                     },
+
+                });
+            } else {
+                await updateBanner({
+                    variables: {
+                        bannerUpdateData: obj,
+                        id: parseInt(id as string),
+                    },
                 });
             }
+
         } else {
             Object.keys(values).forEach((k) => {
                 let valueData = initialValues[key][k];
@@ -327,17 +352,18 @@ const InputCard: React.FunctionComponent<IProps> = ({
 
     useEffect(() => {
         if (banner) {
+            console.log(initialValues)
             setKey(keyArray[0]);
             setValueData({
                 ...initialValues,
                 [keyArray[0]]: banner[keyArray[0] as keyof IBanners],
             });
+            setUpdatedAt(banner?.[keyArray[0] as keyof IBanners]?.updatedAt);
         }
         if (reserveCheck) {
             handleReserve(false);
         }
-        setUpdatedAt(banner?.[keyArray[0] as keyof IBanners]?.updatedAt);
-    }, [bannerIndex]);
+    }, [bannerIndex, addReservedResult, reservedDelete]);
 
     return (
         <SS.Core.Row>

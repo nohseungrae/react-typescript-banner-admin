@@ -31,6 +31,7 @@ const ContextProvider: React.FunctionComponent = ({children}) => {
     const [formData, setFormData] = useState<IUpload>();
 
     const [deleteResult, setDelete] = useState<boolean>(false)
+    const [reservedDelete, setReservedDelete] = useState()
     const [addResult, setAdd] = useState<boolean>(false)
 
     const handleReserve = () => {
@@ -49,7 +50,8 @@ const ContextProvider: React.FunctionComponent = ({children}) => {
         key, setKey,
         deleteResult, setDelete,
         addResult, setAdd,
-        startDate, setStartDate
+        startDate, setStartDate,
+        reservedDelete, setReservedDelete
     };
     return <Context.Provider value={provider}>{children}</Context.Provider>;
 };

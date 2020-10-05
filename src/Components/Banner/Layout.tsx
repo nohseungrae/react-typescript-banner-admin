@@ -224,11 +224,11 @@ const BasicLayout: React.FunctionComponent<IProps> = ({
                                                       }) => {
 
     if (height === "70px" || height === "75px" || !height) {
-        imgBoxWidth = "fit-content";
+        imgBoxWidth = "100%";
     } else {
         height = "425px"
     }
-    console.log(saraStory, "Layout")
+    console.log("layout에 있는 -- banner", banner)
     return (
         <Row style={{position: "relative"}}>
             <Col height={height}>
@@ -245,8 +245,11 @@ const BasicLayout: React.FunctionComponent<IProps> = ({
                             width: imgBoxWidth ? imgBoxWidth : "100%",
                             backgroundColor: bgColor
                         }}>
-                        <img style={{height : "100%",width : "auto"}}
-                            src={`${banner?.type === "app_splash_image" ? process.env.REACT_APP_ACTIVE_IMG + "img/app/splash" : process.env.REACT_APP_SARACEN_IMG + "img/banner/image/" + banner?.relationId}/${banner?.img}`}/>
+                        <img style={{height: "100%", width: "auto"}}
+                             src={`
+                             ${banner?.type === "app_splash_image"
+                                 ? process.env.REACT_APP_ACTIVE_IMG + "img/app/splash"
+                                 : process.env.REACT_APP_SARACEN_IMG + "img/banner/image/" + banner?.relationId}/${banner?.img}`}/>
                     </SS.Core.Col>}
             </Col>
             {children}

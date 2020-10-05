@@ -42,27 +42,35 @@ const ContentCard = withRouter(({history, match, bannerList, dynamic}: any) => {
 
     const {deleteResult, setDelete} = useContext(Context)
 
+    const splitUrl = match.url.split("/");
+    const baseUrl = splitUrl.map((x: string, i: number) => splitUrl.length - 1 === i ? null : x);
+
     const goToHere = match.path.split("/")[2];
     const {params: {num, categoryId}} = match;
 
     const [dumpList, setDumpList] = useState(bannerList);
 
     const addBanner = async () => {
-        if(!dumpList[dumpList.length - 1].__typename){
+        if (!dumpList[dumpList.length - 1].__typename) {
             alert("한 번에 하나씩 추가해주세요.")
-           return false
+            return false
         }
         setDumpList([...dumpList, {}])
+        setTimeout(() => {
+            history.push(baseUrl.join("/") + `${dumpList.length}`)
+        }, 100)
     }
 
 
     useEffect(() => {
         setDumpList(bannerList)
+        console.log(bannerList)
+        if (bannerList?.length -1 < num && bannerList[0]?.type === "sara_story") {
+            history.push(baseUrl.join("/") + "0")
+        }
     }, [bannerList])
 
     useEffect(() => {
-        const splitUrl = match.url.split("/");
-        const baseUrl = splitUrl.map((x: string, i: number) => splitUrl.length - 1 === i ? null : x);
         if (deleteResult) {
             setDumpList(bannerList)
             history.push(baseUrl.join("/") + `${bannerList?.length - 1}`);

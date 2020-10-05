@@ -55,7 +55,7 @@ const Preview = styled.div<DropProps>`
     display: flex;
     align-items: center;
     width :100%;
-    max-height : 425px;
+    height: ${props => props.uploadHeight};
     position: relative;
     &::before{
     content : "";
@@ -163,14 +163,14 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
 
     const thumbs = (file: FileProps | undefined) => (
         <div style={{
-            overflow: "auto", maxHeight: "425px",
+            overflow: "auto", height: "100%",
             width: "100%", display: "flex",
             justifyContent: "center"
         }} key={file?.name}>
             {
-                file?.preview ? <img style={{maxWidth: "100%",maxHeight : "100%"}}
+                file?.preview ? <img style={{maxWidth: "100%", maxHeight: "100%"}}
                                      src={file?.preview}
-                /> : <img style={{maxWidth: "100%",maxHeight : "100%"}}
+                /> : <img style={{maxWidth: "100%", maxHeight: "100%"}}
                           src={imgPath}
                 />
             }
@@ -236,7 +236,7 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
             }
             <Drop {...getRootProps({className: 'dropzone'})} exist={acceptedFiles.length > 0 ? true : false}>
                 <input {...getInputProps()} />
-                <Preview exist={acceptedFiles.length > 0 || imgPath ? true : false} uploadHeight={uploadHeight}>
+                <Preview exist={acceptedFiles.length > 0 || imgPath ? true : false} uploadHeight={uploadHeight === "fit-content" ? "425px" : uploadHeight}>
                     {files[whichImg] ? files[whichImg].map((file: FileProps) => thumbs(file)) : thumbs(undefined)}
                 </Preview>
             </Drop>

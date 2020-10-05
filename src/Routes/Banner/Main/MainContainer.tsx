@@ -33,7 +33,7 @@ const MainContainer: React.FunctionComponent<any> = ({match: {params: {categoryI
                 }
                 return comparison;
             }
-            const topAndLogo = data?.getNewBanners?.filter((item: any) => item?.type?.includes('logo') || item.type.includes('top_banner'))
+            const topAndLogo = data?.getNewBanners?.filter((item: any) => item?.type?.includes('logo') || item?.type?.includes('top_banner'))
                 .sort((a: any, b: any) => {
                     // console.log(a, b)
 
