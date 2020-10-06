@@ -17,6 +17,9 @@ const Col = styled(SS.Core.ColF)`
   padding: 10px 10px;
   margin: 20px 0;
   flex-direction: row;
+  .react-datepicker-popper{
+    z-index: 1000;
+  }
   .saturday {
     color: rgb(0, 0, 255);
   }
@@ -56,14 +59,14 @@ const ReserveComponent: React.FunctionComponent<IProps> = ({
         setEndDate(null);
     };
     // 월/일
-    const getFormattedDate = (date: Date) => {
-        const month = date.toLocaleDateString("ko-KR", {month: "long"});
-        const day = date.toLocaleDateString("ko-KR", {day: "numeric"});
-        return `${month.substr(0, month.length - 1)}/${day.substr(
-            0,
-            day.length - 1
-        )}`;
-    };
+    // const getFormattedDate = (date: Date) => {
+    //     const month = date.toLocaleDateString("ko-KR", {month: "long"});
+    //     const day = date.toLocaleDateString("ko-KR", {day: "numeric"});
+    //     return `${month.substr(0, month.length - 1)}/${day.substr(
+    //         0,
+    //         day.length - 1
+    //     )}`;
+    // };
 
     // 요일 반환
     const getDayName = (date: Date): string => {
@@ -81,13 +84,13 @@ const ReserveComponent: React.FunctionComponent<IProps> = ({
         if(loading){
             setLoading(false);
         }
-    }, []);
+    }, [loading]);
 
     useEffect((): void => {
         if(!reserveCheck){
             setStartDate(null);
         }
-    }, [reserveCheck]);
+    }, [reserveCheck,setStartDate]);
     return (
         <SS.Core.Row>
             {!reserveCheck ? (

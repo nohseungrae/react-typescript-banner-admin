@@ -1,8 +1,7 @@
 import React from 'react';
 import HairPresenter from "./HairPresenter";
 import {useQuery} from "@apollo/client";
-import {GET_BANNERS_ASIWANT, GET_BANNERS_BY_CATEGORYID} from "../../../Graphql";
-import CarePresenter from "../Care/CarePresenter";
+import {GET_BANNERS_ASIWANT} from "../../../Graphql";
 
 const HairContainer: React.FunctionComponent<any> = ({match: {params: {categoryId, num}}}) => {
 

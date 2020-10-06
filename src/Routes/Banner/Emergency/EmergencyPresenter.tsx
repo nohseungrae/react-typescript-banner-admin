@@ -1,6 +1,6 @@
 import React from 'react';
 import BannerLayout from "../../../Components/Banner/Layout";
-import InputCard, {IBanner, IBanners} from "../../../Components/Banner/InputCard";
+import InputCard, {IBanner} from "../../../Components/Banner/InputCard";
 import ReserveComponent from "../../../Components/Banner/ReserveComponent";
 import ContentCard from "../../../Components/Banner/ContentCard";
 
@@ -17,7 +17,8 @@ const EmergencyPresenter: React.FunctionComponent<IProps> = ({bannerList, banner
                 <ContentCard bannerList={bannerList}/>
                 <InputCard banner={banner} bannerIndex={banner?.emergency?.id} uploadHeight={"435px"} maxWidth={930}
                            variables={variables}/>
-                <ReserveComponent id={banner?.emergency?.id} reservedBanners={banner?.emergency?.reservedBanners} variables={variables}/>
+                <ReserveComponent id={banner?.emergency?.id} reservedBanners={banner?.emergency?.reservedBanners}
+                                  variables={variables}/>
             </>
         }/>
     );

@@ -62,8 +62,11 @@ const TableComponent: FunctionComponent<IProps> = ({
     };
 
     useEffect(() => {
-        setReservedDelete(data)
-    },[data])
+        if (data?.deleteReservedBannerByGraph) {
+            console.log(data)
+            setReservedDelete(data)
+        }
+    }, [data, setReservedDelete])
 
     const Thead = () => (
         <thead style={{backgroundColor: theme.pink}}>
@@ -77,7 +80,7 @@ const TableComponent: FunctionComponent<IProps> = ({
         </thead>
     );
 
-    const Tbody: FunctionComponent<IProps> = ({reservedBanners, id}) => (
+    const Tbody: FunctionComponent<IProps> = ({reservedBanners}) => (
         <tbody>
         {reservedBanners?.map((item: any, i: number) => (
             <tr key={i}>

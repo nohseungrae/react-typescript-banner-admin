@@ -1,11 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {DropzoneState, useDropzone} from "react-dropzone";
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
 import Context from "../../Context/context";
 import {IBanners} from "./InputCard";
 import {ApolloCache, useMutation} from "@apollo/client";
-import {DELETE_BANNER, GET_BANNERS_ASIWANT, GET_BANNERS_BY_TYPE} from "../../Graphql";
+import {DELETE_BANNER, GET_BANNERS_ASIWANT} from "../../Graphql";
 
 interface DropProps {
     exist?: boolean
@@ -100,7 +100,7 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
     } = useContext(Context)
 
     const [removeBanner, {data}] = useMutation(DELETE_BANNER, {
-        update(cache: ApolloCache<any>, {data: {deleteBannerByGraph}}) {
+        update(cache: ApolloCache<any>) {
             const {getNewBanners}: any = cache.readQuery({
                 query: GET_BANNERS_ASIWANT,
                 variables: {typeAndCategoryIdInput: {type: ["sara_story"], relationId: 0}}
@@ -139,15 +139,15 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
                 img.src = copy
                 img.onload = () => {
                     console.log(img.width)
-                    if (maxWidth !== img.width) {
-                        alert(`가로 사이즈 : ${maxWidth}를 지켜주세요`)
-                        return false
-                    }
-                    const maxHeight = uploadHeight?.split("px")[0] as string;
-                    if (parseInt(maxHeight) !== img.height) {
-                        alert(`세로 사이즈 : ${maxHeight}를 지켜주세요`)
-                        return false
-                    }
+                    // if (maxWidth !== img.width) {
+                    //     alert(`가로 사이즈 : ${maxWidth}를 지켜주세요`)
+                    //     return false
+                    // }
+                    // const maxHeight = uploadHeight?.split("px")[0] as string;
+                    // if (parseInt(maxHeight) !== img.height) {
+                    //     alert(`세로 사이즈 : ${maxHeight}를 지켜주세요`)
+                    //     return false
+                    // }
                     setFiles({
                         ...files,
                         [whichImg]: acceptedFiles.map((file: FileProps) => Object.assign(file, {
@@ -161,21 +161,23 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
     ;
 //TODO DropZone에 파일은 넣었을 경우 발동하는 FileSetting 함수---
 
-    const thumbs = (file: FileProps | undefined) => (
-        <div style={{
+    const thumbs = (file: FileProps | undefined) => {
+        console.log(file)
+        return <div style={{
             overflow: "auto", height: "100%",
             width: "100%", display: "flex",
             justifyContent: "center"
         }} key={file?.name}>
             {
                 file?.preview ? <img style={{maxWidth: "100%", maxHeight: "100%"}}
-                                     src={file?.preview}
+                                     src={file?.preview} alt={file?.name}
                 /> : <img style={{maxWidth: "100%", maxHeight: "100%"}}
-                          src={imgPath}
+                          src={imgPath?.includes('undefined') ? '' : imgPath}
+                          alt={whichImg}
                 />
             }
         </div>
-    );
+    };
 
     useEffect(() => {
         // Make sure to revoke the data uris to avoid memory leaks
@@ -189,7 +191,7 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
             }, [500]);
 
             //TODO File을 업데이트 한 후에 name만 꺼내서 사용하고 싶으므로 name 스테이트 업데이트함수
-            const fileNameSetting = ((files: any) => {
+            ((files: any) => {
                 setValueData({
                     [key as keyof IBanners]: {
                         ...initialValues[key as keyof IBanners],
@@ -204,6 +206,7 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
     }, [files]);
 
     useEffect(() => {
+        console.log(imgPath,"imgPath 바뀔 때")
         if (files[whichImg]) {
             files[whichImg]?.map((file: any) => {
                 URL.revokeObjectURL(file.preview as string)
@@ -220,7 +223,7 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
         if (data?.deleteBannerByGraph) {
             setDelete(true)
         }
-    }, [data?.deleteBannerByGraph])
+    }, [data, setDelete])
 
     return (
         <Inner className="container">
@@ -236,7 +239,8 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
             }
             <Drop {...getRootProps({className: 'dropzone'})} exist={acceptedFiles.length > 0 ? true : false}>
                 <input {...getInputProps()} />
-                <Preview exist={acceptedFiles.length > 0 || imgPath ? true : false} uploadHeight={uploadHeight === "fit-content" ? "425px" : uploadHeight}>
+                <Preview exist={acceptedFiles.length > 0 || imgPath ? true : false}
+                         uploadHeight={uploadHeight === "fit-content" ? "425px" : uploadHeight}>
                     {files[whichImg] ? files[whichImg].map((file: FileProps) => thumbs(file)) : thumbs(undefined)}
                 </Preview>
             </Drop>

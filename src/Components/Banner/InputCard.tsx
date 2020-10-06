@@ -1,5 +1,4 @@
 import React, {
-    FunctionComponent,
     useContext,
     useEffect,
     useState,
@@ -7,7 +6,7 @@ import React, {
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
 import {TextField, Button} from "@material-ui/core";
-import {Formik, Form, FormikHelpers} from "formik";
+import {Formik, Form} from "formik";
 import * as yup from "yup";
 import DropzoneComponent from "./DropzoneComponent";
 import {styled as styledMaterial} from "@material-ui/core/styles";
@@ -127,18 +126,16 @@ const InputCard: React.FunctionComponent<IProps> = ({
         reserveCheck,
         handleReserve,
         filename,
-        files,
-        formData,
-        setFormData,
         initialValues,
         setValueData,
         key,
         setKey,
         startDate,
-        reservedDelete
+        reservedDelete,
+        setFiles
     } = useContext(Context);
 
-    const [createBanner, {data, loading : createLoading}] = useMutation(ADD_BANNER, {
+    const [createBanner, {loading: createLoading}] = useMutation(ADD_BANNER, {
         update(cache: ApolloCache<any>, {data: {addBannerByGraph}}) {
             const {getNewBanners}: any = cache.readQuery({
                 query: GET_BANNERS_ASIWANT,
@@ -152,7 +149,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
             });
         },
     });
-    const [updateBanner, {data: updateResult, loading: updateLoading}] = useMutation(
+    const [updateBanner, {loading: updateLoading}] = useMutation(
         UPDATE_BANNER,
         {
             update(cache: ApolloCache<any>, {data: {updateBannerByGraph}}) {
@@ -352,13 +349,13 @@ const InputCard: React.FunctionComponent<IProps> = ({
 
     useEffect(() => {
         if (banner) {
-            console.log(initialValues)
             setKey(keyArray[0]);
             setValueData({
                 ...initialValues,
                 [keyArray[0]]: banner[keyArray[0] as keyof IBanners],
             });
             setUpdatedAt(banner?.[keyArray[0] as keyof IBanners]?.updatedAt);
+            setFiles({})
         }
         if (reserveCheck) {
             handleReserve(false);

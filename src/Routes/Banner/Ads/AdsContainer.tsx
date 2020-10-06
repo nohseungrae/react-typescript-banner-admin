@@ -1,9 +1,9 @@
 import React from "react";
 import AdsPresenter from "./AdsPresenter";
 import {useQuery} from "@apollo/client";
-import {GET_BANNERS_ASIWANT, GET_BANNERS_BY_TYPE} from "../../../Graphql";
+import {GET_BANNERS_ASIWANT} from "../../../Graphql";
 
-const AdsContainer: React.FunctionComponent<any> = ({match: {params: {categoryId, num}}}) => {
+const AdsContainer: React.FunctionComponent<any> = ({match: {params: {num}}}) => {
 
     const variables = {
         typeAndCategoryIdInput: {

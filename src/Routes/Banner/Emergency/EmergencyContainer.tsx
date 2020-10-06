@@ -3,11 +3,11 @@ import EmergencyPresenter from "./EmergencyPresenter";
 import {useQuery} from "@apollo/client";
 import {GET_BANNERS_ASIWANT} from "../../../Graphql";
 
-const EmergencyContainer: React.FunctionComponent<any> = ({match: {params: {categoryId, num}}}) => {
+const EmergencyContainer: React.FunctionComponent<any> = ({match: {params: {num}}}) => {
 
     const variables = {
         typeAndCategoryIdInput: {
-            type : ['emergency']
+            type: ['emergency']
         }
     }
     const {data} = useQuery(GET_BANNERS_ASIWANT, {

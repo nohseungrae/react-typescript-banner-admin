@@ -1,11 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Link, withRouter, Redirect} from "react-router-dom"
+import {Link, withRouter} from "react-router-dom"
 import styled from "styled-components";
 import SS from "@saraceninc/saracen-style-ts";
-import {ApolloCache, gql, useMutation} from "@apollo/client";
-import {ADD_BANNER, DELETE_BANNER, GET_BANNERS_ASIWANT, GET_BANNERS_BY_TYPE} from "../../Graphql";
-import {IBanners} from "./InputCard";
-import {getMilliseconds} from "date-fns";
 import Context from "../../Context/context";
 
 interface SProps {
@@ -42,8 +38,7 @@ const ContentCard = withRouter(({history, match, bannerList, dynamic}: any) => {
 
     const {deleteResult, setDelete} = useContext(Context)
 
-    const splitUrl = match.url.split("/");
-    const baseUrl = splitUrl.map((x: string, i: number) => splitUrl.length - 1 === i ? null : x);
+    const [base, setBase] = useState<[]>([]);
 
     const goToHere = match.path.split("/")[2];
     const {params: {num, categoryId}} = match;
@@ -57,26 +52,31 @@ const ContentCard = withRouter(({history, match, bannerList, dynamic}: any) => {
         }
         setDumpList([...dumpList, {}])
         setTimeout(() => {
-            history.push(baseUrl.join("/") + `${dumpList.length}`)
+            history.push(base.join("/") + `${dumpList.length}`)
         }, 100)
     }
 
+    useEffect(() => {
+        const splitUrl = match.url.split("/");
+        const baseUrl = splitUrl.map((x: string, i: number) => splitUrl.length - 1 === i ? null : x);
+        setBase(baseUrl)
+    }, [match])
 
     useEffect(() => {
         setDumpList(bannerList)
-        console.log(bannerList)
-        if (bannerList?.length -1 < num && bannerList[0]?.type === "sara_story") {
-            history.push(baseUrl.join("/") + "0")
+        if (bannerList?.length - 1 < num && bannerList[0]?.type === "sara_story") {
+            history.push(base.join("/") + "0")
         }
-    }, [bannerList])
+    }, [bannerList, history])
 
     useEffect(() => {
+
         if (deleteResult) {
             setDumpList(bannerList)
-            history.push(baseUrl.join("/") + `${bannerList?.length - 1}`);
+            history.push(base.join("/") + `${bannerList?.length - 1}`);
             setDelete(false)
         }
-    }, [deleteResult])
+    }, [deleteResult, setDumpList, setDelete, history, bannerList, base])
 
     return (
         <SS.Core.RowF style={

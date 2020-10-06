@@ -1,4 +1,4 @@
-import React, {ClassicComponentClass, ComponentClass, useEffect, useState} from "react";
+import React from "react";
 import CarePresenter from "./CarePresenter";
 import {GET_BANNERS_ASIWANT} from "../../../Graphql/index";
 import {useQuery} from "@apollo/client";

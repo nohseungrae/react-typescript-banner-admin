@@ -1,7 +1,7 @@
 import React from 'react';
 import InteriorPresenter from "./InteriorPresenter";
 import {useQuery} from "@apollo/client";
-import {GET_BANNERS_ASIWANT, GET_BANNERS_BY_CATEGORYID} from "../../../Graphql";
+import {GET_BANNERS_ASIWANT} from "../../../Graphql";
 
 const InteriorContainer: React.FunctionComponent<any> = ({match: {params: {categoryId, num}}}) => {
 

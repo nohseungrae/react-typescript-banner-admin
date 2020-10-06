@@ -1,6 +1,6 @@
 import React from 'react';
 import BannerLayout from "../../../Components/Banner/Layout";
-import InputCard, {IBanner, IBanners} from "../../../Components/Banner/InputCard";
+import InputCard, {IBanner} from "../../../Components/Banner/InputCard";
 import ReserveComponent from "../../../Components/Banner/ReserveComponent";
 import ContentCard from "../../../Components/Banner/ContentCard";
 

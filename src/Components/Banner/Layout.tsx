@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {RefObject, useEffect, useRef, useState} from 'react';
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
 import theme from "@saraceninc/saracen-style-ts/lib/theme";
@@ -89,11 +89,6 @@ const Row = styled(SS.Core.Row)`
     margin-left: auto;
     margin-right: auto;
     height: 100%;
-
-    //img{
-    //margin: 0 auto;
-    //position: relative;
-    //}
   }
 
   .slick-initialized .slick-slide {
@@ -112,7 +107,6 @@ const Row = styled(SS.Core.Row)`
 const Col = styled(SS.Core.Col)<SProps>`
   overflow: hidden;
   borderRadius: 5px;
-  //max-height: ${props => `calc(${props.height})`};
   .mini-banners{
   position: absolute;
   top: 0;
@@ -181,7 +175,6 @@ const BannerLayout: React.FunctionComponent<IProps> = ({
                                                            children, main,
                                                            height,
                                                            maxWidth,
-                                                           imgBoxWidth,
                                                            bgColor,
                                                            name,
                                                            margin,
@@ -211,14 +204,11 @@ const BannerLayout: React.FunctionComponent<IProps> = ({
 };
 const BasicLayout: React.FunctionComponent<IProps> = ({
                                                           slider,
-                                                          main,
                                                           name,
                                                           children,
                                                           height,
-                                                          maxWidth,
                                                           imgBoxWidth,
                                                           bgColor,
-                                                          margin,
                                                           banner,
                                                           saraStory
                                                       }) => {
@@ -228,11 +218,13 @@ const BasicLayout: React.FunctionComponent<IProps> = ({
     } else {
         height = "425px"
     }
-    console.log("layout에 있는 -- banner", banner)
+    console.log("layout에 있는 -- banner", banner, imgBoxWidth)
+
     return (
         <Row style={{position: "relative"}}>
             <Col height={height}>
                 <Text>
+
                     {name} 사진<SS.Core.Button padding={"2px"} margin={"0 0 0 5px"}
                                              theme={banner?.img || !banner ? theme.pink : theme.purple}>{banner?.img || !banner ? "적용중" : "미적용중"}</SS.Core.Button>
                 </Text>
@@ -245,11 +237,12 @@ const BasicLayout: React.FunctionComponent<IProps> = ({
                             width: imgBoxWidth ? imgBoxWidth : "100%",
                             backgroundColor: bgColor
                         }}>
-                        <img style={{height: "100%", width: "auto"}}
-                             src={`
-                             ${banner?.type === "app_splash_image"
-                                 ? process.env.REACT_APP_ACTIVE_IMG + "img/app/splash"
-                                 : process.env.REACT_APP_SARACEN_IMG + "img/banner/image/" + banner?.relationId}/${banner?.img}`}/>
+                        <img style={{height: "100%", maxWidth: "100%"}}
+                             src={
+                                 banner?.type === "app_splash_image"
+                                     ? banner?.img === undefined ? '' : `${process.env.REACT_APP_ACTIVE_IMG}img/app/splash/${banner?.img}`
+                                     : banner?.relationId === undefined ? '' : `${process.env.REACT_APP_SARACEN_IMG}img/banner/image/${banner?.relationId}/${banner?.img}`
+                             } alt={banner?.alt}/>
                     </SS.Core.Col>}
             </Col>
             {children}
