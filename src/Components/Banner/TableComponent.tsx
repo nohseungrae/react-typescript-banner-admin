@@ -84,9 +84,17 @@ const TableComponent: FunctionComponent<IProps> = ({
         <tbody>
         {reservedBanners?.map((item: any, i: number) => (
             <tr key={i}>
-                <td>{item.img}</td>
+                <td style={{display: "flex", width: "100%", padding: "0"}}>
+                    <div>
+                        <img style={{width: "100%"}} src={
+                            item?.type === "app_splash_image"
+                                ? item?.img === undefined ? '' : `${process.env.REACT_APP_ACTIVE_IMG}img/app/splash/${item?.img}`
+                                : item?.relationId === undefined ? '' : `${process.env.REACT_APP_SARACEN_IMG}img/banner/image/${item?.relationId}/${item?.img}`
+                        } alt={item.alt}/>
+                    </div>
+                </td>
                 <td>{item.alt}</td>
-                <td>{item.url}</td>
+                <td><a href={item.url} target={"_blank"}>{item.url}</a></td>
                 <td>{moment(item.reservationDate).format("YYYY.MM.DD HH:mm:ss")}</td>
                 <td>
                     <SS.Core.Button

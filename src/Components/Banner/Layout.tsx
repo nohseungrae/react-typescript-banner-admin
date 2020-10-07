@@ -1,4 +1,4 @@
-import React, {RefObject, useEffect, useRef, useState} from 'react';
+import React from 'react';
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
 import theme from "@saraceninc/saracen-style-ts/lib/theme";
@@ -225,7 +225,7 @@ const BasicLayout: React.FunctionComponent<IProps> = ({
             <Col height={height}>
                 <Text>
 
-                    {name} 사진<SS.Core.Button padding={"2px"} margin={"0 0 0 5px"}
+                    {name}<SS.Core.Button padding={"2px"} margin={"0 0 0 5px"}
                                              theme={banner?.img || !banner ? theme.pink : theme.purple}>{banner?.img || !banner ? "적용중" : "미적용중"}</SS.Core.Button>
                 </Text>
                 {slider ?

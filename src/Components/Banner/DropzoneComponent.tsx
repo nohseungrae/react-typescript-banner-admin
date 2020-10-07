@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useCallback, useContext, useEffect} from 'react';
 import {DropzoneState, useDropzone} from "react-dropzone";
 import SS from "@saraceninc/saracen-style-ts";
 import styled from "styled-components";
@@ -179,6 +179,16 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
         </div>
     };
 
+    const filenameSetting = useCallback((files: any) => {
+        setValueData({
+            [key as keyof IBanners]: {
+                ...initialValues[key as keyof IBanners],
+                img: Object.keys(files).includes("img") ? files?.img[0]?.name : initialValues[key as keyof IBanners]?.img,
+                backImg: Object.keys(files).includes("backImg") ? files?.backImg[0]?.name : initialValues[key as keyof IBanners]?.backImg
+            }
+        })
+    }, [initialValues, key, setValueData])
+
     useEffect(() => {
         // Make sure to revoke the data uris to avoid memory leaks
         if (files[whichImg]?.length > 0) {
@@ -191,30 +201,24 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
             }, [500]);
 
             //TODO File을 업데이트 한 후에 name만 꺼내서 사용하고 싶으므로 name 스테이트 업데이트함수
-            ((files: any) => {
-                setValueData({
-                    [key as keyof IBanners]: {
-                        ...initialValues[key as keyof IBanners],
-                        img: Object.keys(files).includes("img") ? files?.img[0]?.name : initialValues[key as keyof IBanners]?.img,
-                        backImg: Object.keys(files).includes("backImg") ? files?.backImg[0]?.name : initialValues[key as keyof IBanners]?.backImg
-                    }
-                })
-            })(files)
+            filenameSetting(files)
             //TODO File을 업데이트 한 후에 name만 꺼내서 사용하고 싶으므로 name 스테이트 업데이트함수
 
         }
     }, [files]);
 
     useEffect(() => {
-        console.log(imgPath,"imgPath 바뀔 때")
+        console.log(imgPath, "imgPath 바뀔 때")
         if (files[whichImg]) {
             files[whichImg]?.map((file: any) => {
                 URL.revokeObjectURL(file.preview as string)
                 delete file.preview;
             })
-            setFilename({
-                ...filename,
-                [whichImg]: ""
+            setFilename(() => {
+                return {
+                    ...filename,
+                    [whichImg]: ""
+                }
             })
         }
     }, [imgPath])

@@ -1,8 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Link, withRouter} from "react-router-dom"
+import {useHistory, useRouteMatch} from "react-router"
+import {Link,} from "react-router-dom"
 import styled from "styled-components";
 import SS from "@saraceninc/saracen-style-ts";
 import Context from "../../Context/context";
+import {IBanner, IBanners} from "./InputCard";
 
 interface SProps {
     click?: boolean
@@ -29,19 +31,33 @@ const AddBtn = styled(SS.Core.Button)`
   padding : 0;
   flex-grow: 1;
 `;
+
+interface IProps {
+    bannerList: any
+    dynamic?: boolean
+}
+
+export interface IMatchChild {
+    num: string
+    categoryId: string
+}
+
 export const generateRandom = (min: number, max: number) => {
     const ranNum = Math.abs(Math.floor(Math.random() * (max - min + 1)) + Math.floor(+new Date() / 10000));
     console.log(ranNum)
     return ranNum;
 }
-const ContentCard = withRouter(({history, match, bannerList, dynamic}: any) => {
+const ContentCard: React.FunctionComponent<IProps> = ({bannerList, dynamic}) => {
 
-    const {deleteResult, setDelete} = useContext(Context)
+    const history = useHistory()
+    const match = useRouteMatch<IMatchChild>()
+    const {params: {num, categoryId}} = match;
+
+    const {deleteResult, setDelete, initialValues, setValueData, key} = useContext(Context)
 
     const [base, setBase] = useState<[]>([]);
 
     const goToHere = match.path.split("/")[2];
-    const {params: {num, categoryId}} = match;
 
     const [dumpList, setDumpList] = useState(bannerList);
 
@@ -53,18 +69,19 @@ const ContentCard = withRouter(({history, match, bannerList, dynamic}: any) => {
         setDumpList([...dumpList, {}])
         setTimeout(() => {
             history.push(base.join("/") + `${dumpList.length}`)
-        }, 100)
+        }, 1)
+
     }
 
     useEffect(() => {
         const splitUrl = match.url.split("/");
         const baseUrl = splitUrl.map((x: string, i: number) => splitUrl.length - 1 === i ? null : x);
-        setBase(baseUrl)
+        setBase(baseUrl as [])
     }, [match])
 
     useEffect(() => {
         setDumpList(bannerList)
-        if (bannerList?.length - 1 < num && bannerList[0]?.type === "sara_story") {
+        if (bannerList?.length - 1 < parseInt(num) && bannerList[0]?.type === "sara_story") {
             history.push(base.join("/") + "0")
         }
     }, [bannerList, history])
@@ -123,6 +140,6 @@ const ContentCard = withRouter(({history, match, bannerList, dynamic}: any) => {
 
         </SS.Core.RowF>
     );
-});
+};
 
 export default ContentCard;

@@ -12,6 +12,7 @@ import DropzoneComponent from "./DropzoneComponent";
 import {styled as styledMaterial} from "@material-ui/core/styles";
 import Context from "../../Context/context";
 import Alert from "@material-ui/lab/Alert";
+import {useHistory} from "react-router"
 import {
     ADD_BANNER,
     ADD_RESERVEDBANNER,
@@ -21,6 +22,8 @@ import {
 import {ApolloCache, useMutation} from "@apollo/client";
 import moment from "moment";
 import {generateRandom} from "./ContentCard";
+import {ChromePicker} from "react-color"
+import {compare} from "../../Routes/Banner/Main/MainContainer";
 
 const styles: any = {
     alert: {
@@ -38,6 +41,9 @@ const Col = styled(SS.Core.Col)`
     0 10px 10px rgba(90, 97, 105, 0.06), 0 7px 70px rgba(90, 97, 105, 0.1);
   padding: 10px 10px;
   display: flex;
+  .chrome-picker {
+    margin : 10px;
+  }
 `;
 const FormUpload = styled(Form)`
   position: relative;
@@ -95,6 +101,7 @@ interface IProps {
     top?: boolean;
     variables?: any;
     maxWidth: number
+    saraStory?: any[]
 }
 
 interface Values {
@@ -120,7 +127,8 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                         top,
                                                         bannerIndex,
                                                         variables,
-                                                        maxWidth
+                                                        maxWidth,
+                                                        saraStory
                                                     }) => {
     const {
         reserveCheck,
@@ -135,6 +143,8 @@ const InputCard: React.FunctionComponent<IProps> = ({
         setFiles
     } = useContext(Context);
 
+    const history = useHistory()
+
     const [createBanner, {loading: createLoading}] = useMutation(ADD_BANNER, {
         update(cache: ApolloCache<any>, {data: {addBannerByGraph}}) {
             const {getNewBanners}: any = cache.readQuery({
@@ -148,8 +158,15 @@ const InputCard: React.FunctionComponent<IProps> = ({
                 data: {getNewBanners: getNewBanners.concat([addBannerByGraph])},
             });
         },
+        onCompleted: data => {
+            if (data) {
+                const findIndex = saraStory?.concat(data?.addBannerByGraph).sort(compare).findIndex((e: any) => e.id === data?.addBannerByGraph?.id)
+                alert("새로운 StoryBanner가 추가되었습니다.");
+                history.push(`/banners/main/sara_story/${findIndex}`)
+            }
+        }
     });
-    const [updateBanner, {loading: updateLoading}] = useMutation(
+    const [updateBanner, {data: updateResult, loading: updateLoading}] = useMutation(
         UPDATE_BANNER,
         {
             update(cache: ApolloCache<any>, {data: {updateBannerByGraph}}) {
@@ -166,11 +183,12 @@ const InputCard: React.FunctionComponent<IProps> = ({
                     variables,
                     data: {getNewBanners: newBanners},
                 });
-                if (updateBannerByGraph) {
-                    setUpdatedAt(updateBannerByGraph?.updatedAt);
-                    alert("업데이트 완료");
-                }
+
             },
+            onCompleted: data => {
+                setUpdatedAt(data?.updateBannerByGraph?.updatedAt);
+                alert("업데이트 완료");
+            }
         }
     );
 
@@ -200,10 +218,13 @@ const InputCard: React.FunctionComponent<IProps> = ({
                     variables,
                     data: {getNewBanners: finalData},
                 });
-                if (addReservedBannerByGraph) {
+            },
+            onCompleted: data => {
+                if (data) {
+                    console.log(data)
                     alert("예약되었습니다.");
                 }
-            },
+            }
         }
     );
 
@@ -234,10 +255,12 @@ const InputCard: React.FunctionComponent<IProps> = ({
         const {
             target: {name},
         } = e;
-        const {
+        let {
             target: {value},
         } = e;
-        console.log(name, value)
+        if (name === "color") {
+            return
+        }
         setValueData({
             [key as keyof IBanners]: {
                 ...initialValues[key as keyof IBanners],
@@ -246,6 +269,15 @@ const InputCard: React.FunctionComponent<IProps> = ({
         });
         setFieldValue(name, value);
     };
+    const colorChange = (e: any) => {
+        console.log(e)
+        setValueData({
+            [key as keyof IBanners]: {
+                ...initialValues[key as keyof IBanners],
+                color: e?.hex
+            },
+        });
+    }
     //TODO input 데이타들이 업데이트 될 때 함수 발동
 
     const valueSubmit = async (values: Values) => {
@@ -258,7 +290,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
             relationId: banner[key as keyof IBanners]?.relationId,
         };
         const id: string | undefined = bannerIndex?.toString();
-        console.log(initialValues)
+        console.log(initialValues,obj,id)
         if (id) {
             Object.keys(values).forEach((k) => {
                 if (initialValues[key][k] || initialValues[key][k] === "") {
@@ -299,12 +331,18 @@ const InputCard: React.FunctionComponent<IProps> = ({
             }
 
         } else {
+            if(!initialValues.story){
+                alert("적어도 1부분 이상 채워주세요")
+                return
+            }
             Object.keys(values).forEach((k) => {
+                console.log(initialValues)
                 let valueData = initialValues[key][k];
+
                 if (k === "seq") {
                     valueData = parseInt(valueData);
                     if (!valueData) {
-                        valueData = 99;
+                        valueData = 0;
                     }
                 }
                 obj[k] = valueData;
@@ -316,16 +354,18 @@ const InputCard: React.FunctionComponent<IProps> = ({
                     ? generateRandom(0, 100000)
                     : variables.typeAndCategoryIdInput.relationId;
             console.log("여기는 추가 :", initialValues, obj, variables);
-            await createBanner({
-                variables: {
-                    bannerData: obj,
-                },
-            });
             if (reserveCheck && startDate) {
                 obj.reservationDate = Date.parse(startDate);
+                console.log(obj)
                 await addReservedBanner({
                     variables: {
                         reservedBannerData: obj,
+                    },
+                });
+            } else {
+                await createBanner({
+                    variables: {
+                        bannerData: obj,
                     },
                 });
             }
@@ -361,6 +401,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
             handleReserve(false);
         }
     }, [bannerIndex, addReservedResult, reservedDelete]);
+
 
     return (
         <SS.Core.Row>
@@ -484,26 +525,33 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                     />
                                 )}
                                 {top ? (
-                                    <Group
-                                        margin={"dense"}
-                                        error={errors?.color && touched?.color}
-                                        onChange={(e) => valueChange(e, setFieldValue)}
-                                        // onChange={handleChange}
-                                        autoComplete="color"
-                                        name="color"
-                                        variant="outlined"
-                                        value={
-                                            bannerIndex === initialValues?.[key as keyof IBanners]?.id
+                                    <>
+                                        <Group
+                                            margin={"dense"}
+                                            error={errors?.color && touched?.color}
+                                            onChange={(e) => valueChange(e, setFieldValue)}
+                                            // onChange={handleChange}
+                                            autoComplete="color"
+                                            name="color"
+                                            variant="outlined"
+                                            value={
+                                                bannerIndex === initialValues?.[key as keyof IBanners]?.id
+                                                    ? initialValues?.[key as keyof IBanners]?.color || ""
+                                                    : ""
+                                            }
+                                            id="color"
+                                            label="배경색"
+                                            color={"secondary"}
+                                            helperText={
+                                                errors?.color && touched?.color ? errors?.color : null
+                                            }
+                                        />
+                                        <ChromePicker
+                                            color={bannerIndex === initialValues?.[key as keyof IBanners]?.id
                                                 ? initialValues?.[key as keyof IBanners]?.color || ""
-                                                : ""
-                                        }
-                                        id="color"
-                                        label="배경색"
-                                        color={"secondary"}
-                                        helperText={
-                                            errors?.color && touched?.color ? errors?.color : null
-                                        }
-                                    />
+                                                : ""} onChange={colorChange}
+                                            onChangeComplete={colorChange}/>
+                                    </>
                                 ) : (
                                     <></>
                                 )}
@@ -566,8 +614,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                             name="color"
                                             variant="outlined"
                                             value={
-                                                bannerIndex ===
-                                                initialValues?.[key as keyof IBanners]?.id
+                                                bannerIndex === initialValues?.[key as keyof IBanners]?.id
                                                     ? initialValues?.[key as keyof IBanners]?.color || ""
                                                     : ""
                                             }
@@ -578,6 +625,11 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                                 errors?.color && touched?.color ? errors?.color : null
                                             }
                                         />
+                                        <ChromePicker
+                                            color={bannerIndex === initialValues?.[key as keyof IBanners]?.id
+                                                ? initialValues?.[key as keyof IBanners]?.color || ""
+                                                : ""} onChange={colorChange}
+                                            onChangeComplete={colorChange}/>
                                         <Group
                                             margin={"dense"}
                                             error={errors?.seq && touched?.seq}

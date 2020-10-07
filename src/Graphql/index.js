@@ -25,6 +25,8 @@ export const GET_BANNERS_ASIWANT = gql`
                 alt
                 url
                 reservationDate
+                type
+                relationId
             }
         }
     }

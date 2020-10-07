@@ -2,8 +2,9 @@ import React from "react";
 import AccessoryPresenter from "./AccessoryPresenter";
 import {useQuery} from "@apollo/client";
 import {GET_BANNERS_ASIWANT} from "../../../Graphql";
+import {RouteComponentProps} from "react-router-dom"
 
-const AccessoryContainer: React.FunctionComponent<any> = ({match: {params: {categoryId, num}}}) => {
+const AccessoryContainer: React.FunctionComponent<RouteComponentProps<any>> = ({match: {params: {categoryId, num}}}) => {
 
     const variables = {
         typeAndCategoryIdInput: {

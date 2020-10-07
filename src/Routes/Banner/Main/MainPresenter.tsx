@@ -159,6 +159,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({
                                     uploadHeight={"435px"}
                                     variables={variables}
                                     maxWidth={770}
+                                    saraStory={saraStory}
                                 />
                                 <ReserveComponent
                                     id={story?.story?.id}
@@ -170,6 +171,17 @@ const MainPresenter: React.FunctionComponent<IProps> = ({
                             <></>
                         )}
                     </>
+                }
+            />
+            <BannerLayout
+                main={true}
+                name={"사라스토리 신규 예약"}
+                children={
+                        <ReserveComponent
+                            id={logo?.logo?.id}
+                            variables={variables}
+                            reservedBanners={logo?.logo?.reservedBanners}
+                        />
                 }
             />
         </>

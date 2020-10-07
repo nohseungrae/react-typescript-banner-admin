@@ -5,6 +5,20 @@ import {GET_BANNERS_ASIWANT} from "../../../Graphql";
 import {DataUtil} from "../../../DataUtil";
 import {IBanner} from "../../../Components/Banner/InputCard";
 
+export const compare = (a: any, b: any) => {
+    const relationA = a.seq
+    const relationB = b.seq
+    let comparison = 0;
+    if (relationA === relationB) {
+        comparison = -1;
+    } else if (relationA > relationB) {
+        comparison = 1;
+    } else if (relationA < relationB) {
+        comparison = -1;
+    }
+    return comparison;
+}
+
 const MainContainer: React.FunctionComponent<any> = ({match: {params: {num}}}) => {
 
         const variables = {
@@ -23,19 +37,7 @@ const MainContainer: React.FunctionComponent<any> = ({match: {params: {num}}}) =
         })
 
         useEffect(() => {
-            const compare = (a: any, b: any) => {
-                const relationA = a.seq
-                const relationB = b.seq
-                let comparison = 0;
-                if (relationA === relationB) {
-                    comparison = -1;
-                } else if (relationA > relationB) {
-                    comparison = 1;
-                } else if (relationA < relationB) {
-                    comparison = -1;
-                }
-                return comparison;
-            }
+
             const topAndLogo = data?.getNewBanners?.filter((item: any) => item?.type?.includes('logo') || item?.type?.includes('top_banner'))
                 .sort((a: any, b: any) => {
                     return parseInt(a.id) - parseInt(b.id)
@@ -43,8 +45,9 @@ const MainContainer: React.FunctionComponent<any> = ({match: {params: {num}}}) =
             const storyFilter: [] = data?.getNewBanners?.filter((item: any) => item?.type?.includes("sara_story"))
             if (data?.getNewBanners) {
                 const json = DataUtil.jsonListGroupBy(storyFilter, 'seq' as IBanner).flatMap((item: any) => item).sort(compare);
-                setBanners(
-                    {...banners, logo: topAndLogo[0], top: topAndLogo[1]}
+                setBanners(() => {
+                        return {...banners, logo: topAndLogo[0], top: topAndLogo[1]}
+                    }
                 )
                 setSaraMain(
                     [...json]
