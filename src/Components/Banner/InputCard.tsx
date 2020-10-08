@@ -16,7 +16,7 @@ import {useHistory} from "react-router"
 import {
     ADD_BANNER,
     ADD_RESERVEDBANNER,
-    GET_BANNERS_ASIWANT,
+    GET_BANNERS_ASIWANT, GET_RESERVEDBANNERS,
     UPDATE_BANNER,
 } from "../../Graphql";
 import {ApolloCache, useMutation} from "@apollo/client";
@@ -140,7 +140,8 @@ const InputCard: React.FunctionComponent<IProps> = ({
         setKey,
         startDate,
         reservedDelete,
-        setFiles
+        setFiles,
+        setAdd
     } = useContext(Context);
 
     const history = useHistory()
@@ -176,7 +177,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                     variables,
                 });
                 const newBanners = getNewBanners.map((item: any) =>
-                    item.id === updateBannerByGraph ? (item = updateBannerByGraph) : item
+                    item.id === updateBannerByGraph ? updateBannerByGraph : item
                 );
                 cache.writeQuery({
                     query: GET_BANNERS_ASIWANT,
@@ -186,8 +187,12 @@ const InputCard: React.FunctionComponent<IProps> = ({
 
             },
             onCompleted: data => {
-                setUpdatedAt(data?.updateBannerByGraph?.updatedAt);
-                alert("업데이트 완료");
+                if (data) {
+                    setUpdatedAt(data?.updateBannerByGraph?.updatedAt);
+                    const findIndex = saraStory?.map((item: any) => item.id === data?.updateBannerByGraph.id ? data?.updateBannerByGraph : item).sort(compare).findIndex((e: any) => e.id === data?.updateBannerByGraph?.id)
+                    history.push(`/banners/main/sara_story/${findIndex}`)
+                    alert("업데이트 완료");
+                }
             }
         }
     );
@@ -196,32 +201,42 @@ const InputCard: React.FunctionComponent<IProps> = ({
         ADD_RESERVEDBANNER,
         {
             update(cache: ApolloCache<any>, {data: {addReservedBannerByGraph}}) {
-                const {getNewBanners}: any = cache.readQuery({
-                    query: GET_BANNERS_ASIWANT,
-                    variables,
-                });
-                const addResult = Object.assign({}, addReservedBannerByGraph);
-                const finalData = getNewBanners.map((item: any) => {
-                    if (item.id === bannerIndex) {
-                        const dump = {reservedBanners: []};
-                        dump.reservedBanners.push(addResult as never);
-                        const test = {...item, reservedBanners: dump.reservedBanners};
-                        console.log(test)
-                        return test;
-                    }
-                    return item;
-                })
+                if (bannerIndex) {
+                    const {getNewBanners}: any = cache.readQuery({
+                        query: GET_BANNERS_ASIWANT,
+                        variables,
+                    });
+                    const addResult = Object.assign({}, addReservedBannerByGraph);
+                    const finalData = getNewBanners.map((item: any) => {
+                        if (item.id === bannerIndex) {
+                            const dump = {reservedBanners: []};
+                            dump.reservedBanners.push(addResult as never);
+                            const test = {...item, reservedBanners: dump.reservedBanners};
+                            console.log(test)
+                            return test;
+                        }
+                        return item;
+                    })
+                    cache.writeQuery({
+                        query: GET_BANNERS_ASIWANT,
+                        variables,
+                        data: {getNewBanners: finalData},
+                    });
+                } else {
+                    const {getReservedBannerListByGraph}: any = cache.readQuery({
+                        query: GET_RESERVEDBANNERS
+                    });
+                    cache.writeQuery({
+                        query: GET_RESERVEDBANNERS,
+                        data: {getReservedBannerListByGraph: getReservedBannerListByGraph.concat([addReservedBannerByGraph])}
+                    })
+                }
 
-                console.log(finalData);
-                cache.writeQuery({
-                    query: GET_BANNERS_ASIWANT,
-                    variables,
-                    data: {getNewBanners: finalData},
-                });
             },
             onCompleted: data => {
                 if (data) {
                     console.log(data)
+                    setAdd(true);
                     alert("예약되었습니다.");
                 }
             }
@@ -290,7 +305,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
             relationId: banner[key as keyof IBanners]?.relationId,
         };
         const id: string | undefined = bannerIndex?.toString();
-        console.log(initialValues,obj,id)
+        console.log(initialValues, obj, id)
         if (id) {
             Object.keys(values).forEach((k) => {
                 if (initialValues[key][k] || initialValues[key][k] === "") {
@@ -331,7 +346,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
             }
 
         } else {
-            if(!initialValues.story){
+            if (!initialValues.story) {
                 alert("적어도 1부분 이상 채워주세요")
                 return
             }
@@ -533,6 +548,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                             // onChange={handleChange}
                                             autoComplete="color"
                                             name="color"
+                                            disabled={true}
                                             variant="outlined"
                                             value={
                                                 bannerIndex === initialValues?.[key as keyof IBanners]?.id
@@ -610,6 +626,7 @@ const InputCard: React.FunctionComponent<IProps> = ({
                                             error={errors?.color && touched?.color}
                                             onChange={(e) => valueChange(e, setFieldValue)}
                                             // onChange={handleChange}
+                                            disabled={true}
                                             autoComplete="color"
                                             name="color"
                                             variant="outlined"

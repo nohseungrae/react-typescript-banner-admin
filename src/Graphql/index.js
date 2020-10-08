@@ -112,3 +112,17 @@ export const DELETE_RESERVEDBANNER = gql`
         }
     }
 `;
+
+export const GET_RESERVEDBANNERS = gql`
+    query getReservedBanners{
+        getReservedBannerListByGraph{
+            id
+            img
+            alt
+            url
+            reservationDate
+            type
+            relationId
+        }
+    }
+`;

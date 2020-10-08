@@ -53,7 +53,7 @@ const ContentCard: React.FunctionComponent<IProps> = ({bannerList, dynamic}) => 
     const match = useRouteMatch<IMatchChild>()
     const {params: {num, categoryId}} = match;
 
-    const {deleteResult, setDelete, initialValues, setValueData, key} = useContext(Context)
+    const {deleteResult, setDelete, initialValues, setValueData, key, addResult, setAdd} = useContext(Context)
 
     const [base, setBase] = useState<[]>([]);
 
@@ -82,18 +82,21 @@ const ContentCard: React.FunctionComponent<IProps> = ({bannerList, dynamic}) => 
     useEffect(() => {
         setDumpList(bannerList)
         if (bannerList?.length - 1 < parseInt(num) && bannerList[0]?.type === "sara_story") {
+            alert("push")
+            console.log("push",bannerList)
             history.push(base.join("/") + "0")
         }
     }, [bannerList, history])
 
     useEffect(() => {
 
-        if (deleteResult) {
+        if (deleteResult || addResult) {
             setDumpList(bannerList)
             history.push(base.join("/") + `${bannerList?.length - 1}`);
             setDelete(false)
+            setAdd(false)
         }
-    }, [deleteResult, setDumpList, setDelete, history, bannerList, base])
+    }, [deleteResult, setDumpList, setDelete, history, bannerList, base, addResult, setAdd])
 
     return (
         <SS.Core.RowF style={

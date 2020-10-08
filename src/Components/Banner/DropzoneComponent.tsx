@@ -6,6 +6,8 @@ import Context from "../../Context/context";
 import {IBanners} from "./InputCard";
 import {ApolloCache, useMutation} from "@apollo/client";
 import {DELETE_BANNER, GET_BANNERS_ASIWANT} from "../../Graphql";
+import {useHistory} from "react-router"
+import {compare} from "../../Routes/Banner/Main/MainContainer";
 
 interface DropProps {
     exist?: boolean
@@ -99,6 +101,8 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
         initialValues, setValueData, key
     } = useContext(Context)
 
+    const history = useHistory();
+
     const [removeBanner, {data}] = useMutation(DELETE_BANNER, {
         update(cache: ApolloCache<any>) {
             const {getNewBanners}: any = cache.readQuery({
@@ -114,6 +118,12 @@ const DropzoneComponent: React.FunctionComponent<IProps> = ({
                 variables: {typeAndCategoryIdInput: {type: ["sara_story"], relationId: 0}},
                 data: {getNewBanners: finalData}
             })
+        },
+        onCompleted: data1 => {
+            if (data1) {
+                // const findIndex = bannerIndex
+                // history.push(`/banners/main/sara_story/${findIndex}`)
+            }
         }
     })
     const deleteBanner = async (id: string) => {

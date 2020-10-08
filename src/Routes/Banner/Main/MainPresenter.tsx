@@ -13,6 +13,7 @@ interface IProps {
     banners: { logo: any; top: any };
     mainBanner: any;
     variables: any;
+    saraNewReservedBanners?: any[]
 }
 
 const MainPresenter: React.FunctionComponent<IProps> = ({
@@ -20,6 +21,7 @@ const MainPresenter: React.FunctionComponent<IProps> = ({
                                                             banners,
                                                             mainBanner,
                                                             variables,
+                                                            saraNewReservedBanners
                                                         }) => {
     const {
         beltOpen,
@@ -177,11 +179,10 @@ const MainPresenter: React.FunctionComponent<IProps> = ({
                 main={true}
                 name={"사라스토리 신규 예약"}
                 children={
-                        <ReserveComponent
-                            id={logo?.logo?.id}
-                            variables={variables}
-                            reservedBanners={logo?.logo?.reservedBanners}
-                        />
+                    <ReserveComponent
+                        variables={variables}
+                        reservedBanners={saraNewReservedBanners}
+                    />
                 }
             />
         </>
